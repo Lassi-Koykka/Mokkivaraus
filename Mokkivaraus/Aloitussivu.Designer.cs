@@ -1,6 +1,6 @@
 ﻿namespace Mokkivaraus
 {
-    partial class Form1
+    partial class Aloitussivu
     {
         /// <summary>
         /// Required designer variable.
