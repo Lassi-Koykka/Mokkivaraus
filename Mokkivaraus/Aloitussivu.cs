@@ -15,13 +15,24 @@ namespace Mokkivaraus
         public Aloitussivu()
         {
             InitializeComponent();
+
+
+            //Keskitetään kaikki etusivun kontrollit
+            lblTitle.Location = new Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
+            pboxLogo.Location = new Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
+            btnToimipisteet.Location = new Point(Width / 2 - btnToimipisteet.Width / 2, btnToimipisteet.Location.Y);
+            btnAsiakkaat.Location = new Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
+            btnVaraukset.Location = new Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
+            btnLaskutus.Location = new Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
+
         }
 
+        //Napin klikkaus event handlerit, joka piilottaa nykyisen formin ja avaa toisen
         private void btnToimipiste_Click(object sender, EventArgs e)
         {
-            //Form1 frm = new Form1();
-            //frm.Show();
-            //this.Hide();
+            Toimipisteet frm = new Toimipisteet();
+            frm.Show();
+            this.Hide();
         }
     }
 

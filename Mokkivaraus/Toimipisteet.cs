@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Mokkivaraus
 {
-    public partial class Form1 : Form
+    public partial class Toimipisteet : Form
     {
-        public Form1()
+        public Toimipisteet()
         {
             InitializeComponent();
         }
