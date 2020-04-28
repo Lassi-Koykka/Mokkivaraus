@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -36,20 +37,32 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("NSimSun", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(190, 9);
+            this.label1.Location = new System.Drawing.Point(142, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(394, 88);
+            this.label1.Size = new System.Drawing.Size(321, 70);
             this.label1.TabIndex = 0;
             this.label1.Text = "Village People Oy\r\nMökkivaraus";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(247, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "joonas testi";
+            // 
             // Aloitussivu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Goldenrod;
-            this.ClientSize = new System.Drawing.Size(800, 553);
+            this.ClientSize = new System.Drawing.Size(600, 449);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Aloitussivu";
             this.Text = "Village People Oy Mökkivarausjärjestelmä";
             this.ResumeLayout(false);
@@ -60,6 +73,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
