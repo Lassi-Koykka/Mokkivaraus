@@ -10,19 +10,11 @@ using System.Windows.Forms;
 
 namespace Mokkivaraus
 {
-    public partial class Aloitussivu : Form
+    public partial class Form1 : Form
     {
-        public Aloitussivu()
+        public Form1()
         {
             InitializeComponent();
         }
-
-        private void btnToimipiste_Click(object sender, EventArgs e)
-        {
-            //Form1 frm = new Form1();
-            //frm.Show();
-            //this.Hide();
-        }
     }
-
 }
