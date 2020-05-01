@@ -34,10 +34,10 @@
             this.lblToimipisteenNimi = new System.Windows.Forms.Label();
             this.lblLahiosoite = new System.Windows.Forms.Label();
             this.lblPtpaikka = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtToimipID = new System.Windows.Forms.TextBox();
+            this.txtToimipPosti = new System.Windows.Forms.TextBox();
+            this.txtToimipOsoite = new System.Windows.Forms.TextBox();
+            this.txtToimipNimi = new System.Windows.Forms.TextBox();
             this.btnLisaa = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).BeginInit();
             this.SuspendLayout();
@@ -96,33 +96,33 @@
             this.lblPtpaikka.TabIndex = 5;
             this.lblPtpaikka.Text = "Postitoimipaikka";
             // 
-            // textBox1
+            // txtToimipID
             // 
-            this.textBox1.Location = new System.Drawing.Point(22, 121);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 6;
+            this.txtToimipID.Location = new System.Drawing.Point(22, 121);
+            this.txtToimipID.Name = "txtToimipID";
+            this.txtToimipID.Size = new System.Drawing.Size(100, 20);
+            this.txtToimipID.TabIndex = 6;
             // 
-            // textBox2
+            // txtToimipPosti
             // 
-            this.textBox2.Location = new System.Drawing.Point(22, 238);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 7;
+            this.txtToimipPosti.Location = new System.Drawing.Point(22, 238);
+            this.txtToimipPosti.Name = "txtToimipPosti";
+            this.txtToimipPosti.Size = new System.Drawing.Size(100, 20);
+            this.txtToimipPosti.TabIndex = 7;
             // 
-            // textBox3
+            // txtToimipOsoite
             // 
-            this.textBox3.Location = new System.Drawing.Point(22, 199);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 8;
+            this.txtToimipOsoite.Location = new System.Drawing.Point(22, 199);
+            this.txtToimipOsoite.Name = "txtToimipOsoite";
+            this.txtToimipOsoite.Size = new System.Drawing.Size(100, 20);
+            this.txtToimipOsoite.TabIndex = 8;
             // 
-            // textBox4
+            // txtToimipNimi
             // 
-            this.textBox4.Location = new System.Drawing.Point(22, 160);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 9;
+            this.txtToimipNimi.Location = new System.Drawing.Point(22, 160);
+            this.txtToimipNimi.Name = "txtToimipNimi";
+            this.txtToimipNimi.Size = new System.Drawing.Size(100, 20);
+            this.txtToimipNimi.TabIndex = 9;
             // 
             // btnLisaa
             // 
@@ -132,6 +132,7 @@
             this.btnLisaa.TabIndex = 10;
             this.btnLisaa.Text = "Lisää/Päivitä";
             this.btnLisaa.UseVisualStyleBackColor = true;
+            this.btnLisaa.Click += new System.EventHandler(this.btnLisaa_Click);
             // 
             // Toimipisteet
             // 
@@ -139,10 +140,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnLisaa);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtToimipNimi);
+            this.Controls.Add(this.txtToimipOsoite);
+            this.Controls.Add(this.txtToimipPosti);
+            this.Controls.Add(this.txtToimipID);
             this.Controls.Add(this.lblPtpaikka);
             this.Controls.Add(this.lblLahiosoite);
             this.Controls.Add(this.lblToimipisteenNimi);
@@ -165,10 +166,10 @@
         private System.Windows.Forms.Label lblToimipisteenNimi;
         private System.Windows.Forms.Label lblLahiosoite;
         private System.Windows.Forms.Label lblPtpaikka;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtToimipID;
+        private System.Windows.Forms.TextBox txtToimipPosti;
+        private System.Windows.Forms.TextBox txtToimipOsoite;
+        private System.Windows.Forms.TextBox txtToimipNimi;
         private System.Windows.Forms.Button btnLisaa;
     }
 }

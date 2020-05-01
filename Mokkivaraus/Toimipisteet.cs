@@ -22,7 +22,7 @@ namespace Mokkivaraus
                 new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
 
             //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
-            string query = "SELECT * from toimintaalue";
+            string query = "SELECT * from mokki";
             SQLiteCommand cmd = new SQLiteCommand(query, conn);
 
             //datatableen tiedot
@@ -32,5 +32,36 @@ namespace Mokkivaraus
             adapter.Fill(dt);
         }
 
+        private void btnLisaa_Click(object sender, EventArgs e)
+        {
+            //
+            //Nappi joka lisää uusia soluja ja/tai muokkaa haluttua
+            //
+
+            //yhteys
+            SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
+            conn.Open();
+
+            //id intiksi
+            int toimipisteid = int.Parse(txtToimipID.Text);
+
+            //insert lause 
+            string insertQuery = "insert into mokki(toimintaalue_id, mokkinimi, katuosoite, postinro) values(" + toimipisteid + ",'" + txtToimipNimi.Text + "','" + txtToimipOsoite.Text + "','" + txtToimipPosti.Text + "')";
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //kyselyn ajo
+            insertSQL.ExecuteNonQuery();
+
+            string query = "SELECT * from mokki";
+
+            DataTable dt = new DataTable();
+            SQLiteCommand cmd = new SQLiteCommand(query, conn);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            dgToimipisteet.DataSource = dt;
+            adapter.Fill(dt);
+
+            conn.Close();
+
+        }
     }
 }
