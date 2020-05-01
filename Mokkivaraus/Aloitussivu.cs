@@ -30,7 +30,7 @@ namespace Mokkivaraus
         //Napin klikkaus event handlerit, joka piilottaa nykyisen formin ja avaa toisen
         private void btnToimipiste_Click(object sender, EventArgs e)
         {
-            Toimipisteet frm = new Toimipisteet();
+            Toimintaalueet frm = new Toimintaalueet();
             frm.Show();
             this.Hide();
         }
