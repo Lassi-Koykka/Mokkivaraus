@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgToimipisteet = new System.Windows.Forms.DataGridView();
             this.lblToimipisteet = new System.Windows.Forms.Label();
             this.lblID = new System.Windows.Forms.Label();
             this.lblToimipisteenNimi = new System.Windows.Forms.Label();
@@ -39,16 +39,16 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.btnLisaa = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgToimipisteet
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(328, 69);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(460, 314);
-            this.dataGridView1.TabIndex = 0;
+            this.dgToimipisteet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgToimipisteet.Location = new System.Drawing.Point(328, 69);
+            this.dgToimipisteet.Name = "dgToimipisteet";
+            this.dgToimipisteet.Size = new System.Drawing.Size(460, 314);
+            this.dgToimipisteet.TabIndex = 0;
             // 
             // lblToimipisteet
             // 
@@ -133,7 +133,7 @@
             this.btnLisaa.Text = "Lisää/Päivitä";
             this.btnLisaa.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // Toimipisteet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -148,10 +148,10 @@
             this.Controls.Add(this.lblToimipisteenNimi);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.lblToimipisteet);
-            this.Controls.Add(this.dataGridView1);
-            this.Name = "Form1";
+            this.Controls.Add(this.dgToimipisteet);
+            this.Name = "Toimipisteet";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,7 +159,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgToimipisteet;
         private System.Windows.Forms.Label lblToimipisteet;
         private System.Windows.Forms.Label lblID;
         private System.Windows.Forms.Label lblToimipisteenNimi;
