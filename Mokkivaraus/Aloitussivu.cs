@@ -94,6 +94,14 @@ namespace Mokkivaraus
             btnTakaisin.Enabled = true;
             btnTakaisin.Visible = true;
             panel2.Visible = true;
+
+            //Id:t textboxeihin
+
+            string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
+            string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
+
+            txtMokkiID.Text = mokkiId;
+            txtToimiID.Text = toimiId;
         }
 
         private void btnTakaisin_Click(object sender, EventArgs e)
@@ -113,6 +121,39 @@ namespace Mokkivaraus
             adapter.Fill(dt);
 
             btnTakaisin.Visible = false;
+            panel2.Visible = false;
+        }
+        private void btnLisaa_Click(object sender, EventArgs e)
+        {
+            //
+            //Nappi joka lisää uusia soluja ja/tai muokkaa haluttua
+            //Lisää tietoja vähän tyhmästi ATM 
+            
+            //yhteys
+            SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
+            conn.Open();
+
+            //id intiksi
+            int toimipisteid = int.Parse(txtToimiID.Text);
+
+            //insert lause 
+            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values (" + txtToimiID.Text + ",'" + txtPostinro.Text + "','" + txtMokinnimi.Text + "','"
+                + txtKatuosoite.Text + "','" + txtKuvaus.Text + "','" + txtHloMaara.Text + "','" + txtVarustelu.Text + "')";
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //kyselyn ajo
+            insertSQL.ExecuteNonQuery();
+
+            string query = "SELECT * from mokki";
+
+            DataTable dt = new DataTable();
+            SQLiteCommand cmd = new SQLiteCommand(query, conn);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            dgToimipisteet.DataSource = dt;
+            adapter.Fill(dt);
+
+            conn.Close();
+
         }
 
         private void Toimintaalueet_Load(object sender, EventArgs e)
@@ -122,6 +163,43 @@ namespace Mokkivaraus
             btnTakaisin.Visible = false;
             btnTakaisin.Enabled = false;
             panel2.Visible = false;
+        }
+
+        private void dgToimipisteet_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //datagridin tiedot textboxeihin
+
+            string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
+            string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
+            string postinumero = dgToimipisteet.SelectedRows[0].Cells[2].Value + string.Empty;
+            string mokinNimi = dgToimipisteet.SelectedRows[0].Cells[3].Value + string.Empty;
+            string katuosoite = dgToimipisteet.SelectedRows[0].Cells[4].Value + string.Empty;
+            string kuvaus = dgToimipisteet.SelectedRows[0].Cells[5].Value + string.Empty;
+            string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
+            string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
+
+            txtMokkiID.Text = mokkiId;
+            txtToimiID.Text = toimiId;
+            txtPostinro.Text = postinumero;
+            txtMokinnimi.Text = mokinNimi;
+            txtKatuosoite.Text = katuosoite;
+            txtKuvaus.Text = kuvaus;
+            txtHloMaara.Text = hloMaara;
+            txtVarustelu.Text = varustelu;
+        }
+
+        private void btnPoista_Click(object sender, EventArgs e)
+        {
+            //Poistaa valitun rivin tietokannasta, ei päivitä vielä datagridia
+            SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
+            conn.Open();
+
+            string deletequery = "DELETE from mokki WHERE mokki_id="+ dgToimipisteet.SelectedRows[0].Cells[0].Value;
+            SQLiteCommand deleteSQL = new SQLiteCommand(deletequery, conn);
+
+            deleteSQL.ExecuteNonQuery();
+
+
         }
     }
 
