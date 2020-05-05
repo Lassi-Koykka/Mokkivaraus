@@ -31,12 +31,7 @@ namespace Mokkivaraus
             btnLaskutus.Location = new Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
 
         }
-        //TabControllin koko muuttuu myös ikkunan kokoa muutettaessa
-        private void Aloitussivu_Resize(object sender, EventArgs e)
-        {
-            tabControl.Size = Size;
-        }
-
+        #region Etusivun nappien toiminta
         //Napin klikkaus event handlerit vaihtavat aktiivista Tabia
         private void btnToimintaalue_Click(object sender, EventArgs e)
         {
@@ -57,7 +52,7 @@ namespace Mokkivaraus
         {
             tabControl.SelectedTab = tabLaskutus;
         }
-
+        #endregion
         private void tabToimintaalue_Enter(object sender, EventArgs e)
         {
             //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
@@ -76,9 +71,6 @@ namespace Mokkivaraus
 
         private void btnNayta_Click(object sender, EventArgs e)
         {
-            //yhteys
-            SQLiteConnection conn =
-                new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
 
             //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
             string query = "SELECT * from mokki";
@@ -106,10 +98,6 @@ namespace Mokkivaraus
 
         private void btnTakaisin_Click(object sender, EventArgs e)
         {
-            //yhteys
-            SQLiteConnection conn =
-                new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
-
             //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
             string query = "SELECT * from toimintaalue";
             SQLiteCommand cmd = new SQLiteCommand(query, conn);
@@ -125,12 +113,9 @@ namespace Mokkivaraus
         }
         private void btnLisaa_Click(object sender, EventArgs e)
         {
-            //
             //Nappi joka lisää uusia soluja ja/tai muokkaa haluttua
             //Lisää tietoja vähän tyhmästi ATM 
-            
-            //yhteys
-            SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
+
             conn.Open();
 
             //id intiksi
