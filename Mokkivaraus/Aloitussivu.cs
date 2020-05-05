@@ -167,25 +167,32 @@ namespace Mokkivaraus
 
         private void dgToimipisteet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //datagridin tiedot textboxeihin
+            if (btnTakaisin.Visible == true)
+            {
+                //datagridin tiedot textboxeihin
 
-            string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-            string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
-            string postinumero = dgToimipisteet.SelectedRows[0].Cells[2].Value + string.Empty;
-            string mokinNimi = dgToimipisteet.SelectedRows[0].Cells[3].Value + string.Empty;
-            string katuosoite = dgToimipisteet.SelectedRows[0].Cells[4].Value + string.Empty;
-            string kuvaus = dgToimipisteet.SelectedRows[0].Cells[5].Value + string.Empty;
-            string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
-            string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
+                string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
+                string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
+                string postinumero = dgToimipisteet.SelectedRows[0].Cells[2].Value + string.Empty;
+                string mokinNimi = dgToimipisteet.SelectedRows[0].Cells[3].Value + string.Empty;
+                string katuosoite = dgToimipisteet.SelectedRows[0].Cells[4].Value + string.Empty;
+                string kuvaus = dgToimipisteet.SelectedRows[0].Cells[5].Value + string.Empty;
+                string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
+                string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
 
-            txtMokkiID.Text = mokkiId;
-            txtToimiID.Text = toimiId;
-            txtPostinro.Text = postinumero;
-            txtMokinnimi.Text = mokinNimi;
-            txtKatuosoite.Text = katuosoite;
-            txtKuvaus.Text = kuvaus;
-            txtHloMaara.Text = hloMaara;
-            txtVarustelu.Text = varustelu;
+                txtMokkiID.Text = mokkiId;
+                txtToimiID.Text = toimiId;
+                txtPostinro.Text = postinumero;
+                txtMokinnimi.Text = mokinNimi;
+                txtKatuosoite.Text = katuosoite;
+                txtKuvaus.Text = kuvaus;
+                txtHloMaara.Text = hloMaara;
+                txtVarustelu.Text = varustelu;
+            }
+            else { };
+
+
+
         }
 
         private void btnPoista_Click(object sender, EventArgs e)
