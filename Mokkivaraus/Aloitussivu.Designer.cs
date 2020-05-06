@@ -70,6 +70,7 @@ namespace Mokkivaraus
             this.tabAsiakashallinta = new System.Windows.Forms.TabPage();
             this.tabVaraushallinta = new System.Windows.Forms.TabPage();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
+            this.lblError = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -88,7 +89,7 @@ namespace Mokkivaraus
             this.tabControl.Controls.Add(this.tabLaskutus);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -105,9 +106,9 @@ namespace Mokkivaraus
             this.tabAloitussivu.Controls.Add(this.btnToimintaalue);
             this.tabAloitussivu.Controls.Add(this.lblTitle);
             this.tabAloitussivu.Location = new System.Drawing.Point(4, 25);
-            this.tabAloitussivu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabAloitussivu.Margin = new System.Windows.Forms.Padding(4);
             this.tabAloitussivu.Name = "tabAloitussivu";
-            this.tabAloitussivu.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabAloitussivu.Padding = new System.Windows.Forms.Padding(4);
             this.tabAloitussivu.Size = new System.Drawing.Size(1139, 722);
             this.tabAloitussivu.TabIndex = 0;
             this.tabAloitussivu.Text = "Aloitussivu";
@@ -117,7 +118,7 @@ namespace Mokkivaraus
             this.pboxLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pboxLogo.Image = global::Mokkivaraus.Properties.Resources.logo;
             this.pboxLogo.Location = new System.Drawing.Point(498, 175);
-            this.pboxLogo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pboxLogo.Margin = new System.Windows.Forms.Padding(4);
             this.pboxLogo.Name = "pboxLogo";
             this.pboxLogo.Size = new System.Drawing.Size(180, 158);
             this.pboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -136,7 +137,7 @@ namespace Mokkivaraus
             this.btnLaskutus.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLaskutus.ForeColor = System.Drawing.Color.White;
             this.btnLaskutus.Location = new System.Drawing.Point(388, 528);
-            this.btnLaskutus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLaskutus.Margin = new System.Windows.Forms.Padding(4);
             this.btnLaskutus.Name = "btnLaskutus";
             this.btnLaskutus.Size = new System.Drawing.Size(381, 55);
             this.btnLaskutus.TabIndex = 4;
@@ -156,7 +157,7 @@ namespace Mokkivaraus
             this.btnAsiakkaat.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAsiakkaat.ForeColor = System.Drawing.Color.White;
             this.btnAsiakkaat.Location = new System.Drawing.Point(388, 402);
-            this.btnAsiakkaat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAsiakkaat.Margin = new System.Windows.Forms.Padding(4);
             this.btnAsiakkaat.Name = "btnAsiakkaat";
             this.btnAsiakkaat.Size = new System.Drawing.Size(381, 55);
             this.btnAsiakkaat.TabIndex = 5;
@@ -176,7 +177,7 @@ namespace Mokkivaraus
             this.btnVaraukset.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVaraukset.ForeColor = System.Drawing.Color.White;
             this.btnVaraukset.Location = new System.Drawing.Point(388, 465);
-            this.btnVaraukset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVaraukset.Margin = new System.Windows.Forms.Padding(4);
             this.btnVaraukset.Name = "btnVaraukset";
             this.btnVaraukset.Size = new System.Drawing.Size(381, 55);
             this.btnVaraukset.TabIndex = 6;
@@ -196,7 +197,7 @@ namespace Mokkivaraus
             this.btnToimintaalue.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnToimintaalue.ForeColor = System.Drawing.Color.White;
             this.btnToimintaalue.Location = new System.Drawing.Point(388, 340);
-            this.btnToimintaalue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnToimintaalue.Margin = new System.Windows.Forms.Padding(4);
             this.btnToimintaalue.Name = "btnToimintaalue";
             this.btnToimintaalue.Size = new System.Drawing.Size(381, 55);
             this.btnToimintaalue.TabIndex = 7;
@@ -221,6 +222,7 @@ namespace Mokkivaraus
             // tabToimintaalue
             // 
             this.tabToimintaalue.BackColor = System.Drawing.Color.Linen;
+            this.tabToimintaalue.Controls.Add(this.lblError);
             this.tabToimintaalue.Controls.Add(this.btnPoista);
             this.tabToimintaalue.Controls.Add(this.panel2);
             this.tabToimintaalue.Controls.Add(this.panel1);
@@ -231,10 +233,10 @@ namespace Mokkivaraus
             this.tabToimintaalue.Controls.Add(this.dgToimipisteet);
             this.tabToimintaalue.Controls.Add(this.menuStrip1);
             this.tabToimintaalue.Location = new System.Drawing.Point(4, 25);
-            this.tabToimintaalue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabToimintaalue.Margin = new System.Windows.Forms.Padding(4);
             this.tabToimintaalue.Name = "tabToimintaalue";
-            this.tabToimintaalue.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabToimintaalue.Size = new System.Drawing.Size(1149, 725);
+            this.tabToimintaalue.Padding = new System.Windows.Forms.Padding(4);
+            this.tabToimintaalue.Size = new System.Drawing.Size(1139, 722);
             this.tabToimintaalue.TabIndex = 1;
             this.tabToimintaalue.Text = "Toiminta-alueiden hallinta";
             this.tabToimintaalue.Enter += new System.EventHandler(this.tabToimintaalue_Enter);
@@ -242,7 +244,7 @@ namespace Mokkivaraus
             // btnPoista
             // 
             this.btnPoista.Location = new System.Drawing.Point(16, 633);
-            this.btnPoista.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPoista.Margin = new System.Windows.Forms.Padding(4);
             this.btnPoista.Name = "btnPoista";
             this.btnPoista.Size = new System.Drawing.Size(163, 66);
             this.btnPoista.TabIndex = 24;
@@ -270,7 +272,7 @@ namespace Mokkivaraus
             this.panel2.Controls.Add(this.lblToimiaID);
             this.panel2.Controls.Add(this.lblMokkiID);
             this.panel2.Location = new System.Drawing.Point(380, 197);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(308, 358);
             this.panel2.TabIndex = 23;
@@ -278,7 +280,7 @@ namespace Mokkivaraus
             // txtVarustelu
             // 
             this.txtVarustelu.Location = new System.Drawing.Point(9, 367);
-            this.txtVarustelu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtVarustelu.Margin = new System.Windows.Forms.Padding(4);
             this.txtVarustelu.Name = "txtVarustelu";
             this.txtVarustelu.Size = new System.Drawing.Size(132, 22);
             this.txtVarustelu.TabIndex = 15;
@@ -286,7 +288,7 @@ namespace Mokkivaraus
             // txtHloMaara
             // 
             this.txtHloMaara.Location = new System.Drawing.Point(9, 318);
-            this.txtHloMaara.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtHloMaara.Margin = new System.Windows.Forms.Padding(4);
             this.txtHloMaara.Name = "txtHloMaara";
             this.txtHloMaara.Size = new System.Drawing.Size(132, 22);
             this.txtHloMaara.TabIndex = 14;
@@ -294,7 +296,7 @@ namespace Mokkivaraus
             // txtKuvaus
             // 
             this.txtKuvaus.Location = new System.Drawing.Point(9, 270);
-            this.txtKuvaus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtKuvaus.Margin = new System.Windows.Forms.Padding(4);
             this.txtKuvaus.Name = "txtKuvaus";
             this.txtKuvaus.Size = new System.Drawing.Size(132, 22);
             this.txtKuvaus.TabIndex = 13;
@@ -302,7 +304,7 @@ namespace Mokkivaraus
             // txtKatuosoite
             // 
             this.txtKatuosoite.Location = new System.Drawing.Point(9, 222);
-            this.txtKatuosoite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtKatuosoite.Margin = new System.Windows.Forms.Padding(4);
             this.txtKatuosoite.Name = "txtKatuosoite";
             this.txtKatuosoite.Size = new System.Drawing.Size(132, 22);
             this.txtKatuosoite.TabIndex = 12;
@@ -310,7 +312,7 @@ namespace Mokkivaraus
             // txtMokinnimi
             // 
             this.txtMokinnimi.Location = new System.Drawing.Point(9, 174);
-            this.txtMokinnimi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMokinnimi.Margin = new System.Windows.Forms.Padding(4);
             this.txtMokinnimi.Name = "txtMokinnimi";
             this.txtMokinnimi.Size = new System.Drawing.Size(132, 22);
             this.txtMokinnimi.TabIndex = 11;
@@ -318,7 +320,7 @@ namespace Mokkivaraus
             // txtPostinro
             // 
             this.txtPostinro.Location = new System.Drawing.Point(9, 126);
-            this.txtPostinro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPostinro.Margin = new System.Windows.Forms.Padding(4);
             this.txtPostinro.Name = "txtPostinro";
             this.txtPostinro.Size = new System.Drawing.Size(132, 22);
             this.txtPostinro.TabIndex = 10;
@@ -326,7 +328,7 @@ namespace Mokkivaraus
             // txtToimiID
             // 
             this.txtToimiID.Location = new System.Drawing.Point(9, 78);
-            this.txtToimiID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtToimiID.Margin = new System.Windows.Forms.Padding(4);
             this.txtToimiID.Name = "txtToimiID";
             this.txtToimiID.Size = new System.Drawing.Size(132, 22);
             this.txtToimiID.TabIndex = 9;
@@ -334,7 +336,7 @@ namespace Mokkivaraus
             // txtMokkiID
             // 
             this.txtMokkiID.Location = new System.Drawing.Point(9, 26);
-            this.txtMokkiID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMokkiID.Margin = new System.Windows.Forms.Padding(4);
             this.txtMokkiID.Name = "txtMokkiID";
             this.txtMokkiID.Size = new System.Drawing.Size(132, 22);
             this.txtMokkiID.TabIndex = 8;
@@ -425,7 +427,7 @@ namespace Mokkivaraus
             this.panel1.Controls.Add(this.txtToimialueennimi);
             this.panel1.Controls.Add(this.lblID);
             this.panel1.Location = new System.Drawing.Point(25, 197);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(308, 358);
             this.panel1.TabIndex = 21;
@@ -433,7 +435,7 @@ namespace Mokkivaraus
             // txtToimialueennimi
             // 
             this.txtToimialueennimi.Location = new System.Drawing.Point(8, 30);
-            this.txtToimialueennimi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtToimialueennimi.Margin = new System.Windows.Forms.Padding(4);
             this.txtToimialueennimi.Name = "txtToimialueennimi";
             this.txtToimialueennimi.Size = new System.Drawing.Size(251, 22);
             this.txtToimialueennimi.TabIndex = 3;
@@ -451,7 +453,7 @@ namespace Mokkivaraus
             // btnTakaisin
             // 
             this.btnTakaisin.Location = new System.Drawing.Point(189, 105);
-            this.btnTakaisin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTakaisin.Margin = new System.Windows.Forms.Padding(4);
             this.btnTakaisin.Name = "btnTakaisin";
             this.btnTakaisin.Size = new System.Drawing.Size(163, 47);
             this.btnTakaisin.TabIndex = 20;
@@ -462,7 +464,7 @@ namespace Mokkivaraus
             // btnNayta
             // 
             this.btnNayta.Location = new System.Drawing.Point(188, 562);
-            this.btnNayta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNayta.Margin = new System.Windows.Forms.Padding(4);
             this.btnNayta.Name = "btnNayta";
             this.btnNayta.Size = new System.Drawing.Size(164, 63);
             this.btnNayta.TabIndex = 19;
@@ -473,7 +475,7 @@ namespace Mokkivaraus
             // btnLisaa
             // 
             this.btnLisaa.Location = new System.Drawing.Point(16, 562);
-            this.btnLisaa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLisaa.Margin = new System.Windows.Forms.Padding(4);
             this.btnLisaa.Name = "btnLisaa";
             this.btnLisaa.Size = new System.Drawing.Size(164, 63);
             this.btnLisaa.TabIndex = 18;
@@ -502,7 +504,7 @@ namespace Mokkivaraus
             this.dgToimipisteet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgToimipisteet.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgToimipisteet.Location = new System.Drawing.Point(360, 105);
-            this.dgToimipisteet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgToimipisteet.Margin = new System.Windows.Forms.Padding(4);
             this.dgToimipisteet.MultiSelect = false;
             this.dgToimipisteet.Name = "dgToimipisteet";
             this.dgToimipisteet.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
@@ -516,7 +518,7 @@ namespace Mokkivaraus
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Location = new System.Drawing.Point(4, 4);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1141, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1131, 30);
             this.menuStrip1.TabIndex = 22;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -524,9 +526,9 @@ namespace Mokkivaraus
             // 
             this.tabAsiakashallinta.BackColor = System.Drawing.Color.Linen;
             this.tabAsiakashallinta.Location = new System.Drawing.Point(4, 25);
-            this.tabAsiakashallinta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabAsiakashallinta.Margin = new System.Windows.Forms.Padding(4);
             this.tabAsiakashallinta.Name = "tabAsiakashallinta";
-            this.tabAsiakashallinta.Size = new System.Drawing.Size(1149, 725);
+            this.tabAsiakashallinta.Size = new System.Drawing.Size(1139, 722);
             this.tabAsiakashallinta.TabIndex = 2;
             this.tabAsiakashallinta.Text = "Asiakashallinta";
             // 
@@ -534,9 +536,9 @@ namespace Mokkivaraus
             // 
             this.tabVaraushallinta.BackColor = System.Drawing.Color.Linen;
             this.tabVaraushallinta.Location = new System.Drawing.Point(4, 25);
-            this.tabVaraushallinta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabVaraushallinta.Margin = new System.Windows.Forms.Padding(4);
             this.tabVaraushallinta.Name = "tabVaraushallinta";
-            this.tabVaraushallinta.Size = new System.Drawing.Size(1149, 725);
+            this.tabVaraushallinta.Size = new System.Drawing.Size(1139, 722);
             this.tabVaraushallinta.TabIndex = 3;
             this.tabVaraushallinta.Text = "Varaushallinta";
             // 
@@ -544,11 +546,23 @@ namespace Mokkivaraus
             // 
             this.tabLaskutus.BackColor = System.Drawing.Color.Linen;
             this.tabLaskutus.Location = new System.Drawing.Point(4, 25);
-            this.tabLaskutus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabLaskutus.Margin = new System.Windows.Forms.Padding(4);
             this.tabLaskutus.Name = "tabLaskutus";
-            this.tabLaskutus.Size = new System.Drawing.Size(1149, 725);
+            this.tabLaskutus.Size = new System.Drawing.Size(1139, 722);
             this.tabLaskutus.TabIndex = 4;
             this.tabLaskutus.Text = "Laskutus";
+            // 
+            // lblError
+            // 
+            this.lblError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblError.AutoSize = true;
+            this.lblError.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(515, 55);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(0, 28);
+            this.lblError.TabIndex = 25;
             // 
             // Aloitussivu
             // 
@@ -619,6 +633,7 @@ namespace Mokkivaraus
         private Label lblToimiaID;
         private Label lblMokkiID;
         private Button btnPoista;
+        private Label lblError;
     }
 }
 
