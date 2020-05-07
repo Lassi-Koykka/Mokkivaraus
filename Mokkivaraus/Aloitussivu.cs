@@ -8,6 +8,12 @@ namespace Mokkivaraus
 {
     public partial class Aloitussivu : Form
     {
+        //Datagridi mökkien tiedoille
+        DataGridView dgMokit = new DataGridView();
+        string toimintaalueID;
+        int ID;
+
+
         public Aloitussivu()
         {
             InitializeComponent();
@@ -73,7 +79,6 @@ namespace Mokkivaraus
         //Päivitetään kyselyllä datagrid kun käyttäjä siirtyy toiminta-alue välilehteen
         private void tabToimintaalue_Enter(object sender, EventArgs e)
         {
-
             //dataGridin päivitys kyselyn pohjalta
             string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
@@ -84,31 +89,25 @@ namespace Mokkivaraus
         //Näyttää valitun toimialueen mökit
         private void btnNayta_Click(object sender, EventArgs e)
         {
-            //dataGridin päivitys kyselyn pohjalta
+            tabToimintaalue.Controls.Add(dgMokit);
+            //Uusi datagridview
+            dgToimipisteet.Visible = false;
+            dgMokit.Location = dgToimipisteet.Location;
+            dgMokit.Size = dgToimipisteet.Size;
+            dgMokit.Visible = true;
+
+            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
+            int.TryParse(toimintaalueID, out ID);
+
+            tabToimintaalue.Controls.Add(dgMokit);
+            //dataGridin täyttö mökkien tiedoilla
             string query = "SELECT * from mokki";
-            dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
+            dgToimipisteet = dataGridUpdate(query, dgMokit);
 
             //takaisin nappi näkyväksi & paneeli 2 auki
             btnTakaisin.Enabled = true;
             btnTakaisin.Visible = true;
             panel2.Visible = true;
-
-            //Id:t textboxeihin VÄLIAIKAINEN RATKAISU ETTEI KAADU
-            try
-            {
-                if (dgToimipisteet.SelectedRows.Count > 0)
-                {
-                    string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
-                    string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-
-                    txtMokkiID.Text = mokkiId;
-                    txtToimiID.Text = toimiId;
-                }
-            }
-            catch
-            {
-                lblError.Text = "Mökkitietoja ei löytynyt";
-            }
         }
 
         //Siirrytään takaisin toiminta-alueisiin
@@ -117,9 +116,12 @@ namespace Mokkivaraus
             //dataGridin päivitys kyselyn pohjalta
             string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
-
+            dgMokit.Visible = false;
+            dgToimipisteet.Visible = true;
             btnTakaisin.Visible = false;
             panel2.Visible = false;
+
+
         }
 
         //Nappi joka lisää uusia soluja ja/tai muokkaa haluttua
@@ -128,11 +130,8 @@ namespace Mokkivaraus
         {
             conn.Open();
 
-            //id intiksi
-            int toimipisteid = int.Parse(txtToimiID.Text);
-
             //insert lause 
-            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values (" + txtToimiID.Text + ",'" + txtPostinro.Text + "','" + txtMokinnimi.Text + "','"
+            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values (" + ID + ",'" + txtPostinro.Text + "','" + txtMokinnimi.Text + "','"
                 + txtKatuosoite.Text + "','" + txtKuvaus.Text + "','" + txtHloMaara.Text + "','" + txtVarustelu.Text + "')";
             SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
 
@@ -171,8 +170,6 @@ namespace Mokkivaraus
                 string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
                 string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
 
-                txtMokkiID.Text = mokkiId;
-                txtToimiID.Text = toimiId;
                 txtPostinro.Text = postinumero;
                 txtMokinnimi.Text = mokinNimi;
                 txtKatuosoite.Text = katuosoite;
