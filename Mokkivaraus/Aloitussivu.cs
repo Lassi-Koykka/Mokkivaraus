@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -82,18 +83,13 @@ namespace Mokkivaraus
             dgToimipisteet.DataSource = dt;
             adapter.Fill(dt);
 
-            //takaisin nappi näkyväksi & paneeli 2 auki
+            //takaisin, poista nappi näkyväksi & paneeli 2 auki
             btnTakaisin.Enabled = true;
             btnTakaisin.Visible = true;
+            btnPoista.Visible = true;
+            btnPoista.Enabled = true;
             panel2.Visible = true;
 
-            //Id:t textboxeihin
-
-            string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-            string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
-
-            txtMokkiID.Text = mokkiId;
-            txtToimiID.Text = toimiId;
         }
 
         private void btnTakaisin_Click(object sender, EventArgs e)
@@ -110,6 +106,8 @@ namespace Mokkivaraus
 
             btnTakaisin.Visible = false;
             panel2.Visible = false;
+            btnPoista.Enabled = false;
+            btnPoista.Visible = false;
         }
         private void btnLisaa_Click(object sender, EventArgs e)
         {
@@ -117,17 +115,16 @@ namespace Mokkivaraus
             //Lisää tietoja vähän tyhmästi ATM 
 
             conn.Open();
-
-            //id intiksi
-            int toimipisteid = int.Parse(txtToimiID.Text);
-
-            //insert lause 
-            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values (" + txtToimiID.Text + ",'" + txtPostinro.Text + "','" + txtMokinnimi.Text + "','"
+            //insert lause
+            {
+                string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values (" + (dgToimipisteet.Rows.Count + 1) + ",'" + txtPostinro.Text + "','" + txtMokinnimi.Text + "','"
                 + txtKatuosoite.Text + "','" + txtKuvaus.Text + "','" + txtHloMaara.Text + "','" + txtVarustelu.Text + "')";
-            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
 
-            //kyselyn ajo
-            insertSQL.ExecuteNonQuery();
+                SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+                //kyselyn ajo
+                insertSQL.ExecuteNonQuery();
+            }
 
             string query = "SELECT * from mokki";
 
@@ -148,36 +145,39 @@ namespace Mokkivaraus
             btnTakaisin.Visible = false;
             btnTakaisin.Enabled = false;
             panel2.Visible = false;
+            btnPoista.Enabled = false;
+            btnPoista.Visible = false;
         }
 
         private void dgToimipisteet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (btnTakaisin.Visible == true)
+            try
             {
-                //datagridin tiedot textboxeihin
+                if (btnTakaisin.Visible == true)
+                {                    
+                    //datagridin tiedot textboxeihin
 
-                string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-                string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
-                string postinumero = dgToimipisteet.SelectedRows[0].Cells[2].Value + string.Empty;
-                string mokinNimi = dgToimipisteet.SelectedRows[0].Cells[3].Value + string.Empty;
-                string katuosoite = dgToimipisteet.SelectedRows[0].Cells[4].Value + string.Empty;
-                string kuvaus = dgToimipisteet.SelectedRows[0].Cells[5].Value + string.Empty;
-                string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
-                string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
+                    string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
+                    string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
+                    string postinumero = dgToimipisteet.SelectedRows[0].Cells[2].Value + string.Empty;
+                    string mokinNimi = dgToimipisteet.SelectedRows[0].Cells[3].Value + string.Empty;
+                    string katuosoite = dgToimipisteet.SelectedRows[0].Cells[4].Value + string.Empty;
+                    string kuvaus = dgToimipisteet.SelectedRows[0].Cells[5].Value + string.Empty;
+                    string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
+                    string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
 
-                txtMokkiID.Text = mokkiId;
-                txtToimiID.Text = toimiId;
-                txtPostinro.Text = postinumero;
-                txtMokinnimi.Text = mokinNimi;
-                txtKatuosoite.Text = katuosoite;
-                txtKuvaus.Text = kuvaus;
-                txtHloMaara.Text = hloMaara;
-                txtVarustelu.Text = varustelu;
+                    txtPostinro.Text = postinumero;
+                    txtMokinnimi.Text = mokinNimi;
+                    txtKatuosoite.Text = katuosoite;
+                    txtKuvaus.Text = kuvaus;
+                    txtHloMaara.Text = hloMaara;
+                    txtVarustelu.Text = varustelu;
+                }
             }
-            else { };
-
-
-
+            catch (Exception)
+            {
+                MessageBox.Show("Jokin meni pieleen!");
+            }
         }
 
         private void btnPoista_Click(object sender, EventArgs e)
