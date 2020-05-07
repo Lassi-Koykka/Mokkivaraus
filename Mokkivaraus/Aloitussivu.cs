@@ -63,6 +63,8 @@ namespace Mokkivaraus
         private void btnAsiakkaat_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = tabAsiakashallinta;
+            string query = "SELECT * from asiakas";
+            dgToimipisteet = dataGridUpdate(query, dgAsiakkaat);
         }
 
         private void btnVaraukset_Click(object sender, EventArgs e)
@@ -76,6 +78,9 @@ namespace Mokkivaraus
         }
         #endregion
 
+
+
+        #region Toiminta-alueiden hallinta
         //Päivitetään kyselyllä datagrid kun käyttäjä siirtyy toiminta-alue välilehteen
         private void tabToimintaalue_Enter(object sender, EventArgs e)
         {
@@ -182,7 +187,7 @@ namespace Mokkivaraus
             };
 
 
-
+            
         }
 
         private void btnPoista_Click(object sender, EventArgs e)
@@ -197,6 +202,26 @@ namespace Mokkivaraus
 
         }
 
+        #endregion
+
+        #region Asiakashallinta
+        private void tabControl_Enter(object sender, EventArgs e)
+        {
+            string query = "SELECT * from asiakas";
+            dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
+        }
+
+        private void txtAsiakasId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar))){
+                e.Handled = true;
+            }
+        }
+
+
+
+
+        #endregion
     }
 
 }
