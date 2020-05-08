@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Net.Mail;
 
 namespace Mokkivaraus
 {
@@ -26,7 +27,6 @@ namespace Mokkivaraus
             btnAsiakkaat.Location = new Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
             btnVaraukset.Location = new Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
             btnLaskutus.Location = new Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
-
         }
 
         #region tietokantayhteys ja formin päivitys kyselyiden perusteella
@@ -100,7 +100,8 @@ namespace Mokkivaraus
             dgMokit.Location = dgToimipisteet.Location;
             dgMokit.Size = dgToimipisteet.Size;
             dgMokit.Visible = true;
-
+            //KAATUU JOSTAIN SYYSTÄ TÄHÄN JOS NÄYTÄ NAPPIA PAINETAAN UUDESTAAN 7.5.2020
+            //
             toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
             int.TryParse(toimintaalueID, out ID);
 
@@ -222,6 +223,41 @@ namespace Mokkivaraus
 
 
         #endregion
+
+        private void btnJoonas_Click(object sender, EventArgs e)
+        {
+            {
+                try
+                {
+                    //Luodaan uusi sähköpostiviesti ja SmtpServer
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient("smtp.live.com"); //Käytettävän sähköpostin Smtp-osoite
+
+                    mail.From = new MailAddress("xxxxxx@hotmail.com"); //Firman laskutukseen käytettävä sähköpostiosoite
+                    mail.To.Add("xxxxxx@gmail.com"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
+                    mail.Subject = "Village People Oy laskusi"; //Sähköpostin aihe/otsikko
+                    mail.Body = "Tässä on laskusi koskien......"; //Itse viesti
+
+                    //Käytettävä kirjautumistunnus sähköpostiin ja sen salasana
+                    string mailUser = "xxxxxx@hotmail.com";
+                    string mailUserpw = "xxxxxxx";
+
+                    //Käytetään kirjautumistunnuksia ja määritetään portti Smtp:lle
+                    SmtpServer.Port = 587;
+                    SmtpServer.UseDefaultCredentials = false;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential(mailUser, mailUserpw);
+                    SmtpServer.EnableSsl = true;
+
+                    //Lähetetään lasku
+                    SmtpServer.Send(mail);
+                    MessageBox.Show("Lasku lähetetty!", "", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
     }
 
 }
