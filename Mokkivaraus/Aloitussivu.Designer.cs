@@ -43,19 +43,20 @@ namespace Mokkivaraus
             this.lblError = new System.Windows.Forms.Label();
             this.btnPoista = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.txtVarustelu = new System.Windows.Forms.TextBox();
-            this.txtHloMaara = new System.Windows.Forms.TextBox();
-            this.txtKuvaus = new System.Windows.Forms.TextBox();
-            this.txtKatuosoite = new System.Windows.Forms.TextBox();
-            this.txtMokinnimi = new System.Windows.Forms.TextBox();
-            this.txtPostinro = new System.Windows.Forms.TextBox();
-            this.lblVarustelu = new System.Windows.Forms.Label();
-            this.lblHloMaara = new System.Windows.Forms.Label();
-            this.lblKuvaus = new System.Windows.Forms.Label();
-            this.lblKatuosoite = new System.Windows.Forms.Label();
-            this.lblMokkinimi = new System.Windows.Forms.Label();
-            this.lblPostinro = new System.Windows.Forms.Label();
+            this.txtVarusteluTA = new System.Windows.Forms.TextBox();
+            this.txtHloMaaraTA = new System.Windows.Forms.TextBox();
+            this.txtKuvausTA = new System.Windows.Forms.TextBox();
+            this.txtKatuosoiteTA = new System.Windows.Forms.TextBox();
+            this.txtMokinnimiTA = new System.Windows.Forms.TextBox();
+            this.txtPostinroTA = new System.Windows.Forms.TextBox();
+            this.lblVarusteluTA = new System.Windows.Forms.Label();
+            this.lblHloMaaraTA = new System.Windows.Forms.Label();
+            this.lblKuvausTA = new System.Windows.Forms.Label();
+            this.lblKatuosoiteTA = new System.Windows.Forms.Label();
+            this.lblMokkinimiTA = new System.Windows.Forms.Label();
+            this.lblPostinroTA = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtToimialueennimi = new System.Windows.Forms.TextBox();
             this.lblToimialueennimi = new System.Windows.Forms.Label();
             this.btnTakaisin = new System.Windows.Forms.Button();
             this.btnNayta = new System.Windows.Forms.Button();
@@ -64,33 +65,32 @@ namespace Mokkivaraus
             this.dgToimipisteet = new System.Windows.Forms.DataGridView();
             this.tabAsiakashallinta = new System.Windows.Forms.TabPage();
             this.btnPoistaAsiakas = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.txtPuhelinAsiakas = new System.Windows.Forms.TextBox();
+            this.pnlTextboxesAsiakas = new System.Windows.Forms.Panel();
+            this.txtPuhelinAs = new System.Windows.Forms.TextBox();
             this.lblPuhelinAsiakas = new System.Windows.Forms.Label();
-            this.txtEmailAsiakas = new System.Windows.Forms.TextBox();
+            this.txtEmailAs = new System.Windows.Forms.TextBox();
             this.lblEmailAsiakas = new System.Windows.Forms.Label();
-            this.txtOsoiteAsiakas = new System.Windows.Forms.TextBox();
+            this.txtOsoiteAs = new System.Windows.Forms.TextBox();
             this.lblOsoiteAsiakas = new System.Windows.Forms.Label();
-            this.txtSukunimiAsiakas = new System.Windows.Forms.TextBox();
+            this.txtSukunimiAs = new System.Windows.Forms.TextBox();
             this.lblSukunimiAsiakas = new System.Windows.Forms.Label();
-            this.txtEtunimiAsiakas = new System.Windows.Forms.TextBox();
+            this.txtEtunimiAs = new System.Windows.Forms.TextBox();
             this.lblEtunimiAsiakas = new System.Windows.Forms.Label();
-            this.txtPostinroAsiakas = new System.Windows.Forms.TextBox();
+            this.txtPostinroAs = new System.Windows.Forms.TextBox();
             this.lblPostinroAsiakas = new System.Windows.Forms.Label();
-            this.txtAsiakasId = new System.Windows.Forms.TextBox();
-            this.lblAsiakasId = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.btnNaytaAsiakkaat = new System.Windows.Forms.Button();
             this.btnLisaaAsiakas = new System.Windows.Forms.Button();
             this.lblAsiakkaat = new System.Windows.Forms.Label();
             this.dgAsiakkaat = new System.Windows.Forms.DataGridView();
+            this.txtHakuAsiakas = new System.Windows.Forms.TextBox();
+            this.lblHakuAsiakas = new System.Windows.Forms.Label();
             this.tabVaraushallinta = new System.Windows.Forms.TabPage();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
-            this.dgLaskutus = new System.Windows.Forms.DataGridView();
             this.btnJoonas = new System.Windows.Forms.Button();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
-            this.txtToimialueennimi = new System.Windows.Forms.TextBox();
+            this.dgLaskut = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -99,11 +99,11 @@ namespace Mokkivaraus
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).BeginInit();
             this.tabAsiakashallinta.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.pnlTextboxesAsiakas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).BeginInit();
             this.tabLaskutus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgLaskutus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -287,118 +287,118 @@ namespace Mokkivaraus
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.txtVarustelu);
-            this.panel2.Controls.Add(this.txtHloMaara);
-            this.panel2.Controls.Add(this.txtKuvaus);
-            this.panel2.Controls.Add(this.txtKatuosoite);
-            this.panel2.Controls.Add(this.txtMokinnimi);
-            this.panel2.Controls.Add(this.txtPostinro);
-            this.panel2.Controls.Add(this.lblVarustelu);
-            this.panel2.Controls.Add(this.lblHloMaara);
-            this.panel2.Controls.Add(this.lblKuvaus);
-            this.panel2.Controls.Add(this.lblKatuosoite);
-            this.panel2.Controls.Add(this.lblMokkinimi);
-            this.panel2.Controls.Add(this.lblPostinro);
+            this.panel2.Controls.Add(this.txtVarusteluTA);
+            this.panel2.Controls.Add(this.txtHloMaaraTA);
+            this.panel2.Controls.Add(this.txtKuvausTA);
+            this.panel2.Controls.Add(this.txtKatuosoiteTA);
+            this.panel2.Controls.Add(this.txtMokinnimiTA);
+            this.panel2.Controls.Add(this.txtPostinroTA);
+            this.panel2.Controls.Add(this.lblVarusteluTA);
+            this.panel2.Controls.Add(this.lblHloMaaraTA);
+            this.panel2.Controls.Add(this.lblKuvausTA);
+            this.panel2.Controls.Add(this.lblKatuosoiteTA);
+            this.panel2.Controls.Add(this.lblMokkinimiTA);
+            this.panel2.Controls.Add(this.lblPostinroTA);
             this.panel2.Location = new System.Drawing.Point(285, 160);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(231, 291);
             this.panel2.TabIndex = 23;
             // 
-            // txtVarustelu
+            // txtVarusteluTA
             // 
-            this.txtVarustelu.Location = new System.Drawing.Point(6, 239);
-            this.txtVarustelu.Name = "txtVarustelu";
-            this.txtVarustelu.Size = new System.Drawing.Size(100, 20);
-            this.txtVarustelu.TabIndex = 15;
+            this.txtVarusteluTA.Location = new System.Drawing.Point(6, 239);
+            this.txtVarusteluTA.Name = "txtVarusteluTA";
+            this.txtVarusteluTA.Size = new System.Drawing.Size(140, 20);
+            this.txtVarusteluTA.TabIndex = 15;
             // 
-            // txtHloMaara
+            // txtHloMaaraTA
             // 
-            this.txtHloMaara.Location = new System.Drawing.Point(6, 199);
-            this.txtHloMaara.Name = "txtHloMaara";
-            this.txtHloMaara.Size = new System.Drawing.Size(100, 20);
-            this.txtHloMaara.TabIndex = 14;
+            this.txtHloMaaraTA.Location = new System.Drawing.Point(6, 199);
+            this.txtHloMaaraTA.Name = "txtHloMaaraTA";
+            this.txtHloMaaraTA.Size = new System.Drawing.Size(140, 20);
+            this.txtHloMaaraTA.TabIndex = 14;
             // 
-            // txtKuvaus
+            // txtKuvausTA
             // 
-            this.txtKuvaus.Location = new System.Drawing.Point(6, 160);
-            this.txtKuvaus.Name = "txtKuvaus";
-            this.txtKuvaus.Size = new System.Drawing.Size(100, 20);
-            this.txtKuvaus.TabIndex = 13;
+            this.txtKuvausTA.Location = new System.Drawing.Point(6, 160);
+            this.txtKuvausTA.Name = "txtKuvausTA";
+            this.txtKuvausTA.Size = new System.Drawing.Size(140, 20);
+            this.txtKuvausTA.TabIndex = 13;
             // 
-            // txtKatuosoite
+            // txtKatuosoiteTA
             // 
-            this.txtKatuosoite.Location = new System.Drawing.Point(6, 121);
-            this.txtKatuosoite.Name = "txtKatuosoite";
-            this.txtKatuosoite.Size = new System.Drawing.Size(100, 20);
-            this.txtKatuosoite.TabIndex = 12;
+            this.txtKatuosoiteTA.Location = new System.Drawing.Point(6, 121);
+            this.txtKatuosoiteTA.Name = "txtKatuosoiteTA";
+            this.txtKatuosoiteTA.Size = new System.Drawing.Size(140, 20);
+            this.txtKatuosoiteTA.TabIndex = 12;
             // 
-            // txtMokinnimi
+            // txtMokinnimiTA
             // 
-            this.txtMokinnimi.Location = new System.Drawing.Point(6, 82);
-            this.txtMokinnimi.Name = "txtMokinnimi";
-            this.txtMokinnimi.Size = new System.Drawing.Size(100, 20);
-            this.txtMokinnimi.TabIndex = 11;
+            this.txtMokinnimiTA.Location = new System.Drawing.Point(6, 82);
+            this.txtMokinnimiTA.Name = "txtMokinnimiTA";
+            this.txtMokinnimiTA.Size = new System.Drawing.Size(140, 20);
+            this.txtMokinnimiTA.TabIndex = 11;
             // 
-            // txtPostinro
+            // txtPostinroTA
             // 
-            this.txtPostinro.Location = new System.Drawing.Point(6, 43);
-            this.txtPostinro.Name = "txtPostinro";
-            this.txtPostinro.Size = new System.Drawing.Size(100, 20);
-            this.txtPostinro.TabIndex = 10;
+            this.txtPostinroTA.Location = new System.Drawing.Point(6, 43);
+            this.txtPostinroTA.Name = "txtPostinroTA";
+            this.txtPostinroTA.Size = new System.Drawing.Size(140, 20);
+            this.txtPostinroTA.TabIndex = 10;
             // 
-            // lblVarustelu
+            // lblVarusteluTA
             // 
-            this.lblVarustelu.AutoSize = true;
-            this.lblVarustelu.Location = new System.Drawing.Point(3, 222);
-            this.lblVarustelu.Name = "lblVarustelu";
-            this.lblVarustelu.Size = new System.Drawing.Size(51, 13);
-            this.lblVarustelu.TabIndex = 7;
-            this.lblVarustelu.Text = "Varustelu";
+            this.lblVarusteluTA.AutoSize = true;
+            this.lblVarusteluTA.Location = new System.Drawing.Point(3, 222);
+            this.lblVarusteluTA.Name = "lblVarusteluTA";
+            this.lblVarusteluTA.Size = new System.Drawing.Size(51, 13);
+            this.lblVarusteluTA.TabIndex = 7;
+            this.lblVarusteluTA.Text = "Varustelu";
             // 
-            // lblHloMaara
+            // lblHloMaaraTA
             // 
-            this.lblHloMaara.AutoSize = true;
-            this.lblHloMaara.Location = new System.Drawing.Point(3, 183);
-            this.lblHloMaara.Name = "lblHloMaara";
-            this.lblHloMaara.Size = new System.Drawing.Size(72, 13);
-            this.lblHloMaara.TabIndex = 6;
-            this.lblHloMaara.Text = "Henkilömäärä";
+            this.lblHloMaaraTA.AutoSize = true;
+            this.lblHloMaaraTA.Location = new System.Drawing.Point(3, 183);
+            this.lblHloMaaraTA.Name = "lblHloMaaraTA";
+            this.lblHloMaaraTA.Size = new System.Drawing.Size(72, 13);
+            this.lblHloMaaraTA.TabIndex = 6;
+            this.lblHloMaaraTA.Text = "Henkilömäärä";
             // 
-            // lblKuvaus
+            // lblKuvausTA
             // 
-            this.lblKuvaus.AutoSize = true;
-            this.lblKuvaus.Location = new System.Drawing.Point(3, 144);
-            this.lblKuvaus.Name = "lblKuvaus";
-            this.lblKuvaus.Size = new System.Drawing.Size(43, 13);
-            this.lblKuvaus.TabIndex = 5;
-            this.lblKuvaus.Text = "Kuvaus";
+            this.lblKuvausTA.AutoSize = true;
+            this.lblKuvausTA.Location = new System.Drawing.Point(3, 144);
+            this.lblKuvausTA.Name = "lblKuvausTA";
+            this.lblKuvausTA.Size = new System.Drawing.Size(43, 13);
+            this.lblKuvausTA.TabIndex = 5;
+            this.lblKuvausTA.Text = "Kuvaus";
             // 
-            // lblKatuosoite
+            // lblKatuosoiteTA
             // 
-            this.lblKatuosoite.AutoSize = true;
-            this.lblKatuosoite.Location = new System.Drawing.Point(3, 105);
-            this.lblKatuosoite.Name = "lblKatuosoite";
-            this.lblKatuosoite.Size = new System.Drawing.Size(57, 13);
-            this.lblKatuosoite.TabIndex = 4;
-            this.lblKatuosoite.Text = "Katuosoite";
+            this.lblKatuosoiteTA.AutoSize = true;
+            this.lblKatuosoiteTA.Location = new System.Drawing.Point(3, 105);
+            this.lblKatuosoiteTA.Name = "lblKatuosoiteTA";
+            this.lblKatuosoiteTA.Size = new System.Drawing.Size(57, 13);
+            this.lblKatuosoiteTA.TabIndex = 4;
+            this.lblKatuosoiteTA.Text = "Katuosoite";
             // 
-            // lblMokkinimi
+            // lblMokkinimiTA
             // 
-            this.lblMokkinimi.AutoSize = true;
-            this.lblMokkinimi.Location = new System.Drawing.Point(3, 66);
-            this.lblMokkinimi.Name = "lblMokkinimi";
-            this.lblMokkinimi.Size = new System.Drawing.Size(57, 13);
-            this.lblMokkinimi.TabIndex = 3;
-            this.lblMokkinimi.Text = "Mökin nimi";
+            this.lblMokkinimiTA.AutoSize = true;
+            this.lblMokkinimiTA.Location = new System.Drawing.Point(3, 66);
+            this.lblMokkinimiTA.Name = "lblMokkinimiTA";
+            this.lblMokkinimiTA.Size = new System.Drawing.Size(57, 13);
+            this.lblMokkinimiTA.TabIndex = 3;
+            this.lblMokkinimiTA.Text = "Mökin nimi";
             // 
-            // lblPostinro
+            // lblPostinroTA
             // 
-            this.lblPostinro.AutoSize = true;
-            this.lblPostinro.Location = new System.Drawing.Point(3, 27);
-            this.lblPostinro.Name = "lblPostinro";
-            this.lblPostinro.Size = new System.Drawing.Size(65, 13);
-            this.lblPostinro.TabIndex = 2;
-            this.lblPostinro.Text = "Postinumero";
+            this.lblPostinroTA.AutoSize = true;
+            this.lblPostinroTA.Location = new System.Drawing.Point(3, 27);
+            this.lblPostinroTA.Name = "lblPostinroTA";
+            this.lblPostinroTA.Size = new System.Drawing.Size(65, 13);
+            this.lblPostinroTA.TabIndex = 2;
+            this.lblPostinroTA.Text = "Postinumero";
             // 
             // panel1
             // 
@@ -411,6 +411,13 @@ namespace Mokkivaraus
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(231, 291);
             this.panel1.TabIndex = 21;
+            // 
+            // txtToimialueennimi
+            // 
+            this.txtToimialueennimi.Location = new System.Drawing.Point(9, 21);
+            this.txtToimialueennimi.Name = "txtToimialueennimi";
+            this.txtToimialueennimi.Size = new System.Drawing.Size(139, 20);
+            this.txtToimialueennimi.TabIndex = 5;
             // 
             // lblToimialueennimi
             // 
@@ -487,12 +494,14 @@ namespace Mokkivaraus
             // 
             this.tabAsiakashallinta.BackColor = System.Drawing.Color.Linen;
             this.tabAsiakashallinta.Controls.Add(this.btnPoistaAsiakas);
-            this.tabAsiakashallinta.Controls.Add(this.panel3);
+            this.tabAsiakashallinta.Controls.Add(this.pnlTextboxesAsiakas);
             this.tabAsiakashallinta.Controls.Add(this.button2);
             this.tabAsiakashallinta.Controls.Add(this.btnNaytaAsiakkaat);
             this.tabAsiakashallinta.Controls.Add(this.btnLisaaAsiakas);
             this.tabAsiakashallinta.Controls.Add(this.lblAsiakkaat);
             this.tabAsiakashallinta.Controls.Add(this.dgAsiakkaat);
+            this.tabAsiakashallinta.Controls.Add(this.txtHakuAsiakas);
+            this.tabAsiakashallinta.Controls.Add(this.lblHakuAsiakas);
             this.tabAsiakashallinta.Location = new System.Drawing.Point(4, 22);
             this.tabAsiakashallinta.Name = "tabAsiakashallinta";
             this.tabAsiakashallinta.Size = new System.Drawing.Size(852, 584);
@@ -505,155 +514,137 @@ namespace Mokkivaraus
             this.btnPoistaAsiakas.Location = new System.Drawing.Point(10, 514);
             this.btnPoistaAsiakas.Name = "btnPoistaAsiakas";
             this.btnPoistaAsiakas.Size = new System.Drawing.Size(122, 54);
-            this.btnPoistaAsiakas.TabIndex = 30;
+            this.btnPoistaAsiakas.TabIndex = 9;
             this.btnPoistaAsiakas.Text = "Poista";
             this.btnPoistaAsiakas.UseVisualStyleBackColor = true;
+            this.btnPoistaAsiakas.Click += new System.EventHandler(this.btnPoistaAsiakas_Click);
             // 
-            // panel3
+            // pnlTextboxesAsiakas
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlTextboxesAsiakas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel3.AutoScroll = true;
-            this.panel3.Controls.Add(this.txtPuhelinAsiakas);
-            this.panel3.Controls.Add(this.lblPuhelinAsiakas);
-            this.panel3.Controls.Add(this.txtEmailAsiakas);
-            this.panel3.Controls.Add(this.lblEmailAsiakas);
-            this.panel3.Controls.Add(this.txtOsoiteAsiakas);
-            this.panel3.Controls.Add(this.lblOsoiteAsiakas);
-            this.panel3.Controls.Add(this.txtSukunimiAsiakas);
-            this.panel3.Controls.Add(this.lblSukunimiAsiakas);
-            this.panel3.Controls.Add(this.txtEtunimiAsiakas);
-            this.panel3.Controls.Add(this.lblEtunimiAsiakas);
-            this.panel3.Controls.Add(this.txtPostinroAsiakas);
-            this.panel3.Controls.Add(this.lblPostinroAsiakas);
-            this.panel3.Controls.Add(this.txtAsiakasId);
-            this.panel3.Controls.Add(this.lblAsiakasId);
-            this.panel3.Location = new System.Drawing.Point(17, 160);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(231, 291);
-            this.panel3.TabIndex = 29;
+            this.pnlTextboxesAsiakas.AutoScroll = true;
+            this.pnlTextboxesAsiakas.Controls.Add(this.txtPuhelinAs);
+            this.pnlTextboxesAsiakas.Controls.Add(this.lblPuhelinAsiakas);
+            this.pnlTextboxesAsiakas.Controls.Add(this.txtEmailAs);
+            this.pnlTextboxesAsiakas.Controls.Add(this.lblEmailAsiakas);
+            this.pnlTextboxesAsiakas.Controls.Add(this.txtOsoiteAs);
+            this.pnlTextboxesAsiakas.Controls.Add(this.lblOsoiteAsiakas);
+            this.pnlTextboxesAsiakas.Controls.Add(this.txtSukunimiAs);
+            this.pnlTextboxesAsiakas.Controls.Add(this.lblSukunimiAsiakas);
+            this.pnlTextboxesAsiakas.Controls.Add(this.txtEtunimiAs);
+            this.pnlTextboxesAsiakas.Controls.Add(this.lblEtunimiAsiakas);
+            this.pnlTextboxesAsiakas.Controls.Add(this.txtPostinroAs);
+            this.pnlTextboxesAsiakas.Controls.Add(this.lblPostinroAsiakas);
+            this.pnlTextboxesAsiakas.Location = new System.Drawing.Point(17, 160);
+            this.pnlTextboxesAsiakas.Name = "pnlTextboxesAsiakas";
+            this.pnlTextboxesAsiakas.Size = new System.Drawing.Size(231, 291);
+            this.pnlTextboxesAsiakas.TabIndex = 29;
             // 
-            // txtPuhelinAsiakas
+            // txtPuhelinAs
             // 
-            this.txtPuhelinAsiakas.Location = new System.Drawing.Point(6, 252);
-            this.txtPuhelinAsiakas.Name = "txtPuhelinAsiakas";
-            this.txtPuhelinAsiakas.Size = new System.Drawing.Size(189, 20);
-            this.txtPuhelinAsiakas.TabIndex = 3;
-            this.txtPuhelinAsiakas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAsiakasId_KeyPress);
+            this.txtPuhelinAs.Location = new System.Drawing.Point(15, 231);
+            this.txtPuhelinAs.Name = "txtPuhelinAs";
+            this.txtPuhelinAs.Size = new System.Drawing.Size(189, 20);
+            this.txtPuhelinAs.TabIndex = 6;
+            this.txtPuhelinAs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAsiakasId_KeyPress);
             // 
             // lblPuhelinAsiakas
             // 
             this.lblPuhelinAsiakas.AutoSize = true;
-            this.lblPuhelinAsiakas.Location = new System.Drawing.Point(3, 235);
+            this.lblPuhelinAsiakas.Location = new System.Drawing.Point(12, 214);
             this.lblPuhelinAsiakas.Name = "lblPuhelinAsiakas";
             this.lblPuhelinAsiakas.Size = new System.Drawing.Size(77, 13);
             this.lblPuhelinAsiakas.TabIndex = 2;
             this.lblPuhelinAsiakas.Text = "Puhelinnumero";
             // 
-            // txtEmailAsiakas
+            // txtEmailAs
             // 
-            this.txtEmailAsiakas.Location = new System.Drawing.Point(6, 213);
-            this.txtEmailAsiakas.Name = "txtEmailAsiakas";
-            this.txtEmailAsiakas.Size = new System.Drawing.Size(189, 20);
-            this.txtEmailAsiakas.TabIndex = 3;
+            this.txtEmailAs.Location = new System.Drawing.Point(15, 192);
+            this.txtEmailAs.Name = "txtEmailAs";
+            this.txtEmailAs.Size = new System.Drawing.Size(189, 20);
+            this.txtEmailAs.TabIndex = 5;
             // 
             // lblEmailAsiakas
             // 
             this.lblEmailAsiakas.AutoSize = true;
-            this.lblEmailAsiakas.Location = new System.Drawing.Point(3, 196);
+            this.lblEmailAsiakas.Location = new System.Drawing.Point(12, 175);
             this.lblEmailAsiakas.Name = "lblEmailAsiakas";
             this.lblEmailAsiakas.Size = new System.Drawing.Size(60, 13);
             this.lblEmailAsiakas.TabIndex = 2;
             this.lblEmailAsiakas.Text = "Sähköposti";
             // 
-            // txtOsoiteAsiakas
+            // txtOsoiteAs
             // 
-            this.txtOsoiteAsiakas.Location = new System.Drawing.Point(6, 173);
-            this.txtOsoiteAsiakas.Name = "txtOsoiteAsiakas";
-            this.txtOsoiteAsiakas.Size = new System.Drawing.Size(189, 20);
-            this.txtOsoiteAsiakas.TabIndex = 3;
+            this.txtOsoiteAs.Location = new System.Drawing.Point(15, 152);
+            this.txtOsoiteAs.Name = "txtOsoiteAs";
+            this.txtOsoiteAs.Size = new System.Drawing.Size(189, 20);
+            this.txtOsoiteAs.TabIndex = 4;
             // 
             // lblOsoiteAsiakas
             // 
             this.lblOsoiteAsiakas.AutoSize = true;
-            this.lblOsoiteAsiakas.Location = new System.Drawing.Point(3, 156);
+            this.lblOsoiteAsiakas.Location = new System.Drawing.Point(12, 135);
             this.lblOsoiteAsiakas.Name = "lblOsoiteAsiakas";
             this.lblOsoiteAsiakas.Size = new System.Drawing.Size(55, 13);
             this.lblOsoiteAsiakas.TabIndex = 2;
             this.lblOsoiteAsiakas.Text = "Lähiosoite";
             // 
-            // txtSukunimiAsiakas
+            // txtSukunimiAs
             // 
-            this.txtSukunimiAsiakas.Location = new System.Drawing.Point(6, 135);
-            this.txtSukunimiAsiakas.Name = "txtSukunimiAsiakas";
-            this.txtSukunimiAsiakas.Size = new System.Drawing.Size(189, 20);
-            this.txtSukunimiAsiakas.TabIndex = 3;
+            this.txtSukunimiAs.Location = new System.Drawing.Point(15, 114);
+            this.txtSukunimiAs.Name = "txtSukunimiAs";
+            this.txtSukunimiAs.Size = new System.Drawing.Size(189, 20);
+            this.txtSukunimiAs.TabIndex = 3;
             // 
             // lblSukunimiAsiakas
             // 
             this.lblSukunimiAsiakas.AutoSize = true;
-            this.lblSukunimiAsiakas.Location = new System.Drawing.Point(3, 118);
+            this.lblSukunimiAsiakas.Location = new System.Drawing.Point(12, 97);
             this.lblSukunimiAsiakas.Name = "lblSukunimiAsiakas";
             this.lblSukunimiAsiakas.Size = new System.Drawing.Size(50, 13);
             this.lblSukunimiAsiakas.TabIndex = 2;
             this.lblSukunimiAsiakas.Text = "Sukunimi";
             // 
-            // txtEtunimiAsiakas
+            // txtEtunimiAs
             // 
-            this.txtEtunimiAsiakas.Location = new System.Drawing.Point(6, 97);
-            this.txtEtunimiAsiakas.Name = "txtEtunimiAsiakas";
-            this.txtEtunimiAsiakas.Size = new System.Drawing.Size(189, 20);
-            this.txtEtunimiAsiakas.TabIndex = 3;
+            this.txtEtunimiAs.Location = new System.Drawing.Point(15, 76);
+            this.txtEtunimiAs.Name = "txtEtunimiAs";
+            this.txtEtunimiAs.Size = new System.Drawing.Size(189, 20);
+            this.txtEtunimiAs.TabIndex = 2;
             // 
             // lblEtunimiAsiakas
             // 
             this.lblEtunimiAsiakas.AutoSize = true;
-            this.lblEtunimiAsiakas.Location = new System.Drawing.Point(3, 80);
+            this.lblEtunimiAsiakas.Location = new System.Drawing.Point(12, 59);
             this.lblEtunimiAsiakas.Name = "lblEtunimiAsiakas";
             this.lblEtunimiAsiakas.Size = new System.Drawing.Size(41, 13);
             this.lblEtunimiAsiakas.TabIndex = 2;
             this.lblEtunimiAsiakas.Text = "Etunimi";
             // 
-            // txtPostinroAsiakas
+            // txtPostinroAs
             // 
-            this.txtPostinroAsiakas.Location = new System.Drawing.Point(6, 57);
-            this.txtPostinroAsiakas.Name = "txtPostinroAsiakas";
-            this.txtPostinroAsiakas.Size = new System.Drawing.Size(189, 20);
-            this.txtPostinroAsiakas.TabIndex = 3;
-            this.txtPostinroAsiakas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAsiakasId_KeyPress);
+            this.txtPostinroAs.Location = new System.Drawing.Point(15, 36);
+            this.txtPostinroAs.Name = "txtPostinroAs";
+            this.txtPostinroAs.Size = new System.Drawing.Size(189, 20);
+            this.txtPostinroAs.TabIndex = 1;
+            this.txtPostinroAs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAsiakasId_KeyPress);
             // 
             // lblPostinroAsiakas
             // 
             this.lblPostinroAsiakas.AutoSize = true;
-            this.lblPostinroAsiakas.Location = new System.Drawing.Point(3, 40);
+            this.lblPostinroAsiakas.Location = new System.Drawing.Point(12, 19);
             this.lblPostinroAsiakas.Name = "lblPostinroAsiakas";
             this.lblPostinroAsiakas.Size = new System.Drawing.Size(65, 13);
             this.lblPostinroAsiakas.TabIndex = 2;
             this.lblPostinroAsiakas.Text = "Postinumero";
-            // 
-            // txtAsiakasId
-            // 
-            this.txtAsiakasId.Location = new System.Drawing.Point(6, 17);
-            this.txtAsiakasId.Name = "txtAsiakasId";
-            this.txtAsiakasId.Size = new System.Drawing.Size(189, 20);
-            this.txtAsiakasId.TabIndex = 3;
-            this.txtAsiakasId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAsiakasId_KeyPress);
-            // 
-            // lblAsiakasId
-            // 
-            this.lblAsiakasId.AutoSize = true;
-            this.lblAsiakasId.Location = new System.Drawing.Point(3, 0);
-            this.lblAsiakasId.Name = "lblAsiakasId";
-            this.lblAsiakasId.Size = new System.Drawing.Size(58, 13);
-            this.lblAsiakasId.TabIndex = 2;
-            this.lblAsiakasId.Text = "Asiakas ID";
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(140, 85);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(122, 38);
-            this.button2.TabIndex = 28;
+            this.button2.TabIndex = 12;
             this.button2.Text = "Takaisin";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
@@ -664,7 +655,7 @@ namespace Mokkivaraus
             this.btnNaytaAsiakkaat.Location = new System.Drawing.Point(139, 457);
             this.btnNaytaAsiakkaat.Name = "btnNaytaAsiakkaat";
             this.btnNaytaAsiakkaat.Size = new System.Drawing.Size(123, 51);
-            this.btnNaytaAsiakkaat.TabIndex = 27;
+            this.btnNaytaAsiakkaat.TabIndex = 8;
             this.btnNaytaAsiakkaat.Text = "Näytä laskutukset";
             this.btnNaytaAsiakkaat.UseVisualStyleBackColor = true;
             // 
@@ -674,15 +665,16 @@ namespace Mokkivaraus
             this.btnLisaaAsiakas.Location = new System.Drawing.Point(10, 457);
             this.btnLisaaAsiakas.Name = "btnLisaaAsiakas";
             this.btnLisaaAsiakas.Size = new System.Drawing.Size(123, 51);
-            this.btnLisaaAsiakas.TabIndex = 26;
-            this.btnLisaaAsiakas.Text = "Lisää/Päivitä";
+            this.btnLisaaAsiakas.TabIndex = 7;
+            this.btnLisaaAsiakas.Text = "Lisää";
             this.btnLisaaAsiakas.UseVisualStyleBackColor = true;
+            this.btnLisaaAsiakas.Click += new System.EventHandler(this.btnLisaaAsiakas_Click);
             // 
             // lblAsiakkaat
             // 
             this.lblAsiakkaat.AutoSize = true;
             this.lblAsiakkaat.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsiakkaat.Location = new System.Drawing.Point(11, 126);
+            this.lblAsiakkaat.Location = new System.Drawing.Point(4, 85);
             this.lblAsiakkaat.Name = "lblAsiakkaat";
             this.lblAsiakkaat.Size = new System.Drawing.Size(133, 31);
             this.lblAsiakkaat.TabIndex = 25;
@@ -706,7 +698,24 @@ namespace Mokkivaraus
             this.dgAsiakkaat.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgAsiakkaat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgAsiakkaat.Size = new System.Drawing.Size(560, 480);
-            this.dgAsiakkaat.TabIndex = 17;
+            this.dgAsiakkaat.TabIndex = 11;
+            // 
+            // txtHakuAsiakas
+            // 
+            this.txtHakuAsiakas.Location = new System.Drawing.Point(435, 59);
+            this.txtHakuAsiakas.Name = "txtHakuAsiakas";
+            this.txtHakuAsiakas.Size = new System.Drawing.Size(222, 20);
+            this.txtHakuAsiakas.TabIndex = 10;
+            this.txtHakuAsiakas.TextChanged += new System.EventHandler(this.txtHakuAs_TextChanged);
+            // 
+            // lblHakuAsiakas
+            // 
+            this.lblHakuAsiakas.AutoSize = true;
+            this.lblHakuAsiakas.Location = new System.Drawing.Point(442, 43);
+            this.lblHakuAsiakas.Name = "lblHakuAsiakas";
+            this.lblHakuAsiakas.Size = new System.Drawing.Size(30, 13);
+            this.lblHakuAsiakas.TabIndex = 2;
+            this.lblHakuAsiakas.Text = "Hae:";
             // 
             // tabVaraushallinta
             // 
@@ -720,7 +729,7 @@ namespace Mokkivaraus
             // tabLaskutus
             // 
             this.tabLaskutus.BackColor = System.Drawing.Color.Linen;
-            this.tabLaskutus.Controls.Add(this.dgLaskutus);
+            this.tabLaskutus.Controls.Add(this.dgLaskut);
             this.tabLaskutus.Controls.Add(this.btnJoonas);
             this.tabLaskutus.Location = new System.Drawing.Point(4, 22);
             this.tabLaskutus.Name = "tabLaskutus";
@@ -729,19 +738,11 @@ namespace Mokkivaraus
             this.tabLaskutus.Text = "Laskutus";
             this.tabLaskutus.Enter += new System.EventHandler(this.tabLaskutus_Enter);
             // 
-            // dgLaskutus
-            // 
-            this.dgLaskutus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLaskutus.Location = new System.Drawing.Point(398, 45);
-            this.dgLaskutus.Name = "dgLaskutus";
-            this.dgLaskutus.Size = new System.Drawing.Size(240, 150);
-            this.dgLaskutus.TabIndex = 1;
-            // 
             // btnJoonas
             // 
-            this.btnJoonas.Location = new System.Drawing.Point(3, 3);
+            this.btnJoonas.Location = new System.Drawing.Point(25, 41);
             this.btnJoonas.Name = "btnJoonas";
-            this.btnJoonas.Size = new System.Drawing.Size(331, 193);
+            this.btnJoonas.Size = new System.Drawing.Size(176, 63);
             this.btnJoonas.TabIndex = 0;
             this.btnJoonas.Text = "Joonaksen nappi";
             this.btnJoonas.UseVisualStyleBackColor = true;
@@ -774,12 +775,25 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
-            // txtToimialueennimi
+            // dgLaskut
             // 
-            this.txtToimialueennimi.Location = new System.Drawing.Point(9, 21);
-            this.txtToimialueennimi.Name = "txtToimialueennimi";
-            this.txtToimialueennimi.Size = new System.Drawing.Size(139, 20);
-            this.txtToimialueennimi.TabIndex = 5;
+            this.dgLaskut.AllowUserToAddRows = false;
+            this.dgLaskut.AllowUserToDeleteRows = false;
+            this.dgLaskut.AllowUserToResizeColumns = false;
+            this.dgLaskut.AllowUserToResizeRows = false;
+            this.dgLaskut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgLaskut.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgLaskut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgLaskut.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgLaskut.Location = new System.Drawing.Point(271, 86);
+            this.dgLaskut.MultiSelect = false;
+            this.dgLaskut.Name = "dgLaskut";
+            this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgLaskut.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgLaskut.Size = new System.Drawing.Size(560, 480);
+            this.dgLaskut.TabIndex = 17;
             // 
             // Aloitussivu
             // 
@@ -790,7 +804,7 @@ namespace Mokkivaraus
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(650, 548);
+            this.MinimumSize = new System.Drawing.Size(650, 547);
             this.Name = "Aloitussivu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Village People Oy Mökkivarausjärjestelmä";
@@ -807,12 +821,12 @@ namespace Mokkivaraus
             ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).EndInit();
             this.tabAsiakashallinta.ResumeLayout(false);
             this.tabAsiakashallinta.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.pnlTextboxesAsiakas.ResumeLayout(false);
+            this.pnlTextboxesAsiakas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).EndInit();
             this.tabLaskutus.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgLaskutus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -839,45 +853,45 @@ namespace Mokkivaraus
         private Button btnLisaa;
         private Label lblToimipisteet;
         private DataGridView dgToimipisteet;
-        private TextBox txtVarustelu;
-        private TextBox txtHloMaara;
-        private TextBox txtKuvaus;
-        private TextBox txtKatuosoite;
-        private TextBox txtMokinnimi;
-        private TextBox txtPostinro;
-        private Label lblVarustelu;
-        private Label lblHloMaara;
-        private Label lblKuvaus;
-        private Label lblKatuosoite;
-        private Label lblMokkinimi;
-        private Label lblPostinro;
+        private TextBox txtVarusteluTA;
+        private TextBox txtHloMaaraTA;
+        private TextBox txtKuvausTA;
+        private TextBox txtKatuosoiteTA;
+        private TextBox txtMokinnimiTA;
+        private TextBox txtPostinroTA;
+        private Label lblVarusteluTA;
+        private Label lblHloMaaraTA;
+        private Label lblKuvausTA;
+        private Label lblKatuosoiteTA;
+        private Label lblMokkinimiTA;
+        private Label lblPostinroTA;
         private Button btnPoista;
         private Label lblError;
         private DataGridView dgAsiakkaat;
         private Button btnPoistaAsiakas;
-        private Panel panel3;
-        private TextBox txtAsiakasId;
-        private Label lblAsiakasId;
+        private Panel pnlTextboxesAsiakas;
+        private TextBox txtHakuAsiakas;
+        private Label lblHakuAsiakas;
         private Button button2;
         private Button btnNaytaAsiakkaat;
         private Button btnLisaaAsiakas;
         private Label lblAsiakkaat;
-        private TextBox txtPuhelinAsiakas;
+        private TextBox txtPuhelinAs;
         private Label lblPuhelinAsiakas;
-        private TextBox txtEmailAsiakas;
+        private TextBox txtEmailAs;
         private Label lblEmailAsiakas;
-        private TextBox txtOsoiteAsiakas;
+        private TextBox txtOsoiteAs;
         private Label lblOsoiteAsiakas;
-        private TextBox txtSukunimiAsiakas;
+        private TextBox txtSukunimiAs;
         private Label lblSukunimiAsiakas;
-        private TextBox txtEtunimiAsiakas;
+        private TextBox txtEtunimiAs;
         private Label lblEtunimiAsiakas;
-        private TextBox txtPostinroAsiakas;
+        private TextBox txtPostinroAs;
         private Label lblPostinroAsiakas;
         private Label lblToimialueennimi;
         private Button btnJoonas;
-        private DataGridView dgLaskutus;
         private TextBox txtToimialueennimi;
+        private DataGridView dgLaskut;
     }
 }
 
