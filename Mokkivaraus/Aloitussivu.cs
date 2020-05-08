@@ -94,6 +94,9 @@ namespace Mokkivaraus
         //Näyttää valitun toimialueen mökit
         private void btnNayta_Click(object sender, EventArgs e)
         {
+            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
+            int.TryParse(toimintaalueID, out ID);
+
             tabToimintaalue.Controls.Add(dgMokit);
             //Uusi datagridview
             dgToimipisteet.Visible = false;
@@ -102,13 +105,11 @@ namespace Mokkivaraus
             dgMokit.Visible = true;
             //KAATUU JOSTAIN SYYSTÄ TÄHÄN JOS NÄYTÄ NAPPIA PAINETAAN UUDESTAAN 7.5.2020
             //
-            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-            int.TryParse(toimintaalueID, out ID);
 
             tabToimintaalue.Controls.Add(dgMokit);
             //dataGridin täyttö mökkien tiedoilla
             string query = "SELECT * from mokki";
-            dgToimipisteet = dataGridUpdate(query, dgMokit);
+            dgMokit = dataGridUpdate(query, dgMokit);
 
             //takaisin nappi näkyväksi & paneeli 2 auki
             btnTakaisin.Enabled = true;
@@ -158,37 +159,6 @@ namespace Mokkivaraus
             btnTakaisin.Visible = false;
             btnTakaisin.Enabled = false;
             panel2.Visible = false;
-        }
-        //VÄLIAIKAINEN RATKAISU ETTEI KAADU
-        private void dgToimipisteet_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            lblError.Text = "";
-
-            try {
-                //datagridin tiedot textboxeihin
-
-                string mokkiId = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-                string toimiId = dgToimipisteet.SelectedRows[0].Cells[1].Value + string.Empty;
-                string postinumero = dgToimipisteet.SelectedRows[0].Cells[2].Value + string.Empty;
-                string mokinNimi = dgToimipisteet.SelectedRows[0].Cells[3].Value + string.Empty;
-                string katuosoite = dgToimipisteet.SelectedRows[0].Cells[4].Value + string.Empty;
-                string kuvaus = dgToimipisteet.SelectedRows[0].Cells[5].Value + string.Empty;
-                string hloMaara = dgToimipisteet.SelectedRows[0].Cells[6].Value + string.Empty;
-                string varustelu = dgToimipisteet.SelectedRows[0].Cells[7].Value + string.Empty;
-
-                txtPostinro.Text = postinumero;
-                txtMokinnimi.Text = mokinNimi;
-                txtKatuosoite.Text = katuosoite;
-                txtKuvaus.Text = kuvaus;
-                txtHloMaara.Text = hloMaara;
-                txtVarustelu.Text = varustelu;
-            }
-            catch {
-                lblError.Text = "Mökkitietoja ei löytynyt";
-            };
-
-
-            
         }
 
         private void btnPoista_Click(object sender, EventArgs e)
@@ -257,6 +227,12 @@ namespace Mokkivaraus
                     MessageBox.Show(ex.ToString());
                 }
             }
+        }
+
+        private void tabLaskutus_Enter(object sender, EventArgs e)
+        {
+            string query = "SELECT * from asiakas";
+            dgLaskutus = dataGridUpdate(query, dgLaskutus);
         }
     }
 
