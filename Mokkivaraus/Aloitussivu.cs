@@ -89,6 +89,7 @@ namespace Mokkivaraus
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
 
             Toimintaalueet_Load(sender, e);
+
         }
 
         //Näyttää valitun toimialueen mökit
@@ -111,10 +112,13 @@ namespace Mokkivaraus
             string query = "SELECT * from mokki";
             dgMokit = dataGridUpdate(query, dgMokit);
 
-            //takaisin nappi näkyväksi & paneeli 2 auki
+            // napit käytettäviksi & paneeli 2 auki
             btnTakaisin.Enabled = true;
             btnTakaisin.Visible = true;
+            btnPoista.Enabled = true;
             panel2.Visible = true;
+
+            lblToimipisteet.Text = "Mökit";
         }
 
         //Siirrytään takaisin toiminta-alueisiin
@@ -127,8 +131,9 @@ namespace Mokkivaraus
             dgToimipisteet.Visible = true;
             btnTakaisin.Visible = false;
             panel2.Visible = false;
+            btnPoista.Enabled = false;
 
-
+            lblToimipisteet.Text = "Toiminta-alueet";
         }
 
         //Nappi joka lisää uusia soluja ja/tai muokkaa haluttua
@@ -146,7 +151,7 @@ namespace Mokkivaraus
             insertSQL.ExecuteNonQuery();
 
             string query = "SELECT * from mokki";
-            dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
+            dgMokit = dataGridUpdate(query, dgMokit);
 
             conn.Close();
 
@@ -159,18 +164,22 @@ namespace Mokkivaraus
             btnTakaisin.Visible = false;
             btnTakaisin.Enabled = false;
             panel2.Visible = false;
+            btnPoista.Enabled = false;
         }
 
         private void btnPoista_Click(object sender, EventArgs e)
         {
-            //Poistaa valitun rivin tietokannasta, ei päivitä vielä datagridia
+            //Poistaa valitun rivin tietokannasta
             conn.Open();
 
-            string deletequery = "DELETE from mokki WHERE mokki_id=" + dgToimipisteet.SelectedRows[0].Cells[0].Value;
+            string deletequery = "DELETE from mokki WHERE mokki_id=" + dgMokit.SelectedRows[0].Cells[0].Value;
             SQLiteCommand deleteSQL = new SQLiteCommand(deletequery, conn);
 
             deleteSQL.ExecuteNonQuery();
 
+            string query = "SELECT * from mokki";
+            dgMokit = dataGridUpdate(query, dgMokit);
+            conn.Close();
         }
 
         #endregion

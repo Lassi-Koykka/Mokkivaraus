@@ -57,7 +57,6 @@ namespace Mokkivaraus
             this.lblPostinro = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblToimialueennimi = new System.Windows.Forms.Label();
-            this.txtToimialueennimi = new System.Windows.Forms.TextBox();
             this.btnTakaisin = new System.Windows.Forms.Button();
             this.btnNayta = new System.Windows.Forms.Button();
             this.btnLisaa = new System.Windows.Forms.Button();
@@ -87,9 +86,11 @@ namespace Mokkivaraus
             this.dgAsiakkaat = new System.Windows.Forms.DataGridView();
             this.tabVaraushallinta = new System.Windows.Forms.TabPage();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
+            this.dgLaskutus = new System.Windows.Forms.DataGridView();
             this.btnJoonas = new System.Windows.Forms.Button();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
-            this.dgLaskutus = new System.Windows.Forms.DataGridView();
+            this.dgMokit = new System.Windows.Forms.DataGridView();
+            this.txtToimialueennimi = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -102,6 +103,7 @@ namespace Mokkivaraus
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).BeginInit();
             this.tabLaskutus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskutus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -403,8 +405,8 @@ namespace Mokkivaraus
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.lblToimialueennimi);
             this.panel1.Controls.Add(this.txtToimialueennimi);
+            this.panel1.Controls.Add(this.lblToimialueennimi);
             this.panel1.Location = new System.Drawing.Point(19, 160);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(231, 291);
@@ -418,14 +420,6 @@ namespace Mokkivaraus
             this.lblToimialueennimi.Size = new System.Drawing.Size(85, 13);
             this.lblToimialueennimi.TabIndex = 4;
             this.lblToimialueennimi.Text = "Toimialueen nimi";
-            // 
-            // txtToimialueennimi
-            // 
-            this.txtToimialueennimi.Location = new System.Drawing.Point(6, 24);
-            this.txtToimialueennimi.Name = "txtToimialueennimi";
-            this.txtToimialueennimi.Size = new System.Drawing.Size(189, 20);
-            this.txtToimialueennimi.TabIndex = 3;
-            this.txtToimialueennimi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAsiakasId_KeyPress);
             // 
             // btnTakaisin
             // 
@@ -735,6 +729,14 @@ namespace Mokkivaraus
             this.tabLaskutus.Text = "Laskutus";
             this.tabLaskutus.Enter += new System.EventHandler(this.tabLaskutus_Enter);
             // 
+            // dgLaskutus
+            // 
+            this.dgLaskutus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgLaskutus.Location = new System.Drawing.Point(398, 45);
+            this.dgLaskutus.Name = "dgLaskutus";
+            this.dgLaskutus.Size = new System.Drawing.Size(240, 150);
+            this.dgLaskutus.TabIndex = 1;
+            // 
             // btnJoonas
             // 
             this.btnJoonas.Location = new System.Drawing.Point(3, 3);
@@ -752,13 +754,32 @@ namespace Mokkivaraus
             this.lblToimialueNimi.Size = new System.Drawing.Size(100, 23);
             this.lblToimialueNimi.TabIndex = 0;
             // 
-            // dgLaskutus
+            // dgMokit
             // 
-            this.dgLaskutus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLaskutus.Location = new System.Drawing.Point(398, 45);
-            this.dgLaskutus.Name = "dgLaskutus";
-            this.dgLaskutus.Size = new System.Drawing.Size(240, 150);
-            this.dgLaskutus.TabIndex = 1;
+            this.dgMokit.AllowUserToAddRows = false;
+            this.dgMokit.AllowUserToDeleteRows = false;
+            this.dgMokit.AllowUserToResizeColumns = false;
+            this.dgMokit.AllowUserToResizeRows = false;
+            this.dgMokit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgMokit.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgMokit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgMokit.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgMokit.Location = new System.Drawing.Point(270, 85);
+            this.dgMokit.MultiSelect = false;
+            this.dgMokit.Name = "dgMokit";
+            this.dgMokit.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgMokit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgMokit.Size = new System.Drawing.Size(560, 480);
+            this.dgMokit.TabIndex = 16;
+            // 
+            // txtToimialueennimi
+            // 
+            this.txtToimialueennimi.Location = new System.Drawing.Point(9, 21);
+            this.txtToimialueennimi.Name = "txtToimialueennimi";
+            this.txtToimialueennimi.Size = new System.Drawing.Size(139, 20);
+            this.txtToimialueennimi.TabIndex = 5;
             // 
             // Aloitussivu
             // 
@@ -791,6 +812,7 @@ namespace Mokkivaraus
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).EndInit();
             this.tabLaskutus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskutus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -817,7 +839,6 @@ namespace Mokkivaraus
         private Button btnLisaa;
         private Label lblToimipisteet;
         private DataGridView dgToimipisteet;
-        private TextBox txtToimialueennimi;
         private TextBox txtVarustelu;
         private TextBox txtHloMaara;
         private TextBox txtKuvaus;
@@ -856,6 +877,7 @@ namespace Mokkivaraus
         private Label lblToimialueennimi;
         private Button btnJoonas;
         private DataGridView dgLaskutus;
+        private TextBox txtToimialueennimi;
     }
 }
 
