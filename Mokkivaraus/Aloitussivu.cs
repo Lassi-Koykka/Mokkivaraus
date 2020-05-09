@@ -65,21 +65,23 @@ namespace Mokkivaraus
         {
             tabControl.SelectedTab = tabAsiakashallinta;
             string query = "SELECT * from asiakas";
-            dgToimipisteet = dataGridUpdate(query, dgAsiakkaat);
+            dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
         }
 
         private void btnVaraukset_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = tabVaraushallinta;
+            string query = "SELECT * from varaus";
+            dgVaraukset = dataGridUpdate(query, dgVaraukset);
         }
 
         private void btnLaskutus_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = tabLaskutus;
+            string query = "SELECT * from lasku";
+            dgLaskut = dataGridUpdate(query, dgLaskut);
         }
         #endregion
-
-
 
         #region Toiminta-alueiden hallinta
         //Päivitetään kyselyllä datagrid kun käyttäjä siirtyy toiminta-alue välilehteen
@@ -88,6 +90,14 @@ namespace Mokkivaraus
             //dataGridin päivitys kyselyn pohjalta
             string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
+
+            dgMokit.Visible = false;
+            dgToimipisteet.Visible = true;
+            btnTakaisin.Visible = false;
+            panel2.Visible = false;
+            btnPoista.Enabled = false;
+
+            lblToimipisteet.Text = "Toiminta-alueet";
 
             Toimintaalueet_Load(sender, e);
 
@@ -189,7 +199,8 @@ namespace Mokkivaraus
 
         //Täysi kyselyString
         string asiakasQuery;
-        private void tabControl_Enter(object sender, EventArgs e)
+
+        private void tabAsiakashallinta_Enter(object sender, EventArgs e)
         {
             asiakasQuery = "SELECT * from asiakas";
             dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
@@ -197,7 +208,8 @@ namespace Mokkivaraus
 
         private void txtAsiakasId_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar) && (e.KeyChar == ' '))){
+            if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar) && (e.KeyChar == ' ')))
+            {
                 e.Handled = true;
             }
         }
@@ -205,7 +217,8 @@ namespace Mokkivaraus
         private void txtHakuAs_TextChanged(object sender, EventArgs e)
         {
             TextBox txt = (TextBox)sender;
-            if (txt.Text != "") {
+            if (txt.Text != "")
+            {
                 try
                 {
                     asiakasQuery = $"SELECT * from asiakas WHERE " +
@@ -217,15 +230,17 @@ namespace Mokkivaraus
                         $"email LIKE '%{txt.Text}%' OR " +
                         $"puhelinnro LIKE '%{txt.Text}%'";
                     dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
-                } catch
+                }
+                catch
                 {
                     asiakasQuery = "SELECT * from asiakas";
                     dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
                 }
-            } else
+            }
+            else
             {
                 asiakasQuery = "SELECT * from asiakas";
-                dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);        
+                dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
             }
         }
 
@@ -276,6 +291,44 @@ namespace Mokkivaraus
                 dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
             }
         }
+
+        private void btnNaytaVarauksetAs_Click(object sender, EventArgs e)
+        {
+            //Etsii valitun asiakkaan varaukset jos hänellä niitä on
+            if (dgAsiakkaat.Rows.Count > 0)
+            {
+                string asiakkaanVarauksetQuery = "SELECT * from varaus WHERE asiakas_id=" + dgAsiakkaat.SelectedRows[0].Cells[0].Value;
+                string asiakasKokonimi = dgAsiakkaat.SelectedRows[0].Cells[2].Value + " " + dgAsiakkaat.SelectedRows[0].Cells[3].Value;
+                dgVaraukset = dataGridUpdate(asiakkaanVarauksetQuery, dgVaraukset);
+                
+                lblVaraukset.Text = $"Asiakkaan\n {asiakasKokonimi} varaukset";
+                tabControl.SelectedTab = tabVaraushallinta;
+                btnTakaisinVaraus.Visible = true;
+            }
+        }
+        #endregion
+
+        #region Varaukset
+
+        string varausQuery;
+
+        private void tabVaraushallinta_Enter(object sender, EventArgs e)
+        {
+            btnTakaisinVaraus.Visible = false;
+            lblVaraukset.Text = "Varaukset";
+            varausQuery = "SELECT * from varaus";
+            dgAsiakkaat = dataGridUpdate(varausQuery, dgVaraukset);
+        }
+
+        private void btnTakaisinVaraus_Click(object sender, EventArgs e)
+        {
+            btnTakaisinVaraus.Visible = false;
+            lblVaraukset.Text = "Varaukset";
+            tabControl.SelectedTab = tabAsiakashallinta;
+            string query = "SELECT * from asiakas";
+            dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
+        }
+
         #endregion
 
         #region Laskutus
@@ -321,9 +374,12 @@ namespace Mokkivaraus
         }
 
 
+
+
+
         #endregion
 
-        
+
     }
 
 }
