@@ -319,10 +319,11 @@ namespace Mokkivaraus
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com"); //Käytettävän sähköpostin Smtp-osoite
 
                     mail.From = new MailAddress("villagepeopleoy.laskutus@gmail.com"); //Firman laskutukseen käytettävä sähköpostiosoite
-                    mail.To.Add("jndonze@hotmail.fi"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
+                    mail.To.Add("lassi_koykka@hotmail.com"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
                     mail.Subject = "Village People Oy laskusi"; //Sähköpostin aihe/otsikko
                     mail.Body = "Liitteenä on laskusi koskien mökkivaraustasi Village People OY:n kautta."; //Itse viesti
                     Attachment pdflasku = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf");
+                    pdflasku.Name = "lasku.pdf";
                     mail.Attachments.Add(pdflasku); //Liitetiedosto
 
                     //Käytettävä kirjautumistunnus sähköpostiin ja sen salasana
