@@ -13,7 +13,6 @@ namespace Mokkivaraus
         //Datagridi mökkien tiedoille
         DataGridView dgMokit = new DataGridView();
         string toimintaalueID;
-        int ID = 1;
 
 
         public Aloitussivu()
@@ -110,8 +109,7 @@ namespace Mokkivaraus
         //Näyttää valitun toimialueen mökit
         private void btnNayta_Click(object sender, EventArgs e)
         {
-            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-            int.TryParse(toimintaalueID, out ID);
+            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
 
             tabToimintaalue.Controls.Add(dgMokit);
             //Uusi datagridview
@@ -123,7 +121,7 @@ namespace Mokkivaraus
 
             tabToimintaalue.Controls.Add(dgMokit);
             //dataGridin täyttö mökkien tiedoilla
-            string query = "SELECT * from mokki";
+            string query = "SELECT * from mokki WHERE toimintaalue_id=" + toimintaalueID;
             dgMokit = dataGridUpdate(query, dgMokit);
 
             // napit käytettäviksi & paneeli 2 auki
@@ -175,7 +173,7 @@ namespace Mokkivaraus
             conn.Open();
 
             //insert lause 
-            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values ("+ ID + ",'" + txtPostinroTA.Text + "','" + txtMokinnimiTA.Text + "','"
+            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values ("+ toimintaalueID + ",'" + txtPostinroTA.Text + "','" + txtMokinnimiTA.Text + "','"
                 + txtKatuosoiteTA.Text + "','" + txtKuvausTA.Text + "','" + txtHloMaaraTA.Text + "','" + txtVarusteluTA.Text + "')";
             SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
 
