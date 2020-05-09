@@ -95,6 +95,7 @@ namespace Mokkivaraus
             this.dgMokit = new System.Windows.Forms.DataGridView();
             this.btnLisaatoimiP = new System.Windows.Forms.Button();
             this.btnPoistaToimialue = new System.Windows.Forms.Button();
+
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -797,6 +798,7 @@ namespace Mokkivaraus
             this.dgLaskut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgLaskut.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgLaskut.Location = new System.Drawing.Point(271, 86);
+
             this.dgLaskut.MultiSelect = false;
             this.dgLaskut.Name = "dgLaskut";
             this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
@@ -806,7 +808,7 @@ namespace Mokkivaraus
             // 
             // btnJoonas
             // 
-            this.btnJoonas.Location = new System.Drawing.Point(25, 41);
+            this.btnJoonas.Location = new System.Drawing.Point(8, 513);
             this.btnJoonas.Name = "btnJoonas";
             this.btnJoonas.Size = new System.Drawing.Size(176, 63);
             this.btnJoonas.TabIndex = 0;
@@ -861,6 +863,7 @@ namespace Mokkivaraus
             this.btnPoistaToimialue.UseVisualStyleBackColor = true;
             this.btnPoistaToimialue.Click += new System.EventHandler(this.btnPoistaToimialue_Click);
             // 
+
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
