@@ -1,9 +1,20 @@
-﻿using System;
+﻿using iText.IO.Font;
+using iText.IO.Font.Constants;
+using iText.IO.Image;
+using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Windows.Forms;
 
 namespace Mokkivaraus
@@ -22,12 +33,12 @@ namespace Mokkivaraus
 
             //Keskitetään kaikki etusivun kontrollit
 
-            lblTitle.Location = new Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
-            pboxLogo.Location = new Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
-            btnToimintaalue.Location = new Point(Width / 2 - btnToimintaalue.Width / 2, btnToimintaalue.Location.Y);
-            btnAsiakkaat.Location = new Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
-            btnVaraukset.Location = new Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
-            btnLaskutus.Location = new Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
+            lblTitle.Location = new System.Drawing.Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
+            pboxLogo.Location = new System.Drawing.Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
+            btnToimintaalue.Location = new System.Drawing.Point(Width / 2 - btnToimintaalue.Width / 2, btnToimintaalue.Location.Y);
+            btnAsiakkaat.Location = new System.Drawing.Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
+            btnVaraukset.Location = new System.Drawing.Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
+            btnLaskutus.Location = new System.Drawing.Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
         }
 
         #region tietokantayhteys ja formin päivitys kyselyiden perusteella
@@ -284,18 +295,40 @@ namespace Mokkivaraus
             {
                 try
                 {
+                    //Päämääräkansio mihin lasku.pdf tallentuu
+                    string destination = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf";      
+                    
+                    //Luodaan uusi PdfWriter ja Document ja määritetään sen koko
+                    var writer = new PdfWriter(destination);
+                    var pdf = new PdfDocument(writer);
+                    var document = new Document(pdf);
+                    PageSize ps = PageSize.A4;
+
+                    //Otsikon fontti
+                    var otsikkofont = PdfFontFactory.CreateFont(FontConstants.TIMES_BOLD);
+                    
+                    //Lisätään dokumenttiin tekstit ja kuvat plus keskitys
+                    document.Add(new Paragraph("Village people OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
+                        .TextAlignment.CENTER));        
+                    iText.Layout.Element.Image logo1 = new iText.Layout.Element.Image(ImageDataFactory.Create("../../Resources/logo.png"));
+                    document.Add(logo1.SetHeight(300).SetWidth(300).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+                    document.Close();
+
                     //Luodaan uusi sähköpostiviesti ja SmtpServer
                     MailMessage mail = new MailMessage();
-                    SmtpClient SmtpServer = new SmtpClient("smtp.live.com"); //Käytettävän sähköpostin Smtp-osoite
+                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com"); //Käytettävän sähköpostin Smtp-osoite
 
-                    mail.From = new MailAddress("xxxxxx@hotmail.com"); //Firman laskutukseen käytettävä sähköpostiosoite
-                    mail.To.Add("xxxxxx@gmail.com"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
+                    mail.From = new MailAddress("villagepeopleoy.laskutus@gmail.com"); //Firman laskutukseen käytettävä sähköpostiosoite
+                    mail.To.Add("lassi_koykka@hotmail.com"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
                     mail.Subject = "Village People Oy laskusi"; //Sähköpostin aihe/otsikko
-                    mail.Body = "Tässä on laskusi koskien......"; //Itse viesti
+                    mail.Body = "Liitteenä on laskusi koskien mökkivaraustasi Village People OY:n kautta."; //Itse viesti
+                    Attachment pdflasku = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf");
+                    pdflasku.Name = "lasku.pdf";
+                    mail.Attachments.Add(pdflasku); //Liitetiedosto
 
                     //Käytettävä kirjautumistunnus sähköpostiin ja sen salasana
-                    string mailUser = "xxxxxx@hotmail.com";
-                    string mailUserpw = "xxxxxxx";
+                    string mailUser = "villagepeopleoy.laskutus@gmail.com";
+                    string mailUserpw = "mummo1234";
 
                     //Käytetään kirjautumistunnuksia ja määritetään portti Smtp:lle
                     SmtpServer.Port = 587;

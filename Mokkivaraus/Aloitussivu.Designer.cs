@@ -87,10 +87,10 @@ namespace Mokkivaraus
             this.lblHakuAsiakas = new System.Windows.Forms.Label();
             this.tabVaraushallinta = new System.Windows.Forms.TabPage();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
+            this.dgLaskut = new System.Windows.Forms.DataGridView();
             this.btnJoonas = new System.Windows.Forms.Button();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
-            this.dgLaskut = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -102,8 +102,8 @@ namespace Mokkivaraus
             this.pnlTextboxesAsiakas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).BeginInit();
             this.tabLaskutus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -738,9 +738,29 @@ namespace Mokkivaraus
             this.tabLaskutus.Text = "Laskutus";
             this.tabLaskutus.Enter += new System.EventHandler(this.tabLaskutus_Enter);
             // 
+            // dgLaskut
+            // 
+            this.dgLaskut.AllowUserToAddRows = false;
+            this.dgLaskut.AllowUserToDeleteRows = false;
+            this.dgLaskut.AllowUserToResizeColumns = false;
+            this.dgLaskut.AllowUserToResizeRows = false;
+            this.dgLaskut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgLaskut.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgLaskut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgLaskut.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgLaskut.Location = new System.Drawing.Point(284, 13);
+            this.dgLaskut.MultiSelect = false;
+            this.dgLaskut.Name = "dgLaskut";
+            this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgLaskut.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgLaskut.Size = new System.Drawing.Size(560, 480);
+            this.dgLaskut.TabIndex = 17;
+            // 
             // btnJoonas
             // 
-            this.btnJoonas.Location = new System.Drawing.Point(25, 41);
+            this.btnJoonas.Location = new System.Drawing.Point(8, 513);
             this.btnJoonas.Name = "btnJoonas";
             this.btnJoonas.Size = new System.Drawing.Size(176, 63);
             this.btnJoonas.TabIndex = 0;
@@ -775,26 +795,6 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
-            // dgLaskut
-            // 
-            this.dgLaskut.AllowUserToAddRows = false;
-            this.dgLaskut.AllowUserToDeleteRows = false;
-            this.dgLaskut.AllowUserToResizeColumns = false;
-            this.dgLaskut.AllowUserToResizeRows = false;
-            this.dgLaskut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgLaskut.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgLaskut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLaskut.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgLaskut.Location = new System.Drawing.Point(271, 86);
-            this.dgLaskut.MultiSelect = false;
-            this.dgLaskut.Name = "dgLaskut";
-            this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgLaskut.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLaskut.Size = new System.Drawing.Size(560, 480);
-            this.dgLaskut.TabIndex = 17;
-            // 
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -825,8 +825,8 @@ namespace Mokkivaraus
             this.pnlTextboxesAsiakas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).EndInit();
             this.tabLaskutus.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
             this.ResumeLayout(false);
 
         }
