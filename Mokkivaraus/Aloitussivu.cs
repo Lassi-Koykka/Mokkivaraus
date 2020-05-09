@@ -475,8 +475,17 @@ namespace Mokkivaraus
 
 
 
+
         #endregion
 
-    }
+        #region Palvelut
+        private void tabPalvelut_Enter_1(object sender, EventArgs e)
+        {
+            //dataGridin päivitys kyselyn pohjalta
+            string query = "SELECT * from palvelu";
+            dgPalvelut = dataGridUpdate(query, dgPalvelut);
+        }
 
+        #endregion
+    }
 }
