@@ -7,6 +7,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
@@ -375,9 +376,19 @@ namespace Mokkivaraus
                 string asiakkaanVarauksetQuery = "SELECT * from varaus WHERE asiakas_id=" + dgAsiakkaat.SelectedRows[0].Cells[0].Value;
                 string asiakasKokonimi = dgAsiakkaat.SelectedRows[0].Cells[2].Value + " " + dgAsiakkaat.SelectedRows[0].Cells[3].Value;
                 dgVaraukset = dataGridUpdate(asiakkaanVarauksetQuery, dgVaraukset);
-                
                 lblVaraukset.Text = $"Asiakkaan\n {asiakasKokonimi} varaukset";
+
+                for (int i = 0; i < cbAsiakasIdVaraus.Items.Count; i++)
+                {
+                    
+                    if(cbAsiakasIdVaraus.Items[i].ToString() == dgAsiakkaat.SelectedRows[0].Cells[0].Value.ToString())
+                    {
+                        cbAsiakasIdVaraus.SelectedIndex = i;
+                        break;
+                    }
+                }
                 tabControl.SelectedTab = tabVaraushallinta;
+                cbAsiakasIdVaraus.Enabled = false;
                 btnTakaisinVaraus.Visible = true;
             }
         }
@@ -393,6 +404,31 @@ namespace Mokkivaraus
             lblVaraukset.Text = "Varaukset";
             varausQuery = "SELECT * from varaus";
             dgAsiakkaat = dataGridUpdate(varausQuery, dgVaraukset);
+
+            //Alustetaan uusi datatable
+            DataTable dt = new DataTable();
+
+            String query = "SELECT asiakas_id FROM asiakas";
+
+            //Täytetään combobox tietokantakyselyllä
+            SQLiteCommand cmd = new SQLiteCommand(query, conn);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+            cbAsiakasIdVaraus.DataSource = dt;
+            cbAsiakasIdVaraus.DisplayMember = "asiakas_id";
+
+            dt = new DataTable();
+
+            query = "SELECT * FROM mokki";
+
+            //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
+            cmd = new SQLiteCommand(query, conn);
+            adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+            cbMokkiIdVaraus.DataSource = dt;
+            cbMokkiIdVaraus.DisplayMember = "mokkinimi";
+            cbMokkiIdVaraus.ValueMember = "mokki_id";
+
         }
 
         private void btnTakaisinVaraus_Click(object sender, EventArgs e)
