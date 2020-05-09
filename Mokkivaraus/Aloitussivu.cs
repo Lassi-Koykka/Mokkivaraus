@@ -32,12 +32,12 @@ namespace Mokkivaraus
 
             //Keskitetään kaikki etusivun kontrollit
 
-            lblTitle.Location = new Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
-            pboxLogo.Location = new Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
-            btnToimintaalue.Location = new Point(Width / 2 - btnToimintaalue.Width / 2, btnToimintaalue.Location.Y);
-            btnAsiakkaat.Location = new Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
-            btnVaraukset.Location = new Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
-            btnLaskutus.Location = new Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
+            lblTitle.Location = new System.Drawing.Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
+            pboxLogo.Location = new System.Drawing.Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
+            btnToimintaalue.Location = new System.Drawing.Point(Width / 2 - btnToimintaalue.Width / 2, btnToimintaalue.Location.Y);
+            btnAsiakkaat.Location = new System.Drawing.Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
+            btnVaraukset.Location = new System.Drawing.Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
+            btnLaskutus.Location = new System.Drawing.Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
 
             //Toimintaalueen nappien sijainnit
             btnPoistaToimialue.Location = btnPoista.Location;
