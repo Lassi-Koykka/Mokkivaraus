@@ -24,7 +24,6 @@ namespace Mokkivaraus
         //Datagridi mökkien tiedoille
         DataGridView dgMokit = new DataGridView();
         string toimintaalueID;
-        int ID;
 
 
         public Aloitussivu()
@@ -33,12 +32,17 @@ namespace Mokkivaraus
 
             //Keskitetään kaikki etusivun kontrollit
 
-            lblTitle.Location = new System.Drawing.Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
-            pboxLogo.Location = new System.Drawing.Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
-            btnToimintaalue.Location = new System.Drawing.Point(Width / 2 - btnToimintaalue.Width / 2, btnToimintaalue.Location.Y);
-            btnAsiakkaat.Location = new System.Drawing.Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
-            btnVaraukset.Location = new System.Drawing.Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
-            btnLaskutus.Location = new System.Drawing.Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
+            lblTitle.Location = new Point(Width / 2 - lblTitle.Width / 2, lblTitle.Location.Y);
+            pboxLogo.Location = new Point(Width / 2 - pboxLogo.Width / 2, pboxLogo.Location.Y);
+            btnToimintaalue.Location = new Point(Width / 2 - btnToimintaalue.Width / 2, btnToimintaalue.Location.Y);
+            btnAsiakkaat.Location = new Point(Width / 2 - btnAsiakkaat.Width / 2, btnAsiakkaat.Location.Y);
+            btnVaraukset.Location = new Point(Width / 2 - btnVaraukset.Width / 2, btnVaraukset.Location.Y);
+            btnLaskutus.Location = new Point(Width / 2 - btnLaskutus.Width / 2, btnLaskutus.Location.Y);
+
+            //Toimintaalueen nappien sijainnit
+            btnPoistaToimialue.Location = btnPoista.Location;
+            btnLisaaMökki.Location = btnLisaatoimiP.Location;
+
         }
 
         #region tietokantayhteys ja formin päivitys kyselyiden perusteella
@@ -76,21 +80,23 @@ namespace Mokkivaraus
         {
             tabControl.SelectedTab = tabAsiakashallinta;
             string query = "SELECT * from asiakas";
-            dgToimipisteet = dataGridUpdate(query, dgAsiakkaat);
+            dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
         }
 
         private void btnVaraukset_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = tabVaraushallinta;
+            string query = "SELECT * from varaus";
+            dgVaraukset = dataGridUpdate(query, dgVaraukset);
         }
 
         private void btnLaskutus_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = tabLaskutus;
+            string query = "SELECT * from lasku";
+            dgLaskut = dataGridUpdate(query, dgLaskut);
         }
         #endregion
-
-
 
         #region Toiminta-alueiden hallinta
         //Päivitetään kyselyllä datagrid kun käyttäjä siirtyy toiminta-alue välilehteen
@@ -100,6 +106,14 @@ namespace Mokkivaraus
             string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
 
+            dgMokit.Visible = false;
+            dgToimipisteet.Visible = true;
+            btnTakaisin.Visible = false;
+            pnlMokit.Visible = false;
+            btnPoista.Visible = false;
+
+            lblToimipisteet.Text = "Toiminta-alueet";
+
             Toimintaalueet_Load(sender, e);
 
         }
@@ -107,8 +121,7 @@ namespace Mokkivaraus
         //Näyttää valitun toimialueen mökit
         private void btnNayta_Click(object sender, EventArgs e)
         {
-            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value + string.Empty;
-            int.TryParse(toimintaalueID, out ID);
+            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
 
             tabToimintaalue.Controls.Add(dgMokit);
             //Uusi datagridview
@@ -116,19 +129,21 @@ namespace Mokkivaraus
             dgMokit.Location = dgToimipisteet.Location;
             dgMokit.Size = dgToimipisteet.Size;
             dgMokit.Visible = true;
-            //KAATUU JOSTAIN SYYSTÄ TÄHÄN JOS NÄYTÄ NAPPIA PAINETAAN UUDESTAAN 7.5.2020
             //
 
             tabToimintaalue.Controls.Add(dgMokit);
             //dataGridin täyttö mökkien tiedoilla
-            string query = "SELECT * from mokki";
+            string query = "SELECT * from mokki WHERE toimintaalue_id=" + toimintaalueID;
             dgMokit = dataGridUpdate(query, dgMokit);
 
             // napit käytettäviksi & paneeli 2 auki
             btnTakaisin.Enabled = true;
             btnTakaisin.Visible = true;
             btnPoista.Enabled = true;
-            panel2.Visible = true;
+            pnlMokit.Visible = true;
+            btnLisaaMökki.Visible = true;
+            btnLisaaMökki.Enabled = true;
+            btnLisaatoimiP.Visible = false;
 
             lblToimipisteet.Text = "Mökit";
         }
@@ -139,23 +154,38 @@ namespace Mokkivaraus
             //dataGridin päivitys kyselyn pohjalta
             string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
+
+            //datagridin vaihto ja nappien vaihto
             dgMokit.Visible = false;
             dgToimipisteet.Visible = true;
             btnTakaisin.Visible = false;
-            panel2.Visible = false;
-            btnPoista.Enabled = false;
+            pnlMokit.Visible = false;
+            btnPoista.Visible = false;
+            btnPoistaToimialue.Visible = true;
+            btnLisaaMökki.Visible = false;
+            btnLisaatoimiP.Visible = true;
 
             lblToimipisteet.Text = "Toiminta-alueet";
         }
 
-        //Nappi joka lisää uusia soluja ja/tai muokkaa haluttua
-        //Lisää tietoja vähän tyhmästi ATM
+        //Nappi joka lisää uusia soluja mökkeihin
+        //
         private void btnLisaa_Click(object sender, EventArgs e)
         {
+            foreach (TextBox tb in pnlMokit.Controls.OfType<TextBox>())
+            {
+                if (tb.Text == "")
+                {
+                    tb.Focus();
+                    MessageBox.Show("Kaikkia kenttiä ei ole täytetty oikein.");
+                    return;
+                }
+            }
+
             conn.Open();
 
             //insert lause 
-            string insertQuery = "insert into mokki(postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values (" + txtPostinroTA.Text + "','" + txtMokinnimiTA.Text + "','"
+            string insertQuery = "insert into mokki(toimintaalue_id, postinro, mokkinimi, katuosoite, kuvaus, henkilomaara, varustelu) values ("+ toimintaalueID + ",'" + txtPostinroTA.Text + "','" + txtMokinnimiTA.Text + "','"
                 + txtKatuosoiteTA.Text + "','" + txtKuvausTA.Text + "','" + txtHloMaaraTA.Text + "','" + txtVarusteluTA.Text + "')";
             SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
 
@@ -164,24 +194,53 @@ namespace Mokkivaraus
 
             string query = "SELECT * from mokki";
             dgMokit = dataGridUpdate(query, dgMokit);
-
+            
             conn.Close();
 
         }
+        //Nappi joka lisää uusia soluja toimintaalueisiin
+        //
+        private void btnLisaatoimiP_Click(object sender, EventArgs e)
+        {
+            foreach (TextBox tb in pnlTalueet.Controls.OfType<TextBox>())
+            {
+                if (tb.Text == "")
+                {
+                    tb.Focus();
+                    MessageBox.Show("Kaikkia kenttiä ei ole täytetty oikein.");
+                    return;
+                }
+            }
 
-        //asetetaan paneelien sijainnit samoiksi, piilotetaan takaisin-nappi sekä 2. paneeli 
+            conn.Open();
+
+            //insert lause 
+            string insertQuery = "insert into toimintaalue(nimi) values ("+"'"+ txtToimialueennimi.Text + "')";
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //päivitetään datagrid kyselyllä
+            insertSQL.ExecuteNonQuery();
+
+            string query = "SELECT * from toimintaalue";
+            dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
+
+            conn.Close();
+        }
+
+        //asetetaan paneelien sijainnit samoiksi, piilotetaan nappeja sekä 2. paneeli 
         private void Toimintaalueet_Load(object sender, EventArgs e)
         {
-            panel2.Location = panel1.Location;
+            pnlMokit.Location = pnlTalueet.Location;
             btnTakaisin.Visible = false;
             btnTakaisin.Enabled = false;
-            panel2.Visible = false;
+            pnlMokit.Visible = false;
             btnPoista.Enabled = false;
+            btnLisaaMökki.Enabled = false;
         }
 
         private void btnPoista_Click(object sender, EventArgs e)
         {
-            //Poistaa valitun rivin tietokannasta
+            //Poistaa valitun rivin tietokannasta (Mökit)
             conn.Open();
 
             string deletequery = "DELETE from mokki WHERE mokki_id=" + dgMokit.SelectedRows[0].Cells[0].Value;
@@ -194,13 +253,29 @@ namespace Mokkivaraus
             conn.Close();
         }
 
+        private void btnPoistaToimialue_Click(object sender, EventArgs e)
+        {
+            //Poistaa valitun rivin tietokannasta (Toiminta-alueet)
+            conn.Open();
+
+            string deletequery = "DELETE from toimintaalue WHERE toimintaalue_id=" + dgToimipisteet.SelectedRows[0].Cells[0].Value;
+            SQLiteCommand deleteSQL = new SQLiteCommand(deletequery, conn);
+
+            deleteSQL.ExecuteNonQuery();
+
+            string query = "SELECT * from mokki";
+            dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
+            conn.Close();
+        }
+
         #endregion
 
         #region Asiakashallinta
 
         //Täysi kyselyString
         string asiakasQuery;
-        private void tabControl_Enter(object sender, EventArgs e)
+
+        private void tabAsiakashallinta_Enter(object sender, EventArgs e)
         {
             asiakasQuery = "SELECT * from asiakas";
             dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
@@ -208,7 +283,8 @@ namespace Mokkivaraus
 
         private void txtAsiakasId_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar) && (e.KeyChar == ' '))){
+            if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar) && (e.KeyChar == ' ')))
+            {
                 e.Handled = true;
             }
         }
@@ -216,7 +292,8 @@ namespace Mokkivaraus
         private void txtHakuAs_TextChanged(object sender, EventArgs e)
         {
             TextBox txt = (TextBox)sender;
-            if (txt.Text != "") {
+            if (txt.Text != "")
+            {
                 try
                 {
                     asiakasQuery = $"SELECT * from asiakas WHERE " +
@@ -228,15 +305,17 @@ namespace Mokkivaraus
                         $"email LIKE '%{txt.Text}%' OR " +
                         $"puhelinnro LIKE '%{txt.Text}%'";
                     dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
-                } catch
+                }
+                catch
                 {
                     asiakasQuery = "SELECT * from asiakas";
                     dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
                 }
-            } else
+            }
+            else
             {
                 asiakasQuery = "SELECT * from asiakas";
-                dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);        
+                dgAsiakkaat = dataGridUpdate(asiakasQuery, dgAsiakkaat);
             }
         }
 
@@ -287,6 +366,44 @@ namespace Mokkivaraus
                 dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
             }
         }
+
+        private void btnNaytaVarauksetAs_Click(object sender, EventArgs e)
+        {
+            //Etsii valitun asiakkaan varaukset jos hänellä niitä on
+            if (dgAsiakkaat.Rows.Count > 0)
+            {
+                string asiakkaanVarauksetQuery = "SELECT * from varaus WHERE asiakas_id=" + dgAsiakkaat.SelectedRows[0].Cells[0].Value;
+                string asiakasKokonimi = dgAsiakkaat.SelectedRows[0].Cells[2].Value + " " + dgAsiakkaat.SelectedRows[0].Cells[3].Value;
+                dgVaraukset = dataGridUpdate(asiakkaanVarauksetQuery, dgVaraukset);
+                
+                lblVaraukset.Text = $"Asiakkaan\n {asiakasKokonimi} varaukset";
+                tabControl.SelectedTab = tabVaraushallinta;
+                btnTakaisinVaraus.Visible = true;
+            }
+        }
+        #endregion
+
+        #region Varaukset
+
+        string varausQuery;
+
+        private void tabVaraushallinta_Enter(object sender, EventArgs e)
+        {
+            btnTakaisinVaraus.Visible = false;
+            lblVaraukset.Text = "Varaukset";
+            varausQuery = "SELECT * from varaus";
+            dgAsiakkaat = dataGridUpdate(varausQuery, dgVaraukset);
+        }
+
+        private void btnTakaisinVaraus_Click(object sender, EventArgs e)
+        {
+            btnTakaisinVaraus.Visible = false;
+            lblVaraukset.Text = "Varaukset";
+            tabControl.SelectedTab = tabAsiakashallinta;
+            string query = "SELECT * from asiakas";
+            dgAsiakkaat = dataGridUpdate(query, dgAsiakkaat);
+        }
+
         #endregion
 
         #region Laskutus
@@ -354,9 +471,12 @@ namespace Mokkivaraus
         }
 
 
+
+
+
+
         #endregion
 
-        
     }
 
 }

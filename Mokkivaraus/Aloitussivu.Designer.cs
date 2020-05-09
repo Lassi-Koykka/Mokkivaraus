@@ -42,7 +42,7 @@ namespace Mokkivaraus
             this.tabToimintaalue = new System.Windows.Forms.TabPage();
             this.lblError = new System.Windows.Forms.Label();
             this.btnPoista = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlMokit = new System.Windows.Forms.Panel();
             this.txtVarusteluTA = new System.Windows.Forms.TextBox();
             this.txtHloMaaraTA = new System.Windows.Forms.TextBox();
             this.txtKuvausTA = new System.Windows.Forms.TextBox();
@@ -55,15 +55,16 @@ namespace Mokkivaraus
             this.lblKatuosoiteTA = new System.Windows.Forms.Label();
             this.lblMokkinimiTA = new System.Windows.Forms.Label();
             this.lblPostinroTA = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlTalueet = new System.Windows.Forms.Panel();
             this.txtToimialueennimi = new System.Windows.Forms.TextBox();
             this.lblToimialueennimi = new System.Windows.Forms.Label();
             this.btnTakaisin = new System.Windows.Forms.Button();
             this.btnNayta = new System.Windows.Forms.Button();
-            this.btnLisaa = new System.Windows.Forms.Button();
+            this.btnLisaaMökki = new System.Windows.Forms.Button();
             this.lblToimipisteet = new System.Windows.Forms.Label();
             this.dgToimipisteet = new System.Windows.Forms.DataGridView();
             this.tabAsiakashallinta = new System.Windows.Forms.TabPage();
+            this.btnNaytaVarauksetAs = new System.Windows.Forms.Button();
             this.btnPoistaAsiakas = new System.Windows.Forms.Button();
             this.pnlTextboxesAsiakas = new System.Windows.Forms.Panel();
             this.txtPuhelinAs = new System.Windows.Forms.TextBox();
@@ -78,29 +79,35 @@ namespace Mokkivaraus
             this.lblEtunimiAsiakas = new System.Windows.Forms.Label();
             this.txtPostinroAs = new System.Windows.Forms.TextBox();
             this.lblPostinroAsiakas = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnNaytaAsiakkaat = new System.Windows.Forms.Button();
             this.btnLisaaAsiakas = new System.Windows.Forms.Button();
             this.lblAsiakkaat = new System.Windows.Forms.Label();
             this.dgAsiakkaat = new System.Windows.Forms.DataGridView();
             this.txtHakuAsiakas = new System.Windows.Forms.TextBox();
             this.lblHakuAsiakas = new System.Windows.Forms.Label();
             this.tabVaraushallinta = new System.Windows.Forms.TabPage();
+            this.lblVaraukset = new System.Windows.Forms.Label();
+            this.btnTakaisinVaraus = new System.Windows.Forms.Button();
+            this.dgVaraukset = new System.Windows.Forms.DataGridView();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
             this.dgLaskut = new System.Windows.Forms.DataGridView();
             this.btnJoonas = new System.Windows.Forms.Button();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
+            this.btnLisaatoimiP = new System.Windows.Forms.Button();
+            this.btnPoistaToimialue = new System.Windows.Forms.Button();
+
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
             this.tabToimintaalue.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnlMokit.SuspendLayout();
+            this.pnlTalueet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).BeginInit();
             this.tabAsiakashallinta.SuspendLayout();
             this.pnlTextboxesAsiakas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).BeginInit();
+            this.tabVaraushallinta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgVaraukset)).BeginInit();
             this.tabLaskutus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
@@ -120,7 +127,6 @@ namespace Mokkivaraus
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(860, 610);
             this.tabControl.TabIndex = 0;
-            this.tabControl.Enter += new System.EventHandler(this.tabControl_Enter);
             // 
             // tabAloitussivu
             // 
@@ -237,19 +243,21 @@ namespace Mokkivaraus
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(270, 94);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "Village People Oy \r\nMökkivarausjärjestelmä";
+            this.lblTitle.Text = "Village Newbies Oy \r\nMökkivarausjärjestelmä";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabToimintaalue
             // 
             this.tabToimintaalue.BackColor = System.Drawing.Color.Linen;
+            this.tabToimintaalue.Controls.Add(this.btnPoistaToimialue);
+            this.tabToimintaalue.Controls.Add(this.btnLisaatoimiP);
             this.tabToimintaalue.Controls.Add(this.lblError);
             this.tabToimintaalue.Controls.Add(this.btnPoista);
-            this.tabToimintaalue.Controls.Add(this.panel2);
-            this.tabToimintaalue.Controls.Add(this.panel1);
+            this.tabToimintaalue.Controls.Add(this.pnlMokit);
+            this.tabToimintaalue.Controls.Add(this.pnlTalueet);
             this.tabToimintaalue.Controls.Add(this.btnTakaisin);
             this.tabToimintaalue.Controls.Add(this.btnNayta);
-            this.tabToimintaalue.Controls.Add(this.btnLisaa);
+            this.tabToimintaalue.Controls.Add(this.btnLisaaMökki);
             this.tabToimintaalue.Controls.Add(this.lblToimipisteet);
             this.tabToimintaalue.Controls.Add(this.dgToimipisteet);
             this.tabToimintaalue.Location = new System.Drawing.Point(4, 22);
@@ -276,33 +284,33 @@ namespace Mokkivaraus
             // btnPoista
             // 
             this.btnPoista.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPoista.Location = new System.Drawing.Point(12, 514);
+            this.btnPoista.Location = new System.Drawing.Point(13, 511);
             this.btnPoista.Name = "btnPoista";
-            this.btnPoista.Size = new System.Drawing.Size(122, 54);
+            this.btnPoista.Size = new System.Drawing.Size(122, 50);
             this.btnPoista.TabIndex = 24;
             this.btnPoista.Text = "Poista";
             this.btnPoista.UseVisualStyleBackColor = true;
             this.btnPoista.Click += new System.EventHandler(this.btnPoista_Click);
             // 
-            // panel2
+            // pnlMokit
             // 
-            this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.txtVarusteluTA);
-            this.panel2.Controls.Add(this.txtHloMaaraTA);
-            this.panel2.Controls.Add(this.txtKuvausTA);
-            this.panel2.Controls.Add(this.txtKatuosoiteTA);
-            this.panel2.Controls.Add(this.txtMokinnimiTA);
-            this.panel2.Controls.Add(this.txtPostinroTA);
-            this.panel2.Controls.Add(this.lblVarusteluTA);
-            this.panel2.Controls.Add(this.lblHloMaaraTA);
-            this.panel2.Controls.Add(this.lblKuvausTA);
-            this.panel2.Controls.Add(this.lblKatuosoiteTA);
-            this.panel2.Controls.Add(this.lblMokkinimiTA);
-            this.panel2.Controls.Add(this.lblPostinroTA);
-            this.panel2.Location = new System.Drawing.Point(285, 160);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(231, 291);
-            this.panel2.TabIndex = 23;
+            this.pnlMokit.AutoScroll = true;
+            this.pnlMokit.Controls.Add(this.txtVarusteluTA);
+            this.pnlMokit.Controls.Add(this.txtHloMaaraTA);
+            this.pnlMokit.Controls.Add(this.txtKuvausTA);
+            this.pnlMokit.Controls.Add(this.txtKatuosoiteTA);
+            this.pnlMokit.Controls.Add(this.txtMokinnimiTA);
+            this.pnlMokit.Controls.Add(this.txtPostinroTA);
+            this.pnlMokit.Controls.Add(this.lblVarusteluTA);
+            this.pnlMokit.Controls.Add(this.lblHloMaaraTA);
+            this.pnlMokit.Controls.Add(this.lblKuvausTA);
+            this.pnlMokit.Controls.Add(this.lblKatuosoiteTA);
+            this.pnlMokit.Controls.Add(this.lblMokkinimiTA);
+            this.pnlMokit.Controls.Add(this.lblPostinroTA);
+            this.pnlMokit.Location = new System.Drawing.Point(285, 160);
+            this.pnlMokit.Name = "pnlMokit";
+            this.pnlMokit.Size = new System.Drawing.Size(231, 291);
+            this.pnlMokit.TabIndex = 23;
             // 
             // txtVarusteluTA
             // 
@@ -400,17 +408,17 @@ namespace Mokkivaraus
             this.lblPostinroTA.TabIndex = 2;
             this.lblPostinroTA.Text = "Postinumero";
             // 
-            // panel1
+            // pnlTalueet
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlTalueet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.txtToimialueennimi);
-            this.panel1.Controls.Add(this.lblToimialueennimi);
-            this.panel1.Location = new System.Drawing.Point(19, 160);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(231, 291);
-            this.panel1.TabIndex = 21;
+            this.pnlTalueet.AutoScroll = true;
+            this.pnlTalueet.Controls.Add(this.txtToimialueennimi);
+            this.pnlTalueet.Controls.Add(this.lblToimialueennimi);
+            this.pnlTalueet.Location = new System.Drawing.Point(19, 160);
+            this.pnlTalueet.Name = "pnlTalueet";
+            this.pnlTalueet.Size = new System.Drawing.Size(231, 291);
+            this.pnlTalueet.TabIndex = 21;
             // 
             // txtToimialueennimi
             // 
@@ -449,16 +457,16 @@ namespace Mokkivaraus
             this.btnNayta.UseVisualStyleBackColor = true;
             this.btnNayta.Click += new System.EventHandler(this.btnNayta_Click);
             // 
-            // btnLisaa
+            // btnLisaaMökki
             // 
-            this.btnLisaa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLisaa.Location = new System.Drawing.Point(12, 457);
-            this.btnLisaa.Name = "btnLisaa";
-            this.btnLisaa.Size = new System.Drawing.Size(123, 51);
-            this.btnLisaa.TabIndex = 18;
-            this.btnLisaa.Text = "Lisää/Päivitä";
-            this.btnLisaa.UseVisualStyleBackColor = true;
-            this.btnLisaa.Click += new System.EventHandler(this.btnLisaa_Click);
+            this.btnLisaaMökki.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLisaaMökki.Location = new System.Drawing.Point(283, 454);
+            this.btnLisaaMökki.Name = "btnLisaaMökki";
+            this.btnLisaaMökki.Size = new System.Drawing.Size(123, 51);
+            this.btnLisaaMökki.TabIndex = 18;
+            this.btnLisaaMökki.Text = "Lisää mökki";
+            this.btnLisaaMökki.UseVisualStyleBackColor = true;
+            this.btnLisaaMökki.Click += new System.EventHandler(this.btnLisaa_Click);
             // 
             // lblToimipisteet
             // 
@@ -493,10 +501,9 @@ namespace Mokkivaraus
             // tabAsiakashallinta
             // 
             this.tabAsiakashallinta.BackColor = System.Drawing.Color.Linen;
+            this.tabAsiakashallinta.Controls.Add(this.btnNaytaVarauksetAs);
             this.tabAsiakashallinta.Controls.Add(this.btnPoistaAsiakas);
             this.tabAsiakashallinta.Controls.Add(this.pnlTextboxesAsiakas);
-            this.tabAsiakashallinta.Controls.Add(this.button2);
-            this.tabAsiakashallinta.Controls.Add(this.btnNaytaAsiakkaat);
             this.tabAsiakashallinta.Controls.Add(this.btnLisaaAsiakas);
             this.tabAsiakashallinta.Controls.Add(this.lblAsiakkaat);
             this.tabAsiakashallinta.Controls.Add(this.dgAsiakkaat);
@@ -507,13 +514,25 @@ namespace Mokkivaraus
             this.tabAsiakashallinta.Size = new System.Drawing.Size(852, 584);
             this.tabAsiakashallinta.TabIndex = 2;
             this.tabAsiakashallinta.Text = "Asiakashallinta";
+            this.tabAsiakashallinta.Enter += new System.EventHandler(this.tabAsiakashallinta_Enter);
+            // 
+            // btnNaytaVarauksetAs
+            // 
+            this.btnNaytaVarauksetAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnNaytaVarauksetAs.Location = new System.Drawing.Point(139, 457);
+            this.btnNaytaVarauksetAs.Name = "btnNaytaVarauksetAs";
+            this.btnNaytaVarauksetAs.Size = new System.Drawing.Size(123, 51);
+            this.btnNaytaVarauksetAs.TabIndex = 30;
+            this.btnNaytaVarauksetAs.Text = "Näytä varaukset";
+            this.btnNaytaVarauksetAs.UseVisualStyleBackColor = true;
+            this.btnNaytaVarauksetAs.Click += new System.EventHandler(this.btnNaytaVarauksetAs_Click);
             // 
             // btnPoistaAsiakas
             // 
             this.btnPoistaAsiakas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPoistaAsiakas.Location = new System.Drawing.Point(10, 514);
             this.btnPoistaAsiakas.Name = "btnPoistaAsiakas";
-            this.btnPoistaAsiakas.Size = new System.Drawing.Size(122, 54);
+            this.btnPoistaAsiakas.Size = new System.Drawing.Size(122, 51);
             this.btnPoistaAsiakas.TabIndex = 9;
             this.btnPoistaAsiakas.Text = "Poista";
             this.btnPoistaAsiakas.UseVisualStyleBackColor = true;
@@ -639,26 +658,6 @@ namespace Mokkivaraus
             this.lblPostinroAsiakas.TabIndex = 2;
             this.lblPostinroAsiakas.Text = "Postinumero";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(140, 85);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(122, 38);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Takaisin";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
-            // btnNaytaAsiakkaat
-            // 
-            this.btnNaytaAsiakkaat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnNaytaAsiakkaat.Location = new System.Drawing.Point(139, 457);
-            this.btnNaytaAsiakkaat.Name = "btnNaytaAsiakkaat";
-            this.btnNaytaAsiakkaat.Size = new System.Drawing.Size(123, 51);
-            this.btnNaytaAsiakkaat.TabIndex = 8;
-            this.btnNaytaAsiakkaat.Text = "Näytä laskutukset";
-            this.btnNaytaAsiakkaat.UseVisualStyleBackColor = true;
-            // 
             // btnLisaaAsiakas
             // 
             this.btnLisaaAsiakas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -674,7 +673,7 @@ namespace Mokkivaraus
             // 
             this.lblAsiakkaat.AutoSize = true;
             this.lblAsiakkaat.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsiakkaat.Location = new System.Drawing.Point(4, 85);
+            this.lblAsiakkaat.Location = new System.Drawing.Point(64, 126);
             this.lblAsiakkaat.Name = "lblAsiakkaat";
             this.lblAsiakkaat.Size = new System.Drawing.Size(133, 31);
             this.lblAsiakkaat.TabIndex = 25;
@@ -702,6 +701,7 @@ namespace Mokkivaraus
             // 
             // txtHakuAsiakas
             // 
+            this.txtHakuAsiakas.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtHakuAsiakas.Location = new System.Drawing.Point(435, 59);
             this.txtHakuAsiakas.Name = "txtHakuAsiakas";
             this.txtHakuAsiakas.Size = new System.Drawing.Size(222, 20);
@@ -710,6 +710,7 @@ namespace Mokkivaraus
             // 
             // lblHakuAsiakas
             // 
+            this.lblHakuAsiakas.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblHakuAsiakas.AutoSize = true;
             this.lblHakuAsiakas.Location = new System.Drawing.Point(442, 43);
             this.lblHakuAsiakas.Name = "lblHakuAsiakas";
@@ -720,11 +721,57 @@ namespace Mokkivaraus
             // tabVaraushallinta
             // 
             this.tabVaraushallinta.BackColor = System.Drawing.Color.Linen;
+            this.tabVaraushallinta.Controls.Add(this.lblVaraukset);
+            this.tabVaraushallinta.Controls.Add(this.btnTakaisinVaraus);
+            this.tabVaraushallinta.Controls.Add(this.dgVaraukset);
             this.tabVaraushallinta.Location = new System.Drawing.Point(4, 22);
             this.tabVaraushallinta.Name = "tabVaraushallinta";
             this.tabVaraushallinta.Size = new System.Drawing.Size(852, 584);
             this.tabVaraushallinta.TabIndex = 3;
             this.tabVaraushallinta.Text = "Varaushallinta";
+            this.tabVaraushallinta.Enter += new System.EventHandler(this.tabVaraushallinta_Enter);
+            // 
+            // lblVaraukset
+            // 
+            this.lblVaraukset.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVaraukset.Location = new System.Drawing.Point(19, 95);
+            this.lblVaraukset.Name = "lblVaraukset";
+            this.lblVaraukset.Size = new System.Drawing.Size(221, 139);
+            this.lblVaraukset.TabIndex = 32;
+            this.lblVaraukset.Text = "Varaukset";
+            this.lblVaraukset.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnTakaisinVaraus
+            // 
+            this.btnTakaisinVaraus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTakaisinVaraus.Location = new System.Drawing.Point(707, 16);
+            this.btnTakaisinVaraus.Name = "btnTakaisinVaraus";
+            this.btnTakaisinVaraus.Size = new System.Drawing.Size(123, 51);
+            this.btnTakaisinVaraus.TabIndex = 31;
+            this.btnTakaisinVaraus.Text = "Takaisin asiakashallintaan";
+            this.btnTakaisinVaraus.UseVisualStyleBackColor = true;
+            this.btnTakaisinVaraus.Visible = false;
+            this.btnTakaisinVaraus.Click += new System.EventHandler(this.btnTakaisinVaraus_Click);
+            // 
+            // dgVaraukset
+            // 
+            this.dgVaraukset.AllowUserToAddRows = false;
+            this.dgVaraukset.AllowUserToDeleteRows = false;
+            this.dgVaraukset.AllowUserToResizeColumns = false;
+            this.dgVaraukset.AllowUserToResizeRows = false;
+            this.dgVaraukset.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgVaraukset.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgVaraukset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgVaraukset.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgVaraukset.Location = new System.Drawing.Point(270, 86);
+            this.dgVaraukset.MultiSelect = false;
+            this.dgVaraukset.Name = "dgVaraukset";
+            this.dgVaraukset.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgVaraukset.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgVaraukset.Size = new System.Drawing.Size(560, 480);
+            this.dgVaraukset.TabIndex = 18;
             // 
             // tabLaskutus
             // 
@@ -750,7 +797,8 @@ namespace Mokkivaraus
             this.dgLaskut.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgLaskut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgLaskut.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgLaskut.Location = new System.Drawing.Point(284, 13);
+            this.dgLaskut.Location = new System.Drawing.Point(271, 86);
+
             this.dgLaskut.MultiSelect = false;
             this.dgLaskut.Name = "dgLaskut";
             this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
@@ -795,6 +843,27 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
+            // btnLisaatoimiP
+            // 
+            this.btnLisaatoimiP.Location = new System.Drawing.Point(12, 458);
+            this.btnLisaatoimiP.Name = "btnLisaatoimiP";
+            this.btnLisaatoimiP.Size = new System.Drawing.Size(123, 50);
+            this.btnLisaatoimiP.TabIndex = 26;
+            this.btnLisaatoimiP.Text = "Lisää toiminta-alue";
+            this.btnLisaatoimiP.UseVisualStyleBackColor = true;
+            this.btnLisaatoimiP.Click += new System.EventHandler(this.btnLisaatoimiP_Click);
+            // 
+            // btnPoistaToimialue
+            // 
+            this.btnPoistaToimialue.Location = new System.Drawing.Point(285, 511);
+            this.btnPoistaToimialue.Name = "btnPoistaToimialue";
+            this.btnPoistaToimialue.Size = new System.Drawing.Size(121, 50);
+            this.btnPoistaToimialue.TabIndex = 27;
+            this.btnPoistaToimialue.Text = "Poista";
+            this.btnPoistaToimialue.UseVisualStyleBackColor = true;
+            this.btnPoistaToimialue.Click += new System.EventHandler(this.btnPoistaToimialue_Click);
+            // 
+
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -807,23 +876,25 @@ namespace Mokkivaraus
             this.MinimumSize = new System.Drawing.Size(650, 547);
             this.Name = "Aloitussivu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Village People Oy Mökkivarausjärjestelmä";
+            this.Text = "Village Newbies Oy Mökkivarausjärjestelmä";
             this.tabControl.ResumeLayout(false);
             this.tabAloitussivu.ResumeLayout(false);
             this.tabAloitussivu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).EndInit();
             this.tabToimintaalue.ResumeLayout(false);
             this.tabToimintaalue.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlMokit.ResumeLayout(false);
+            this.pnlMokit.PerformLayout();
+            this.pnlTalueet.ResumeLayout(false);
+            this.pnlTalueet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgToimipisteet)).EndInit();
             this.tabAsiakashallinta.ResumeLayout(false);
             this.tabAsiakashallinta.PerformLayout();
             this.pnlTextboxesAsiakas.ResumeLayout(false);
             this.pnlTextboxesAsiakas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAsiakkaat)).EndInit();
+            this.tabVaraushallinta.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgVaraukset)).EndInit();
             this.tabLaskutus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
@@ -845,12 +916,12 @@ namespace Mokkivaraus
         private TabPage tabVaraushallinta;
         private TabPage tabLaskutus;
         private Button btnLaskutus;
-        private Panel panel2;
-        private Panel panel1;
+        private Panel pnlMokit;
+        private Panel pnlTalueet;
         private Label lblToimialueNimi;
         private Button btnTakaisin;
         private Button btnNayta;
-        private Button btnLisaa;
+        private Button btnLisaaMökki;
         private Label lblToimipisteet;
         private DataGridView dgToimipisteet;
         private TextBox txtVarusteluTA;
@@ -872,8 +943,6 @@ namespace Mokkivaraus
         private Panel pnlTextboxesAsiakas;
         private TextBox txtHakuAsiakas;
         private Label lblHakuAsiakas;
-        private Button button2;
-        private Button btnNaytaAsiakkaat;
         private Button btnLisaaAsiakas;
         private Label lblAsiakkaat;
         private TextBox txtPuhelinAs;
@@ -889,9 +958,15 @@ namespace Mokkivaraus
         private TextBox txtPostinroAs;
         private Label lblPostinroAsiakas;
         private Label lblToimialueennimi;
-        private Button btnJoonas;
         private TextBox txtToimialueennimi;
         private DataGridView dgLaskut;
+        private Button btnJoonas;
+        private Button btnNaytaVarauksetAs;
+        private DataGridView dgVaraukset;
+        private Label lblVaraukset;
+        private Button btnTakaisinVaraus;
+        private Button btnLisaatoimiP;
+        private Button btnPoistaToimialue;
     }
 }
 
