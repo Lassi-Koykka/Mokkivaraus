@@ -16,6 +16,7 @@ using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Mokkivaraus
 {
@@ -470,12 +471,6 @@ namespace Mokkivaraus
             dgLaskut = dataGridUpdate(query, dgLaskut);
         }
 
-
-
-
-
-
-
         #endregion
 
         #region Palvelut
@@ -484,8 +479,66 @@ namespace Mokkivaraus
             //dataGridin päivitys kyselyn pohjalta
             string query = "SELECT * from palvelu";
             dgPalvelut = dataGridUpdate(query, dgPalvelut);
+
+            //toimipisteet tabin comboboxiin
+            conn.Open();
+            string combo_query = "select * from toimintaalue";
+            SQLiteCommand fillcombobox = new SQLiteCommand(combo_query, conn);
+            DataTable cbx_source = new DataTable();
+            SQLiteDataAdapter da = new SQLiteDataAdapter(fillcombobox);
+            da.Fill(cbx_source);
+
+            cbxToimintaalueetPA.DataSource = cbx_source;
+            cbxToimintaalueetPA.DisplayMember = "Nimi";
+            cbxToimintaalueetPA.ValueMember = "toimintaalue_id";
+            cbxToimintaalueetPA.Enabled = true;
+            conn.Close();
         }
 
+        private void btnLisaaPalvelu_Click(object sender, EventArgs e)
+        {
+            foreach (TextBox tb in pnlPalvelut.Controls.OfType<TextBox>())
+            {
+                if (tb.Text == "")
+                {
+                    tb.Focus();
+                    MessageBox.Show("Kaikkia kenttiä ei ole täytetty oikein.");
+                    return;
+                }
+            }
+
+            //insert lause jossa toimipisteId comboboxista
+            string insertQuery = "insert into palvelu(toimintaalue_id, nimi, tyyppi, kuvaus, hinta, alv) values (" + cbxToimintaalueetPA.SelectedValue 
+                + ",'" + txtPalvelunnimi.Text + "','" + txtPalvelunTyyppi.Text
+                + "','" + txtKuvausPA.Text + "','" + txtPalvelunHinta.Text + "','" + txtPalvelunALV.Text + "')";
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //päivitetään datagrid kyselyllä
+            insertSQL.ExecuteNonQuery();
+
+            string query = "SELECT * from palvelu";
+            dgPalvelut = dataGridUpdate(query, dgPalvelut);
+
+            conn.Close();
+        }
         #endregion
+
+        private void btnPoistaPalvelu_Click(object sender, EventArgs e)
+        {
+            if (dgPalvelut.Rows.Count > 0)
+            {
+                //Poistaa valitun rivin tietokannasta
+                conn.Open();
+
+                string deleteQuery = "DELETE from palvelu WHERE palvelu_id=" + dgPalvelut.SelectedRows[0].Cells[0].Value;
+                SQLiteCommand deleteSQL = new SQLiteCommand(deleteQuery, conn);
+
+                deleteSQL.ExecuteNonQuery();
+                conn.Close();
+
+                string query = "SELECT * from palvelu";
+                dgPalvelut = dataGridUpdate(query, dgPalvelut);
+            }
+        }
     }
 }
