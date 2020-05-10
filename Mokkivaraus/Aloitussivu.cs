@@ -507,6 +507,8 @@ namespace Mokkivaraus
                 }
             }
 
+            conn.Open();
+
             //insert lause jossa toimipisteId comboboxista
             string insertQuery = "insert into palvelu(toimintaalue_id, nimi, tyyppi, kuvaus, hinta, alv) values (" + cbxToimintaalueetPA.SelectedValue 
                 + ",'" + txtPalvelunnimi.Text + "','" + txtPalvelunTyyppi.Text

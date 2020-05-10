@@ -875,6 +875,9 @@ namespace Mokkivaraus
             // 
             // pnlPalvelut
             // 
+            this.pnlPalvelut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pnlPalvelut.AutoScroll = true;
             this.pnlPalvelut.Controls.Add(this.lblToimipisteetPA);
             this.pnlPalvelut.Controls.Add(this.cbxToimintaalueetPA);
             this.pnlPalvelut.Controls.Add(this.txtPalvelunALV);
@@ -994,6 +997,7 @@ namespace Mokkivaraus
             // 
             // btnPoistaPalvelu
             // 
+            this.btnPoistaPalvelu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPoistaPalvelu.Location = new System.Drawing.Point(141, 458);
             this.btnPoistaPalvelu.Name = "btnPoistaPalvelu";
             this.btnPoistaPalvelu.Size = new System.Drawing.Size(123, 50);
@@ -1004,6 +1008,7 @@ namespace Mokkivaraus
             // 
             // btnLisaaPalvelu
             // 
+            this.btnLisaaPalvelu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLisaaPalvelu.Location = new System.Drawing.Point(12, 458);
             this.btnLisaaPalvelu.Name = "btnLisaaPalvelu";
             this.btnLisaaPalvelu.Size = new System.Drawing.Size(123, 50);
