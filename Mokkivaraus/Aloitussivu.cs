@@ -521,7 +521,6 @@ namespace Mokkivaraus
 
             conn.Close();
         }
-        #endregion
 
         private void btnPoistaPalvelu_Click(object sender, EventArgs e)
         {
@@ -540,5 +539,7 @@ namespace Mokkivaraus
                 dgPalvelut = dataGridUpdate(query, dgPalvelut);
             }
         }
+
+        #endregion
     }
 }
