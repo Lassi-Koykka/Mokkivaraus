@@ -45,15 +45,6 @@ namespace Mokkivaraus
             btnPoistaToimialue.Location = btnPoista.Location;
             btnLisaaMökki.Location = btnLisaatoimiP.Location;
 
-            conn.Open();
-
-            string deleteQuery = "DELETE FROM varaus; "+
-"DELETE FROM sqlite_sequence WHERE name = 'varaus'; ";
-            SQLiteCommand deleteSQL = new SQLiteCommand(deleteQuery, conn);
-
-            deleteSQL.ExecuteNonQuery();
-            conn.Close();
-
         }
 
         #region tietokantayhteys ja formin päivitys kyselyiden perusteella
