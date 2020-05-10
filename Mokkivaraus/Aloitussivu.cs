@@ -51,10 +51,10 @@ namespace Mokkivaraus
 
         #region tietokantayhteys ja formin päivitys kyselyiden perusteella
         //Yhteys tietokantaan ja datatablen luonti
-        SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
+        public static SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
 
         //Tekee kyselyn tietokantaan ja palauttaa uuden dataGridin joka on muokattu kyselyn pohjalta
-        private DataGridView dataGridUpdate(String query, DataGridView dg)
+        public static DataGridView dataGridUpdate(String query, DataGridView dg)
         {
             try
             {
@@ -76,6 +76,31 @@ namespace Mokkivaraus
                 MessageBox.Show("Tietojen hakemisessa tapahtui virhe: \n" + ex.Message);
                 return dg;
             }
+        }
+
+        //Luo pelkän datatablen kyselyn pohjalta
+        public static DataTable createDataTable(string query)
+        {
+            DataTable dt = new DataTable();
+
+            SQLiteCommand cmd = new SQLiteCommand(query, conn);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+
+            return dt;
+        }
+
+        public static DataGridView modifyDatabaseAndGrid(string insertQuery, string updateQuery, DataGridView dg)
+        {
+            conn.Open();
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //päivitetään datagrid kyselyllä
+            insertSQL.ExecuteNonQuery();
+            conn.Close();
+
+            return dataGridUpdate(updateQuery, dg);
+
         }
 
         #endregion
@@ -471,7 +496,7 @@ namespace Mokkivaraus
             //päivitetään datagrid kyselyllä
             insertSQL.ExecuteNonQuery();
 
-            if (cbAsiakasIdVaraus.Enabled = false)
+            if (cbAsiakasIdVaraus.Enabled == false)
             {
                 varausQuery = "SELECT * FROM varaus WHERE asiakas_id=" + cbAsiakasIdVaraus.SelectedItem;
             }
@@ -485,7 +510,7 @@ namespace Mokkivaraus
             Button btn = (Button)sender;
             btn.Enabled = true;
         }
-        
+
         private void btnPoistaVaraus_Click(object sender, EventArgs e)
         {
             if (dgVaraukset.Rows.Count > 0)
@@ -503,7 +528,7 @@ namespace Mokkivaraus
                 dgVaraukset = dataGridUpdate(query, dgVaraukset);
             }
         }
-    }
+
 
         #endregion
 
@@ -635,7 +660,7 @@ namespace Mokkivaraus
             conn.Open();
 
             //insert lause jossa toimipisteId comboboxista
-            string insertQuery = "insert into palvelu(toimintaalue_id, nimi, tyyppi, kuvaus, hinta, alv) values (" + cbxToimintaalueetPA.SelectedValue 
+            string insertQuery = "insert into palvelu(toimintaalue_id, nimi, tyyppi, kuvaus, hinta, alv) values (" + cbxToimintaalueetPA.SelectedValue
                 + ",'" + txtPalvelunnimi.Text + "','" + txtPalvelunTyyppi.Text
                 + "','" + txtKuvausPA.Text + "','" + txtPalvelunHinta.Text + "','" + txtPalvelunALV.Text + "')";
             SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
@@ -668,5 +693,16 @@ namespace Mokkivaraus
         }
 
         #endregion
+
+        private void btnLisaaPalveluitaVaraus_Click(object sender, EventArgs e)
+        {
+            if(dgVaraukset.Rows.Count > 0 )
+            {
+                
+                LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
+                LisaaPalveluitaForm.varausId = dgVaraukset.SelectedRows[0].Cells[0].Value.ToString();
+                LPForm.Show();
+            }
+        }
     }
 }
