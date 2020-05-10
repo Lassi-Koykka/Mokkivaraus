@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -509,15 +510,15 @@ namespace Mokkivaraus
                     var font = PdfFontFactory.CreateFont(FontConstants.TIMES_ROMAN);
 
                     //Lisätään dokumenttiin tekstit ja kuvat plus keskitys
-                    document.Add(new Paragraph("Village people OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
+                    document.Add(new Paragraph("Village People OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
                         .TextAlignment.CENTER));
                     iText.Layout.Element.Image logo1 = new iText.Layout.Element.Image(ImageDataFactory.Create("../../Resources/logo.png"));
                     document.Add(logo1.SetHeight(200).SetWidth(200).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-
+                    document.Add(new Paragraph("Asiakkaan tiedot").SetFont(otsikkofont).SetFontSize(24));
                     conn.Open();
 
                     //Kysely
-                    string query_varausID = "SELECT etunimi, sukunimi, email, puhelinnro FROM lasku " +
+                    string query_varausID = "SELECT etunimi, sukunimi, email, puhelinnro, lahiosoite, postinro FROM lasku " +
                         "INNER JOIN varaus on varaus.varaus_id = lasku.varaus_id " +
                         "INNER JOIN asiakas on asiakas.asiakas_id = varaus.asiakas_id " +
                         "WHERE lasku.lasku_id=" + dgLaskut.SelectedRows[0].Cells[0].Value;
@@ -526,10 +527,20 @@ namespace Mokkivaraus
                     SQLiteDataReader reader = varausnimi_query.ExecuteReader();
                     //Lukija lukee seuraavan rivin. Palauttaa false jos seuraavaa riviä ei ole joten sillä voisi tarkistaa milloin lopettaa.
                     reader.Read();
-                    //Lisätään etunimi ja sukunimi käyttämällä reader.GetString(i) jossa i on kolumnin numero
+                    //Lisätään etunimi ja sukunimi käyttämällä reader.GetString(i) jossa i on kolumnin numero                    
                     document.Add(new Paragraph("Nimi: " + reader.GetString(0) + " " + reader.GetString(1)).SetFont(font).SetFontSize(15));
                     document.Add(new Paragraph("Sähköposti: " + reader.GetString(2)).SetFont(font).SetFontSize(15));
-                    document.Add(new Paragraph("puhelinnumero: " + reader.GetString(3)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Puhelinnumero: " + reader.GetString(3)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Lähiosoite ja postinumero: " + reader.GetString(4) + ", " + reader.GetString(5)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("").SetFont(font).SetFontSize(15));
+                    //Laskuttajan tiedot
+                    document.Add(new Paragraph("Laskuttajan tiedot").SetFont(otsikkofont).SetFontSize(24));
+                    document.Add(new Paragraph("Nimi: Village People Oy").SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Osoite: Microkatu 1, 70210, Kuopio").SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Tilinumero: FI467XXXXXXXXXXX").SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Hinta: ").SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Maksuehto: 14pv").SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Viivästyskorko: 8.0%").SetFont(font).SetFontSize(15));
 
                     conn.Close();
                     document.Close();
@@ -573,6 +584,61 @@ namespace Mokkivaraus
             dgLaskut = dataGridUpdate(query, dgLaskut);
         }
 
+        private void btnTulostalasku_Click(object sender, EventArgs e)
+        {
+            //Päämääräkansio mihin lasku.pdf tallentuu
+            string destination = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf";
+
+            //Luodaan uusi PdfWriter ja Document ja määritetään sen koko
+            var writer = new PdfWriter(destination);
+            var pdf = new PdfDocument(writer);
+            var document = new Document(pdf);
+            PageSize ps = PageSize.A4;
+
+            //Otsikon fontti
+            var otsikkofont = PdfFontFactory.CreateFont(FontConstants.TIMES_BOLD);
+
+            var font = PdfFontFactory.CreateFont(FontConstants.TIMES_ROMAN);
+
+            //Lisätään dokumenttiin tekstit ja kuvat plus keskitys
+            document.Add(new Paragraph("Village People OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
+                .TextAlignment.CENTER));
+            iText.Layout.Element.Image logo1 = new iText.Layout.Element.Image(ImageDataFactory.Create("../../Resources/logo.png"));
+            document.Add(logo1.SetHeight(200).SetWidth(200).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+            document.Add(new Paragraph("Asiakkaan tiedot").SetFont(otsikkofont).SetFontSize(24));
+            conn.Open();
+
+            //Kysely
+            string query_varausID = "SELECT etunimi, sukunimi, email, puhelinnro, lahiosoite, postinro FROM lasku " +
+                "INNER JOIN varaus on varaus.varaus_id = lasku.varaus_id " +
+                "INNER JOIN asiakas on asiakas.asiakas_id = varaus.asiakas_id " +
+                "WHERE lasku.lasku_id=" + dgLaskut.SelectedRows[0].Cells[0].Value;
+            SQLiteCommand varausnimi_query = new SQLiteCommand(query_varausID, conn);
+            //Tekee kyselyn ja luo siitä lukijan
+            SQLiteDataReader reader = varausnimi_query.ExecuteReader();
+            //Lukija lukee seuraavan rivin. Palauttaa false jos seuraavaa riviä ei ole joten sillä voisi tarkistaa milloin lopettaa.
+            reader.Read();
+            //Lisätään etunimi ja sukunimi käyttämällä reader.GetString(i) jossa i on kolumnin numero                    
+            document.Add(new Paragraph("Nimi: " + reader.GetString(0) + " " + reader.GetString(1)).SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Sähköposti: " + reader.GetString(2)).SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Puhelinnumero: " + reader.GetString(3)).SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Lähiosoite ja postinumero: " + reader.GetString(4) + ", " + reader.GetString(5)).SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("").SetFont(font).SetFontSize(15));
+            //Laskuttajan tiedot
+            document.Add(new Paragraph("Laskuttajan tiedot").SetFont(otsikkofont).SetFontSize(24));
+            document.Add(new Paragraph("Nimi: Village People Oy").SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Osoite: Microkatu 1, 70210, Kuopio").SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Tilinumero: FI467XXXXXXXXXXX").SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Hinta: ").SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Maksuehto: 14pv").SetFont(font).SetFontSize(15));
+            document.Add(new Paragraph("Viivästyskorko: 8.0%").SetFont(font).SetFontSize(15));
+
+            conn.Close();
+            document.Close();
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf");
+            Process.Start(startInfo);
+        }
 
         #endregion
 
