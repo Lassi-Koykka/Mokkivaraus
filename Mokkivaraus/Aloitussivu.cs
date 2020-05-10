@@ -62,14 +62,15 @@ namespace Mokkivaraus
 
                 //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
-                
+
                 //datatableen tiedot
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
                 dg.DataSource = dt;
-                
+
                 adapter.Fill(dt);
                 return dg;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Tietojen hakemisessa tapahtui virhe: \n" + ex.Message);
                 return dg;
@@ -489,6 +490,8 @@ namespace Mokkivaraus
         #region Laskutus
         private void btnJoonas_Click(object sender, EventArgs e)
         {
+            if (dgLaskut.Rows.Count > 0)
+            {
                 try
                 {
                     //Päämääräkansio mihin lasku.pdf tallentuu
@@ -510,8 +513,25 @@ namespace Mokkivaraus
                         .TextAlignment.CENTER));
                     iText.Layout.Element.Image logo1 = new iText.Layout.Element.Image(ImageDataFactory.Create("../../Resources/logo.png"));
                     document.Add(logo1.SetHeight(200).SetWidth(200).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
-                    document.Add(new Paragraph("Nimi: ").SetFont(font).SetFontSize(15));
 
+                    conn.Open();
+
+                    //Kysely
+                    string query_varausID = "SELECT etunimi, sukunimi, email, puhelinnro FROM lasku " +
+                        "INNER JOIN varaus on varaus.varaus_id = lasku.varaus_id " +
+                        "INNER JOIN asiakas on asiakas.asiakas_id = varaus.asiakas_id " +
+                        "WHERE lasku.lasku_id=" + dgLaskut.SelectedRows[0].Cells[0].Value;
+                    SQLiteCommand varausnimi_query = new SQLiteCommand(query_varausID, conn);
+                    //Tekee kyselyn ja luo siitä lukijan
+                    SQLiteDataReader reader = varausnimi_query.ExecuteReader();
+                    //Lukija lukee seuraavan rivin. Palauttaa false jos seuraavaa riviä ei ole joten sillä voisi tarkistaa milloin lopettaa.
+                    reader.Read();
+                    //Lisätään etunimi ja sukunimi käyttämällä reader.GetString(i) jossa i on kolumnin numero
+                    document.Add(new Paragraph("Nimi: " + reader.GetString(0) + " " + reader.GetString(1)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Sähköposti: " + reader.GetString(2)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("puhelinnumero: " + reader.GetString(3)).SetFont(font).SetFontSize(15));
+
+                    conn.Close();
                     document.Close();
 
                     //Luodaan uusi sähköpostiviesti ja SmtpServer
@@ -544,7 +564,7 @@ namespace Mokkivaraus
                 {
                     MessageBox.Show(ex.ToString());
                 }
-
+            }
         }
 
         private void tabLaskutus_Enter(object sender, EventArgs e)
