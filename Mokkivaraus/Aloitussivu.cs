@@ -4,6 +4,7 @@ using iText.IO.Image;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Annot;
 using iText.Layout;
 using iText.Layout.Element;
 using System;
@@ -18,6 +19,7 @@ using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Mokkivaraus
 {
@@ -49,10 +51,10 @@ namespace Mokkivaraus
 
         #region tietokantayhteys ja formin päivitys kyselyiden perusteella
         //Yhteys tietokantaan ja datatablen luonti
-        SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
+        public static SQLiteConnection conn = new SQLiteConnection(@"Data Source=.\mokkivarausDB.db; version=3");
 
         //Tekee kyselyn tietokantaan ja palauttaa uuden dataGridin joka on muokattu kyselyn pohjalta
-        private DataGridView dataGridUpdate(String query, DataGridView dg)
+        public static DataGridView dataGridUpdate(String query, DataGridView dg)
         {
             try
             {
@@ -61,18 +63,44 @@ namespace Mokkivaraus
 
                 //kysely ja sqlite komento jossa parametreinä kysely ja yhteys
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
-                
+
                 //datatableen tiedot
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
                 dg.DataSource = dt;
-                
+
                 adapter.Fill(dt);
                 return dg;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Tietojen hakemisessa tapahtui virhe: \n" + ex.Message);
                 return dg;
             }
+        }
+
+        //Luo pelkän datatablen kyselyn pohjalta
+        public static DataTable createDataTable(string query)
+        {
+            DataTable dt = new DataTable();
+
+            SQLiteCommand cmd = new SQLiteCommand(query, conn);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+
+            return dt;
+        }
+
+        public static DataGridView modifyDatabaseAndGrid(string insertQuery, string updateQuery, DataGridView dg)
+        {
+            conn.Open();
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //päivitetään datagrid kyselyllä
+            insertSQL.ExecuteNonQuery();
+            conn.Close();
+
+            return dataGridUpdate(updateQuery, dg);
+
         }
 
         #endregion
@@ -468,7 +496,7 @@ namespace Mokkivaraus
             //päivitetään datagrid kyselyllä
             insertSQL.ExecuteNonQuery();
 
-            if (cbAsiakasIdVaraus.Enabled = false)
+            if (cbAsiakasIdVaraus.Enabled == false)
             {
                 varausQuery = "SELECT * FROM varaus WHERE asiakas_id=" + cbAsiakasIdVaraus.SelectedItem;
             }
@@ -483,11 +511,31 @@ namespace Mokkivaraus
             btn.Enabled = true;
         }
 
+        private void btnPoistaVaraus_Click(object sender, EventArgs e)
+        {
+            if (dgVaraukset.Rows.Count > 0)
+            {
+                //Poistaa valitun rivin tietokannasta
+                conn.Open();
+
+                string deleteQuery = "DELETE from varaus WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                SQLiteCommand deleteSQL = new SQLiteCommand(deleteQuery, conn);
+
+                deleteSQL.ExecuteNonQuery();
+                conn.Close();
+
+                string query = "SELECT * from varaus";
+                dgVaraukset = dataGridUpdate(query, dgVaraukset);
+            }
+        }
+
+
         #endregion
 
         #region Laskutus
         private void btnJoonas_Click(object sender, EventArgs e)
         {
+            if (dgLaskut.Rows.Count > 0)
             {
                 try
                 {
@@ -503,11 +551,32 @@ namespace Mokkivaraus
                     //Otsikon fontti
                     var otsikkofont = PdfFontFactory.CreateFont(FontConstants.TIMES_BOLD);
 
+                    var font = PdfFontFactory.CreateFont(FontConstants.TIMES_ROMAN);
+
                     //Lisätään dokumenttiin tekstit ja kuvat plus keskitys
                     document.Add(new Paragraph("Village people OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
                         .TextAlignment.CENTER));
                     iText.Layout.Element.Image logo1 = new iText.Layout.Element.Image(ImageDataFactory.Create("../../Resources/logo.png"));
-                    document.Add(logo1.SetHeight(300).SetWidth(300).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+                    document.Add(logo1.SetHeight(200).SetWidth(200).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
+
+                    conn.Open();
+
+                    //Kysely
+                    string query_varausID = "SELECT etunimi, sukunimi, email, puhelinnro FROM lasku " +
+                        "INNER JOIN varaus on varaus.varaus_id = lasku.varaus_id " +
+                        "INNER JOIN asiakas on asiakas.asiakas_id = varaus.asiakas_id " +
+                        "WHERE lasku.lasku_id=" + dgLaskut.SelectedRows[0].Cells[0].Value;
+                    SQLiteCommand varausnimi_query = new SQLiteCommand(query_varausID, conn);
+                    //Tekee kyselyn ja luo siitä lukijan
+                    SQLiteDataReader reader = varausnimi_query.ExecuteReader();
+                    //Lukija lukee seuraavan rivin. Palauttaa false jos seuraavaa riviä ei ole joten sillä voisi tarkistaa milloin lopettaa.
+                    reader.Read();
+                    //Lisätään etunimi ja sukunimi käyttämällä reader.GetString(i) jossa i on kolumnin numero
+                    document.Add(new Paragraph("Nimi: " + reader.GetString(0) + " " + reader.GetString(1)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("Sähköposti: " + reader.GetString(2)).SetFont(font).SetFontSize(15));
+                    document.Add(new Paragraph("puhelinnumero: " + reader.GetString(3)).SetFont(font).SetFontSize(15));
+
+                    conn.Close();
                     document.Close();
 
                     //Luodaan uusi sähköpostiviesti ja SmtpServer
@@ -515,7 +584,7 @@ namespace Mokkivaraus
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com"); //Käytettävän sähköpostin Smtp-osoite
 
                     mail.From = new MailAddress("villagepeopleoy.laskutus@gmail.com"); //Firman laskutukseen käytettävä sähköpostiosoite
-                    mail.To.Add("lassi_koykka@hotmail.com"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
+                    mail.To.Add("jndonze@hotmail.fi"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
                     mail.Subject = "Village People Oy laskusi"; //Sähköpostin aihe/otsikko
                     mail.Body = "Liitteenä on laskusi koskien mökkivaraustasi Village People OY:n kautta."; //Itse viesti
                     Attachment pdflasku = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf");
@@ -549,26 +618,91 @@ namespace Mokkivaraus
             dgLaskut = dataGridUpdate(query, dgLaskut);
         }
 
-
         #endregion
 
-        private void btnPoistaVaraus_Click(object sender, EventArgs e)
+
+        #region Palvelut
+        private void tabPalvelut_Enter_1(object sender, EventArgs e)
         {
-            if (dgVaraukset.Rows.Count > 0)
+            //dataGridin päivitys kyselyn pohjalta
+            string query = "SELECT * from palvelu";
+            dgPalvelut = dataGridUpdate(query, dgPalvelut);
+
+
+            //toimipisteet tabin comboboxiin
+            conn.Open();
+            string combo_query = "select * from toimintaalue";
+            SQLiteCommand fillcombobox = new SQLiteCommand(combo_query, conn);
+            DataTable cbx_source = new DataTable();
+            SQLiteDataAdapter da = new SQLiteDataAdapter(fillcombobox);
+            da.Fill(cbx_source);
+
+            cbxToimintaalueetPA.DataSource = cbx_source;
+            cbxToimintaalueetPA.DisplayMember = "Nimi";
+            cbxToimintaalueetPA.ValueMember = "toimintaalue_id";
+            cbxToimintaalueetPA.Enabled = true;
+            conn.Close();
+        }
+
+
+        private void btnLisaaPalvelu_Click(object sender, EventArgs e)
+        {
+            foreach (TextBox tb in pnlPalvelut.Controls.OfType<TextBox>())
+            {
+                if (tb.Text == "")
+                {
+                    tb.Focus();
+                    MessageBox.Show("Kaikkia kenttiä ei ole täytetty oikein.");
+                    return;
+                }
+            }
+
+            conn.Open();
+
+            //insert lause jossa toimipisteId comboboxista
+            string insertQuery = "insert into palvelu(toimintaalue_id, nimi, tyyppi, kuvaus, hinta, alv) values (" + cbxToimintaalueetPA.SelectedValue
+                + ",'" + txtPalvelunnimi.Text + "','" + txtPalvelunTyyppi.Text
+                + "','" + txtKuvausPA.Text + "','" + txtPalvelunHinta.Text + "','" + txtPalvelunALV.Text + "')";
+            SQLiteCommand insertSQL = new SQLiteCommand(insertQuery, conn);
+
+            //päivitetään datagrid kyselyllä
+            insertSQL.ExecuteNonQuery();
+
+            string query = "SELECT * from palvelu";
+            dgPalvelut = dataGridUpdate(query, dgPalvelut);
+
+            conn.Close();
+        }
+
+        private void btnPoistaPalvelu_Click(object sender, EventArgs e)
+        {
+            if (dgPalvelut.Rows.Count > 0)
             {
                 //Poistaa valitun rivin tietokannasta
                 conn.Open();
 
-                string deleteQuery = "DELETE from varaus WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                string deleteQuery = "DELETE from palvelu WHERE palvelu_id=" + dgPalvelut.SelectedRows[0].Cells[0].Value;
                 SQLiteCommand deleteSQL = new SQLiteCommand(deleteQuery, conn);
 
                 deleteSQL.ExecuteNonQuery();
                 conn.Close();
 
-                string query = "SELECT * from varaus";
-                dgVaraukset = dataGridUpdate(query, dgVaraukset);
+                string query = "SELECT * from palvelu";
+                dgPalvelut = dataGridUpdate(query, dgPalvelut);
+            }
+        }
+
+        #endregion
+
+        private void btnLisaaPalveluitaVaraus_Click(object sender, EventArgs e)
+        {
+            if(dgVaraukset.Rows.Count > 0 )
+            {
+                
+                LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
+                LisaaPalveluitaForm.varausId = dgVaraukset.SelectedRows[0].Cells[0].Value.ToString();
+                LPForm.Show();
             }
         }
     }
-
 }
