@@ -127,8 +127,10 @@ namespace Mokkivaraus
             this.btnLisaaPalvelu = new System.Windows.Forms.Button();
             this.lblPalvelut = new System.Windows.Forms.Label();
             this.dgPalvelut = new System.Windows.Forms.DataGridView();
+            this.btnLahetalasku = new System.Windows.Forms.Button();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
+            this.btnTulostalasku = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -1066,10 +1068,10 @@ namespace Mokkivaraus
             // tabLaskutus
             // 
             this.tabLaskutus.BackColor = System.Drawing.Color.Linen;
+            this.tabLaskutus.Controls.Add(this.btnTulostalasku);
             this.tabLaskutus.Controls.Add(this.dgLaskut);
-            this.tabLaskutus.Controls.Add(this.btnJoonas);
-            this.tabLaskutus.Location = new System.Drawing.Point(4, 25);
-            this.tabLaskutus.Margin = new System.Windows.Forms.Padding(4);
+            this.tabLaskutus.Controls.Add(this.btnLahetalasku);
+            this.tabLaskutus.Location = new System.Drawing.Point(4, 22);
             this.tabLaskutus.Name = "tabLaskutus";
             this.tabLaskutus.Size = new System.Drawing.Size(1139, 722);
             this.tabLaskutus.TabIndex = 4;
@@ -1088,25 +1090,24 @@ namespace Mokkivaraus
             this.dgLaskut.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgLaskut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgLaskut.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgLaskut.Location = new System.Drawing.Point(360, 105);
-            this.dgLaskut.Margin = new System.Windows.Forms.Padding(4);
+            this.dgLaskut.Location = new System.Drawing.Point(3, 3);
             this.dgLaskut.MultiSelect = false;
             this.dgLaskut.Name = "dgLaskut";
             this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgLaskut.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLaskut.Size = new System.Drawing.Size(747, 591);
+            this.dgLaskut.Size = new System.Drawing.Size(846, 480);
             this.dgLaskut.TabIndex = 17;
             // 
-            // btnJoonas
+            // btnLahetalasku
             // 
-            this.btnJoonas.Location = new System.Drawing.Point(11, 631);
-            this.btnJoonas.Margin = new System.Windows.Forms.Padding(4);
-            this.btnJoonas.Name = "btnJoonas";
-            this.btnJoonas.Size = new System.Drawing.Size(235, 78);
-            this.btnJoonas.TabIndex = 0;
-            this.btnJoonas.Text = "Joonaksen nappi";
-            this.btnJoonas.UseVisualStyleBackColor = true;
-            this.btnJoonas.Click += new System.EventHandler(this.btnJoonas_Click);
+            this.btnLahetalasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLahetalasku.Location = new System.Drawing.Point(8, 489);
+            this.btnLahetalasku.Name = "btnLahetalasku";
+            this.btnLahetalasku.Size = new System.Drawing.Size(176, 87);
+            this.btnLahetalasku.TabIndex = 0;
+            this.btnLahetalasku.Text = "Lähetä lasku";
+            this.btnLahetalasku.UseVisualStyleBackColor = true;
+            this.btnLahetalasku.Click += new System.EventHandler(this.btnJoonas_Click);
             // 
             // tabPalvelut
             // 
@@ -1343,6 +1344,17 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
+            // btnTulostalasku
+            // 
+            this.btnTulostalasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTulostalasku.Location = new System.Drawing.Point(668, 489);
+            this.btnTulostalasku.Name = "btnTulostalasku";
+            this.btnTulostalasku.Size = new System.Drawing.Size(176, 87);
+            this.btnTulostalasku.TabIndex = 18;
+            this.btnTulostalasku.Text = "Tulosta lasku";
+            this.btnTulostalasku.UseVisualStyleBackColor = true;
+            this.btnTulostalasku.Click += new System.EventHandler(this.btnTulostalasku_Click);
+            // 
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1446,7 +1458,7 @@ namespace Mokkivaraus
         private Label lblToimialueennimi;
         private TextBox txtToimialueennimi;
         private DataGridView dgLaskut;
-        private Button btnJoonas;
+        private Button btnLahetalasku;
         private Button btnNaytaVarauksetAs;
         private DataGridView dgVaraukset;
         private Label lblVaraukset;
@@ -1489,7 +1501,7 @@ namespace Mokkivaraus
         private Button btnLisaaPalveluitaVaraus;
         private Button btnVahvistaVaraus;
         private Button btnLisaaVaraus;
-
+        private Button btnTulostalasku;
     }
 }
 
