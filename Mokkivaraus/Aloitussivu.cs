@@ -600,7 +600,6 @@ namespace Mokkivaraus
                     document.Add(new Paragraph("Maksuehto: 14pv").SetFont(font).SetFontSize(15));
                     document.Add(new Paragraph("Viivästyskorko: 8.0%").SetFont(font).SetFontSize(15));
 
-                    conn.Close();
                     document.Close();
 
                     //Luodaan uusi sähköpostiviesti ja SmtpServer
@@ -608,7 +607,8 @@ namespace Mokkivaraus
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com"); //Käytettävän sähköpostin Smtp-osoite
 
                     mail.From = new MailAddress("villagepeopleoy.laskutus@gmail.com"); //Firman laskutukseen käytettävä sähköpostiosoite
-                    mail.To.Add("jndonze@hotmail.fi"); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
+                    mail.To.Add(reader.GetString(2)); //Vastaanottajan sähköpostiosoite (tähän asiakastietojen datagridistä tieto)
+                    conn.Close();
                     mail.Subject = "Village People Oy laskusi"; //Sähköpostin aihe/otsikko
                     mail.Body = "Liitteenä on laskusi koskien mökkivaraustasi Village People OY:n kautta."; //Itse viesti
                     Attachment pdflasku = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf");
@@ -780,6 +780,39 @@ namespace Mokkivaraus
                 r.Show();
             } 
             
+        }
+
+        private void btnVahvistaVaraus_Click(object sender, EventArgs e)
+        {
+            //Lisää vahvistetun varauksen laskuihin jotta asiakasta voidaan laskuttaa
+            conn.Open();
+
+            //TÄHÄN PITÄÄ KOODATA SUMMAN LASKEMINEN (ALVILLA)(?)
+            int summa = 100;
+
+            //Kysely jolla uusi lasku laskutableen jonka varaus id valittu rivi jota vahvistetaan
+            string laskuQuery = "INSERT into lasku ( varaus_id, summa, alv) VALUES (" + dgVaraukset.SelectedRows[0].Cells[0].Value + ",'" + summa + "','" + 24 + "')";
+            SQLiteCommand laskuSQL = new SQLiteCommand(laskuQuery, conn);
+
+            laskuSQL.ExecuteNonQuery();
+
+            //KAATUU KOSKA EN OSAA LAITTAA TIETOKANTAA DateTime tietotyyppiä haistakaa paska 
+
+            try
+            {
+                string vahvistusQuery = "UPDATE varaus SET vahvistus_pvm =" + dateVarattuVaraus.Value.Date + " WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                SQLiteCommand vahvistusSQL = new SQLiteCommand(vahvistusQuery, conn);
+                vahvistusSQL.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("crash");
+            }
+
+            conn.Close();
+
+            string query = "SELECT * from varaus";
+            dgVaraukset = dataGridUpdate(query, dgVaraukset);
         }
     }
 }
