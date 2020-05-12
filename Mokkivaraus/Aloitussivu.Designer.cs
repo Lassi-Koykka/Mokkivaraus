@@ -108,7 +108,6 @@ namespace Mokkivaraus
             this.dgVaraukset = new System.Windows.Forms.DataGridView();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
             this.dgLaskut = new System.Windows.Forms.DataGridView();
-            this.btnJoonas = new System.Windows.Forms.Button();
             this.tabPalvelut = new System.Windows.Forms.TabPage();
             this.pnlPalvelut = new System.Windows.Forms.Panel();
             this.lblToimipisteetPA = new System.Windows.Forms.Label();
