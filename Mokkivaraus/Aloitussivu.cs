@@ -951,8 +951,6 @@ namespace Mokkivaraus
             dgVaraukset = dataGridUpdate(query, dgVaraukset);
         }
 
-
-
         private void btnPoistaLasku_Click(object sender, EventArgs e)
         {
             conn.Open();
