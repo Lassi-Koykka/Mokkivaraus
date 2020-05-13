@@ -130,6 +130,8 @@ namespace Mokkivaraus
             this.dgPalvelut = new System.Windows.Forms.DataGridView();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnPoistaLasku = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -149,6 +151,7 @@ namespace Mokkivaraus
             this.pnlPalvelut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPalvelut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -998,6 +1001,8 @@ namespace Mokkivaraus
             // tabLaskutus
             // 
             this.tabLaskutus.BackColor = System.Drawing.Color.Linen;
+            this.tabLaskutus.Controls.Add(this.btnPoistaLasku);
+            this.tabLaskutus.Controls.Add(this.pictureBox1);
             this.tabLaskutus.Controls.Add(this.btnTulostalasku);
             this.tabLaskutus.Controls.Add(this.dgLaskut);
             this.tabLaskutus.Controls.Add(this.btnLahetalasku);
@@ -1012,10 +1017,10 @@ namespace Mokkivaraus
             // btnTulostalasku
             // 
             this.btnTulostalasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTulostalasku.Location = new System.Drawing.Point(501, 397);
+            this.btnTulostalasku.Location = new System.Drawing.Point(638, 438);
             this.btnTulostalasku.Margin = new System.Windows.Forms.Padding(2);
             this.btnTulostalasku.Name = "btnTulostalasku";
-            this.btnTulostalasku.Size = new System.Drawing.Size(132, 71);
+            this.btnTulostalasku.Size = new System.Drawing.Size(207, 139);
             this.btnTulostalasku.TabIndex = 18;
             this.btnTulostalasku.Text = "Tulosta lasku";
             this.btnTulostalasku.UseVisualStyleBackColor = true;
@@ -1039,20 +1044,20 @@ namespace Mokkivaraus
             this.dgLaskut.Name = "dgLaskut";
             this.dgLaskut.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgLaskut.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLaskut.Size = new System.Drawing.Size(634, 390);
+            this.dgLaskut.Size = new System.Drawing.Size(843, 432);
             this.dgLaskut.TabIndex = 17;
             // 
             // btnLahetalasku
             // 
             this.btnLahetalasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLahetalasku.Location = new System.Drawing.Point(6, 397);
+            this.btnLahetalasku.Location = new System.Drawing.Point(7, 438);
             this.btnLahetalasku.Margin = new System.Windows.Forms.Padding(2);
             this.btnLahetalasku.Name = "btnLahetalasku";
-            this.btnLahetalasku.Size = new System.Drawing.Size(132, 71);
+            this.btnLahetalasku.Size = new System.Drawing.Size(207, 139);
             this.btnLahetalasku.TabIndex = 0;
             this.btnLahetalasku.Text = "Lähetä lasku";
             this.btnLahetalasku.UseVisualStyleBackColor = true;
-            this.btnLahetalasku.Click += new System.EventHandler(this.btnJoonas_Click);
+            this.btnLahetalasku.Click += new System.EventHandler(this.btnLahetaLasku);
             // 
             // tabPalvelut
             // 
@@ -1273,6 +1278,28 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox1.Image = global::Mokkivaraus.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(343, 439);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(148, 137);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnPoistaLasku
+            // 
+            this.btnPoistaLasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPoistaLasku.Location = new System.Drawing.Point(498, 440);
+            this.btnPoistaLasku.Name = "btnPoistaLasku";
+            this.btnPoistaLasku.Size = new System.Drawing.Size(135, 136);
+            this.btnPoistaLasku.TabIndex = 20;
+            this.btnPoistaLasku.Text = "Poista lasku";
+            this.btnPoistaLasku.UseVisualStyleBackColor = true;
+            this.btnPoistaLasku.Click += new System.EventHandler(this.btnPoistaLasku_Click);
+            // 
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1314,6 +1341,7 @@ namespace Mokkivaraus
             this.pnlPalvelut.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPalvelut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1420,6 +1448,8 @@ namespace Mokkivaraus
         private Button btnVahvistaVaraus;
         private Button btnLisaaVaraus;
         private Button btnTulostalasku;
+        private PictureBox pictureBox1;
+        private Button btnPoistaLasku;
     }
 }
 
