@@ -31,7 +31,8 @@ namespace Mokkivaraus
         //Datagridi mökkien tiedoille
         DataGridView dgMokit = new DataGridView();
         string toimintaalueID;
-
+        public static PdfFont otsikkofont = PdfFontFactory.CreateFont(FontConstants.TIMES_BOLD);
+        public static PdfFont font = PdfFontFactory.CreateFont(FontConstants.TIMES_ROMAN);
 
         public Aloitussivu()
         {
@@ -147,6 +148,7 @@ namespace Mokkivaraus
             string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
 
+            btnRaportointiTa.Visible = true;
             dgMokit.Visible = false;
             dgToimipisteet.Visible = true;
             btnTakaisin.Visible = false;
@@ -167,6 +169,7 @@ namespace Mokkivaraus
             tabToimintaalue.Controls.Add(dgMokit);
             //Uusi datagridview
             dgToimipisteet.Visible = false;
+            btnRaportointiTa.Visible = false;
             dgMokit.Location = dgToimipisteet.Location;
             dgMokit.Size = dgToimipisteet.Size;
             dgMokit.Visible = true;
@@ -198,6 +201,7 @@ namespace Mokkivaraus
 
             //datagridin vaihto ja nappien vaihto
             dgMokit.Visible = false;
+            btnRaportointiTa.Visible = true;
             dgToimipisteet.Visible = true;
             btnTakaisin.Visible = false;
             pnlMokit.Visible = false;
@@ -531,7 +535,16 @@ namespace Mokkivaraus
                 dgVaraukset = dataGridUpdate(query, dgVaraukset);
             }
         }
+        private void btnLisaaPalveluitaVaraus_Click(object sender, EventArgs e)
+        {
+            if (dgVaraukset.Rows.Count > 0)
+            {
 
+                LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
+                LisaaPalveluitaForm.varausId = dgVaraukset.SelectedRows[0].Cells[0].Value.ToString();
+                LPForm.Show();
+            }
+        }
 
         #endregion
 
@@ -679,10 +692,8 @@ namespace Mokkivaraus
 
                 PageSize ps = PageSize.A4;
 
-                //Otsikon fontti
-                var otsikkofont = PdfFontFactory.CreateFont(FontConstants.TIMES_BOLD);
-
-                var font = PdfFontFactory.CreateFont(FontConstants.TIMES_ROMAN);
+            //Fontit on staattisia ja julkisia.
+            
 
                 //Lisätään dokumenttiin tekstit ja kuvat plus keskitys
                 document.Add(new Paragraph("Village People OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
@@ -753,7 +764,6 @@ namespace Mokkivaraus
             }
         }
         #endregion
-
 
         #region Palvelut
         private void tabPalvelut_Enter_1(object sender, EventArgs e)
@@ -828,15 +838,16 @@ namespace Mokkivaraus
 
         #endregion
 
-        private void btnLisaaPalveluitaVaraus_Click(object sender, EventArgs e)
+        private void btnRaportointiTa_Click(object sender, EventArgs e)
         {
-            if(dgVaraukset.Rows.Count > 0 )
+            if(dgToimipisteet.Rows.Count > 0)
             {
-                
-                LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
-                LisaaPalveluitaForm.varausId = dgVaraukset.SelectedRows[0].Cells[0].Value.ToString();
-                LPForm.Show();
-            }
+                Raportointi r = new Raportointi();
+                Raportointi.TaID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
+                Raportointi.TaNimi = dgToimipisteet.SelectedRows[0].Cells[1].Value.ToString();
+                r.Show();
+            } 
+            
         }
 
         private void btnVahvistaVaraus_Click(object sender, EventArgs e)
