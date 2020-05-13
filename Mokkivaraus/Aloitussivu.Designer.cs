@@ -41,6 +41,7 @@ namespace Mokkivaraus
             this.btnToimintaalue = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tabToimintaalue = new System.Windows.Forms.TabPage();
+            this.btnRaportointiTa = new System.Windows.Forms.Button();
             this.btnPoistaToimialue = new System.Windows.Forms.Button();
             this.btnLisaatoimiP = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
@@ -107,6 +108,8 @@ namespace Mokkivaraus
             this.btnTakaisinVaraus = new System.Windows.Forms.Button();
             this.dgVaraukset = new System.Windows.Forms.DataGridView();
             this.tabLaskutus = new System.Windows.Forms.TabPage();
+            this.btnPoistaLasku = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnTulostalasku = new System.Windows.Forms.Button();
             this.dgLaskut = new System.Windows.Forms.DataGridView();
             this.btnLahetalasku = new System.Windows.Forms.Button();
@@ -130,9 +133,6 @@ namespace Mokkivaraus
             this.dgPalvelut = new System.Windows.Forms.DataGridView();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
-            this.btnRaportointiTa = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnPoistaLasku = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -147,12 +147,12 @@ namespace Mokkivaraus
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgVaraukset)).BeginInit();
             this.tabLaskutus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).BeginInit();
             this.tabPalvelut.SuspendLayout();
             this.pnlPalvelut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPalvelut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -312,6 +312,17 @@ namespace Mokkivaraus
             this.tabToimintaalue.Text = "Toiminta-alueiden hallinta";
             this.tabToimintaalue.Enter += new System.EventHandler(this.tabToimintaalue_Enter);
             // 
+            // btnRaportointiTa
+            // 
+            this.btnRaportointiTa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRaportointiTa.Location = new System.Drawing.Point(142, 510);
+            this.btnRaportointiTa.Name = "btnRaportointiTa";
+            this.btnRaportointiTa.Size = new System.Drawing.Size(123, 51);
+            this.btnRaportointiTa.TabIndex = 28;
+            this.btnRaportointiTa.Text = "Raportointi";
+            this.btnRaportointiTa.UseVisualStyleBackColor = true;
+            this.btnRaportointiTa.Click += new System.EventHandler(this.btnRaportointiTa_Click_1);
+            // 
             // btnPoistaToimialue
             // 
             this.btnPoistaToimialue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -319,7 +330,7 @@ namespace Mokkivaraus
             this.btnPoistaToimialue.Name = "btnPoistaToimialue";
             this.btnPoistaToimialue.Size = new System.Drawing.Size(121, 50);
             this.btnPoistaToimialue.TabIndex = 27;
-            this.btnPoistaToimialue.Text = "Poista";
+            this.btnPoistaToimialue.Text = "Poista toiminta-alue";
             this.btnPoistaToimialue.UseVisualStyleBackColor = true;
             this.btnPoistaToimialue.Click += new System.EventHandler(this.btnPoistaToimialue_Click);
             // 
@@ -354,7 +365,7 @@ namespace Mokkivaraus
             this.btnPoista.Name = "btnPoista";
             this.btnPoista.Size = new System.Drawing.Size(122, 50);
             this.btnPoista.TabIndex = 24;
-            this.btnPoista.Text = "Poista";
+            this.btnPoista.Text = "Poista mökki";
             this.btnPoista.UseVisualStyleBackColor = true;
             this.btnPoista.Click += new System.EventHandler(this.btnPoista_Click);
             // 
@@ -1018,6 +1029,28 @@ namespace Mokkivaraus
             this.tabLaskutus.Text = "Laskutus";
             this.tabLaskutus.Enter += new System.EventHandler(this.tabLaskutus_Enter);
             // 
+            // btnPoistaLasku
+            // 
+            this.btnPoistaLasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPoistaLasku.Location = new System.Drawing.Point(498, 440);
+            this.btnPoistaLasku.Name = "btnPoistaLasku";
+            this.btnPoistaLasku.Size = new System.Drawing.Size(135, 136);
+            this.btnPoistaLasku.TabIndex = 20;
+            this.btnPoistaLasku.Text = "Poista lasku";
+            this.btnPoistaLasku.UseVisualStyleBackColor = true;
+            this.btnPoistaLasku.Click += new System.EventHandler(this.btnPoistaLasku_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox1.Image = global::Mokkivaraus.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(343, 439);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(148, 137);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            // 
             // btnTulostalasku
             // 
             this.btnTulostalasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1282,39 +1315,6 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBox1.Image = global::Mokkivaraus.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(343, 439);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(148, 137);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btnPoistaLasku
-            // 
-            this.btnPoistaLasku.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPoistaLasku.Location = new System.Drawing.Point(498, 440);
-            this.btnPoistaLasku.Name = "btnPoistaLasku";
-            this.btnPoistaLasku.Size = new System.Drawing.Size(135, 136);
-            this.btnPoistaLasku.TabIndex = 20;
-            this.btnPoistaLasku.Text = "Poista lasku";
-            this.btnPoistaLasku.UseVisualStyleBackColor = true;
-            this.btnPoistaLasku.Click += new System.EventHandler(this.btnPoistaLasku_Click);
-            // 
-            // btnRaportointiTa
-            // 
-            this.btnRaportointiTa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRaportointiTa.Location = new System.Drawing.Point(142, 510);
-            this.btnRaportointiTa.Name = "btnRaportointiTa";
-            this.btnRaportointiTa.Size = new System.Drawing.Size(123, 51);
-            this.btnRaportointiTa.TabIndex = 28;
-            this.btnRaportointiTa.Text = "Raportointi";
-            this.btnRaportointiTa.UseVisualStyleBackColor = true;
-            this.btnRaportointiTa.Click += new System.EventHandler(this.btnRaportointiTa_Click_1);
-            // 
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1349,6 +1349,7 @@ namespace Mokkivaraus
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgVaraukset)).EndInit();
             this.tabLaskutus.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLaskut)).EndInit();
             this.tabPalvelut.ResumeLayout(false);
             this.tabPalvelut.PerformLayout();
@@ -1356,7 +1357,6 @@ namespace Mokkivaraus
             this.pnlPalvelut.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPalvelut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMokit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

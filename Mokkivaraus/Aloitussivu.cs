@@ -164,32 +164,38 @@ namespace Mokkivaraus
         //Näyttää valitun toimialueen mökit
         private void btnNayta_Click(object sender, EventArgs e)
         {
-            toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
+            if(dgToimipisteet.Rows.Count > 0)
+            {
+                toimintaalueID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
 
-            tabToimintaalue.Controls.Add(dgMokit);
-            //Uusi datagridview
-            dgToimipisteet.Visible = false;
-            btnRaportointiTa.Visible = false;
-            dgMokit.Location = dgToimipisteet.Location;
-            dgMokit.Size = dgToimipisteet.Size;
-            dgMokit.Visible = true;
-            //
+                tabToimintaalue.Controls.Add(dgMokit);
+                //Uusi datagridview
+                dgToimipisteet.Visible = false;
+                btnRaportointiTa.Visible = false;
+                dgMokit.Location = dgToimipisteet.Location;
+                dgMokit.Size = dgToimipisteet.Size;
+                dgMokit.Visible = true;
+                //
 
-            tabToimintaalue.Controls.Add(dgMokit);
-            //dataGridin täyttö mökkien tiedoilla
-            string query = "SELECT * from mokki WHERE toimintaalue_id=" + toimintaalueID;
-            dgMokit = dataGridUpdate(query, dgMokit);
+                tabToimintaalue.Controls.Add(dgMokit);
+                //dataGridin täyttö mökkien tiedoilla
+                string query = "SELECT * from mokki WHERE toimintaalue_id=" + toimintaalueID;
+                dgMokit = dataGridUpdate(query, dgMokit);
 
-            // napit käytettäviksi & paneeli 2 auki
-            btnTakaisin.Enabled = true;
-            btnTakaisin.Visible = true;
-            btnPoista.Enabled = true;
-            pnlMokit.Visible = true;
-            btnLisaaMökki.Visible = true;
-            btnLisaaMökki.Enabled = true;
-            btnLisaatoimiP.Visible = false;
+                // napit käytettäviksi & paneeli 2 auki
+                btnTakaisin.Enabled = true;
+                btnTakaisin.Visible = true;
+                btnPoista.Visible = true;
+                pnlMokit.Visible = true;
+                btnLisaaMökki.Visible = true;
+                btnLisaaMökki.Enabled = true;
+                btnLisaatoimiP.Visible = false;
+                btnNayta.Visible = false;
+                btnPoistaToimialue.Visible = false;
 
-            lblToimipisteet.Text = "Mökit";
+
+                lblToimipisteet.Text = "Mökit";
+            }
         }
 
         //Siirrytään takaisin toiminta-alueisiin
@@ -209,6 +215,7 @@ namespace Mokkivaraus
             btnPoistaToimialue.Visible = true;
             btnLisaaMökki.Visible = false;
             btnLisaatoimiP.Visible = true;
+            btnNayta.Visible = true;
 
             lblToimipisteet.Text = "Toiminta-alueet";
         }
@@ -237,11 +244,10 @@ namespace Mokkivaraus
             //päivitetään datagrid kyselyllä
             insertSQL.ExecuteNonQuery();
 
-            string query = "SELECT * from mokki";
+            string query = "SELECT * from mokki WHERE toimintaalue_id = " + toimintaalueID;
             dgMokit = dataGridUpdate(query, dgMokit);
 
             conn.Close();
-
         }
         //Nappi joka lisää uusia soluja toimintaalueisiin
         //
@@ -279,7 +285,7 @@ namespace Mokkivaraus
             btnTakaisin.Visible = false;
             btnTakaisin.Enabled = false;
             pnlMokit.Visible = false;
-            btnPoista.Enabled = false;
+            btnPoista.Visible = false;
             btnLisaaMökki.Enabled = false;
         }
 
@@ -710,6 +716,10 @@ namespace Mokkivaraus
 
         private void btnTulostalasku_Click(object sender, EventArgs e)
         {
+            if(dgLaskut.Rows.Count < 1)
+            {
+                return;
+            }
             //Päämääräkansio mihin lasku.pdf tallentuu
             string destination = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/lasku.pdf";
 
@@ -791,6 +801,7 @@ namespace Mokkivaraus
             catch (Exception)
             {
                 MessageBox.Show("Sulje avoin PDF ensin!");
+                conn.Close();
             }
         }
         #endregion
@@ -871,84 +882,87 @@ namespace Mokkivaraus
 
         private void btnVahvistaVaraus_Click(object sender, EventArgs e)
         {
-            //Lisää vahvistetun varauksen laskuihin jotta asiakasta voidaan laskuttaa
-            conn.Open();
-
-            //TÄHÄN PITÄÄ KOODATA SUMMAN LASKEMINEN (ALVILLA)(?)
-
-            string query_alkuPVM = "SELECT varattu_alkupvm FROM varaus WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
-            SQLiteCommand alkupvm_query = new SQLiteCommand(query_alkuPVM, conn);
-            //Tekee kyselyn ja luo siitä lukijan lukee alku päivämäärän
-            SQLiteDataReader reader = alkupvm_query.ExecuteReader();
-            reader.Read();
-            DateTime alku = Convert.ToDateTime(reader.GetString(0));
-            reader.Close();
-
-            string query_loppuPVM = "SELECT varattu_loppupvm FROM varaus WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
-            SQLiteCommand loppupvm_query = new SQLiteCommand(query_loppuPVM, conn);
-            //Tekee kyselyn ja luo siitä lukijan lukee loppu päivämäärän
-            SQLiteDataReader reader_loppu = loppupvm_query.ExecuteReader();
-            reader_loppu.Read();
-            DateTime loppu = Convert.ToDateTime(reader_loppu.GetString(0));
-            TimeSpan paivaErotus = loppu.Subtract(alku);
-            reader_loppu.Close();
-
-            int totaldays = Convert.ToInt32(paivaErotus.Days);
-
-            double summa = (totaldays * 100 * 1.24);
-
-
-            //avataan reader joka ottaa varauksen palvelut valitulla varaus id:llä josta myöhemmin tarkistetaan onko palveluita lisätty varaukseen
-            string query_palvelut = "SELECT * FROM varauksen_palvelut WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
-            SQLiteCommand palvelu_query = new SQLiteCommand(query_palvelut, conn);
-            SQLiteDataReader palvelu_reader = palvelu_query.ExecuteReader();
-            palvelu_reader.Read();
-
-            if (!palvelu_reader.HasRows)
+            if (dgVaraukset.Rows.Count > 0)
             {
-                //jos ei palveluita, summa ei muutu
-                summa = summa;
+                //Lisää vahvistetun varauksen laskuihin jotta asiakasta voidaan laskuttaa
+                conn.Open();
+
+                //TÄHÄN PITÄÄ KOODATA SUMMAN LASKEMINEN (ALVILLA)(?)
+
+                string query_alkuPVM = "SELECT varattu_alkupvm FROM varaus WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                SQLiteCommand alkupvm_query = new SQLiteCommand(query_alkuPVM, conn);
+                //Tekee kyselyn ja luo siitä lukijan lukee alku päivämäärän
+                SQLiteDataReader reader = alkupvm_query.ExecuteReader();
+                reader.Read();
+                DateTime alku = Convert.ToDateTime(reader.GetString(0));
+                reader.Close();
+
+                string query_loppuPVM = "SELECT varattu_loppupvm FROM varaus WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                SQLiteCommand loppupvm_query = new SQLiteCommand(query_loppuPVM, conn);
+                //Tekee kyselyn ja luo siitä lukijan lukee loppu päivämäärän
+                SQLiteDataReader reader_loppu = loppupvm_query.ExecuteReader();
+                reader_loppu.Read();
+                DateTime loppu = Convert.ToDateTime(reader_loppu.GetString(0));
+                TimeSpan paivaErotus = loppu.Subtract(alku);
+                reader_loppu.Close();
+
+                int totaldays = Convert.ToInt32(paivaErotus.Days);
+
+                double summa = (totaldays * 100 * 1.24);
+
+
+                //avataan reader joka ottaa varauksen palvelut valitulla varaus id:llä josta myöhemmin tarkistetaan onko palveluita lisätty varaukseen
+                string query_palvelut = "SELECT * FROM varauksen_palvelut WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                SQLiteCommand palvelu_query = new SQLiteCommand(query_palvelut, conn);
+                SQLiteDataReader palvelu_reader = palvelu_query.ExecuteReader();
+                palvelu_reader.Read();
+
+                if (!palvelu_reader.HasRows)
+                {
+                    //jos ei palveluita, summa ei muutu
+                    summa = summa;
+                }
+                else
+                {
+                    //jos on palveluita, katsoo kuinka monta ja laskee niiden hinnan ja lisää lopulliseen summaan joka laskutetaan
+                    int palveluID = palvelu_reader.GetInt32(1);
+                    int palvelu_lkm = palvelu_reader.GetInt32(2);
+
+                    string query_palvelun_hinta = "SELECT hinta FROM palvelu WHERE palvelu_id=" + palveluID;
+                    SQLiteCommand hinta_query = new SQLiteCommand(query_palvelun_hinta, conn);
+                    SQLiteDataReader hinta_reader = hinta_query.ExecuteReader();
+                    hinta_reader.Read();
+
+                    double palvelun_hinta = hinta_reader.GetDouble(0);
+
+                    double lopullinen_hinta = (palvelun_hinta * palvelu_lkm * 1.24);
+
+                    summa = summa + lopullinen_hinta;
+                }
+
+
+                //Kysely jolla uusi lasku laskutableen jonka varaus id valittu rivi jota vahvistetaan
+                string laskuQuery = "INSERT into lasku (varaus_id, summa, alv) VALUES (" + dgVaraukset.SelectedRows[0].Cells[0].Value + ",'" + summa + "','" + 24 + "')";
+                SQLiteCommand laskuSQL = new SQLiteCommand(laskuQuery, conn);
+
+                laskuSQL.ExecuteNonQuery();
+
+                try
+                {
+                    string vahvistusQuery = "UPDATE varaus SET vahvistus_pvm ='" + dateVarattuVaraus.Value.Date.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "' WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
+                    SQLiteCommand vahvistusSQL = new SQLiteCommand(vahvistusQuery, conn);
+                    vahvistusSQL.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("crash");
+                }
+
+                conn.Close();
+
+                string query = "SELECT * from varaus";
+                dgVaraukset = dataGridUpdate(query, dgVaraukset);
             }
-            else
-            {
-                //jos on palveluita, katsoo kuinka monta ja laskee niiden hinnan ja lisää lopulliseen summaan joka laskutetaan
-                int palveluID = palvelu_reader.GetInt32(1);
-                int palvelu_lkm = palvelu_reader.GetInt32(2);
-
-                string query_palvelun_hinta = "SELECT hinta FROM palvelu WHERE palvelu_id=" + palveluID;
-                SQLiteCommand hinta_query = new SQLiteCommand(query_palvelun_hinta, conn);
-                SQLiteDataReader hinta_reader = hinta_query.ExecuteReader();
-                hinta_reader.Read();
-
-                double palvelun_hinta = hinta_reader.GetDouble(0);
-
-                double lopullinen_hinta = (palvelun_hinta * palvelu_lkm * 1.24);
-
-                summa = summa + lopullinen_hinta;
-            }
-
-
-            //Kysely jolla uusi lasku laskutableen jonka varaus id valittu rivi jota vahvistetaan
-            string laskuQuery = "INSERT into lasku (varaus_id, summa, alv) VALUES (" + dgVaraukset.SelectedRows[0].Cells[0].Value + ",'" + summa + "','" + 24 + "')";
-            SQLiteCommand laskuSQL = new SQLiteCommand(laskuQuery, conn);
-
-            laskuSQL.ExecuteNonQuery();
-
-            try
-            {
-                string vahvistusQuery = "UPDATE varaus SET vahvistus_pvm ='" + dateVarattuVaraus.Value.Date.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "' WHERE varaus_id=" + dgVaraukset.SelectedRows[0].Cells[0].Value;
-                SQLiteCommand vahvistusSQL = new SQLiteCommand(vahvistusQuery, conn);
-                vahvistusSQL.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("crash");
-            }
-
-            conn.Close();
-
-            string query = "SELECT * from varaus";
-            dgVaraukset = dataGridUpdate(query, dgVaraukset);
         }
 
         private void btnPoistaLasku_Click(object sender, EventArgs e)
