@@ -311,6 +311,26 @@ namespace Mokkivaraus
             conn.Close();
         }
 
+        Raportointi r = new Raportointi();
+        private void btnRaportointiTa_Click_1(object sender, EventArgs e)
+        {
+            if (dgToimipisteet.Rows.Count > 0)
+            {
+                //Annetaan tiedot uudelle formille
+                Raportointi.TaID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
+                Raportointi.TaNimi = dgToimipisteet.SelectedRows[0].Cells[1].Value.ToString();
+                try
+                {
+                    r.Show();
+                }
+                catch
+                {
+                    Raportointi r = new Raportointi();
+                    r.Show();
+                }
+            }
+        }
+
         #endregion
 
         #region Asiakashallinta
@@ -533,14 +553,24 @@ namespace Mokkivaraus
                 dgVaraukset = dataGridUpdate(query, dgVaraukset);
             }
         }
+
+        //Formin alustus
+        LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
         private void btnLisaaPalveluitaVaraus_Click(object sender, EventArgs e)
         {
             if (dgVaraukset.Rows.Count > 0)
             {
-
-                LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
+                //Annetaan tieto varausID:stä uudelle formille
                 LisaaPalveluitaForm.varausId = dgVaraukset.SelectedRows[0].Cells[0].Value.ToString();
-                LPForm.Show();
+                try
+                {
+                    LPForm.Show();
+                }
+                catch
+                {
+                    LisaaPalveluitaForm LPForm = new LisaaPalveluitaForm();
+                    LPForm.Show();
+                }
             }
         }
 
@@ -654,7 +684,7 @@ namespace Mokkivaraus
             PageSize ps = PageSize.A4;
 
             //Fontit on staattisia ja julkisia.
-            
+
 
             //Lisätään dokumenttiin tekstit ja kuvat plus keskitys
             document.Add(new Paragraph("Village People OY laskusi").SetFont(otsikkofont).SetFontSize(40).SetTextAlignment(iText.Layout.Properties
@@ -770,17 +800,6 @@ namespace Mokkivaraus
 
         #endregion
 
-        private void btnRaportointiTa_Click(object sender, EventArgs e)
-        {
-            if(dgToimipisteet.Rows.Count > 0)
-            {
-                Raportointi r = new Raportointi();
-                Raportointi.TaID = dgToimipisteet.SelectedRows[0].Cells[0].Value.ToString();
-                Raportointi.TaNimi = dgToimipisteet.SelectedRows[0].Cells[1].Value.ToString();
-                r.Show();
-            } 
-            
-        }
 
         private void btnVahvistaVaraus_Click(object sender, EventArgs e)
         {
@@ -814,5 +833,7 @@ namespace Mokkivaraus
             string query = "SELECT * from varaus";
             dgVaraukset = dataGridUpdate(query, dgVaraukset);
         }
+
+
     }
 }

@@ -197,6 +197,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Raportointi";
             this.Text = "Raportointi";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Raportointi_FormClosing);
             this.Load += new System.EventHandler(this.Raportointi_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

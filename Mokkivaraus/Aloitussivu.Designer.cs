@@ -130,6 +130,7 @@ namespace Mokkivaraus
             this.dgPalvelut = new System.Windows.Forms.DataGridView();
             this.lblToimialueNimi = new System.Windows.Forms.Label();
             this.dgMokit = new System.Windows.Forms.DataGridView();
+            this.btnRaportointiTa = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabAloitussivu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
@@ -288,6 +289,7 @@ namespace Mokkivaraus
             // tabToimintaalue
             // 
             this.tabToimintaalue.BackColor = System.Drawing.Color.Linen;
+            this.tabToimintaalue.Controls.Add(this.btnRaportointiTa);
             this.tabToimintaalue.Controls.Add(this.btnPoistaToimialue);
             this.tabToimintaalue.Controls.Add(this.btnLisaatoimiP);
             this.tabToimintaalue.Controls.Add(this.lblError);
@@ -309,6 +311,7 @@ namespace Mokkivaraus
             // 
             // btnPoistaToimialue
             // 
+            this.btnPoistaToimialue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPoistaToimialue.Location = new System.Drawing.Point(285, 511);
             this.btnPoistaToimialue.Name = "btnPoistaToimialue";
             this.btnPoistaToimialue.Size = new System.Drawing.Size(121, 50);
@@ -319,6 +322,7 @@ namespace Mokkivaraus
             // 
             // btnLisaatoimiP
             // 
+            this.btnLisaatoimiP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLisaatoimiP.Location = new System.Drawing.Point(12, 458);
             this.btnLisaatoimiP.Name = "btnLisaatoimiP";
             this.btnLisaatoimiP.Size = new System.Drawing.Size(123, 50);
@@ -1273,6 +1277,17 @@ namespace Mokkivaraus
             this.dgMokit.Size = new System.Drawing.Size(560, 480);
             this.dgMokit.TabIndex = 16;
             // 
+            // btnRaportointiTa
+            // 
+            this.btnRaportointiTa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRaportointiTa.Location = new System.Drawing.Point(142, 510);
+            this.btnRaportointiTa.Name = "btnRaportointiTa";
+            this.btnRaportointiTa.Size = new System.Drawing.Size(123, 51);
+            this.btnRaportointiTa.TabIndex = 28;
+            this.btnRaportointiTa.Text = "Raportointi";
+            this.btnRaportointiTa.UseVisualStyleBackColor = true;
+            this.btnRaportointiTa.Click += new System.EventHandler(this.btnRaportointiTa_Click_1);
+            // 
             // Aloitussivu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1420,6 +1435,7 @@ namespace Mokkivaraus
         private Button btnVahvistaVaraus;
         private Button btnLisaaVaraus;
         private Button btnTulostalasku;
+        private Button btnRaportointiTa;
     }
 }
 
