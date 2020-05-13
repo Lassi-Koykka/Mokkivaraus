@@ -308,7 +308,7 @@ namespace Mokkivaraus
 
             deleteSQL.ExecuteNonQuery();
 
-            string query = "SELECT * from mokki";
+            string query = "SELECT * from toimintaalue";
             dgToimipisteet = dataGridUpdate(query, dgToimipisteet);
             conn.Close();
         }
