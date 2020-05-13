@@ -140,7 +140,7 @@ namespace Mokkivaraus
         }
         #endregion
 
-        #region Toiminta-alueiden hallinta
+        #region Toiminta-alueideet
         //Päivitetään kyselyllä datagrid kun käyttäjä siirtyy toiminta-alue välilehteen
         private void tabToimintaalue_Enter(object sender, EventArgs e)
         {
@@ -806,6 +806,7 @@ namespace Mokkivaraus
         }
         #endregion
 
+
         #region Palvelut
         private void tabPalvelut_Enter_1(object sender, EventArgs e)
         {
@@ -964,7 +965,6 @@ namespace Mokkivaraus
                 dgVaraukset = dataGridUpdate(query, dgVaraukset);
             }
         }
-
         private void btnPoistaLasku_Click(object sender, EventArgs e)
         {
             conn.Open();
@@ -975,5 +975,6 @@ namespace Mokkivaraus
             dataGridUpdate(query, dgLaskut);
             conn.Close();
         }
+
     }
 }
