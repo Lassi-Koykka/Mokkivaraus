@@ -4,7 +4,7 @@
 Tämä ohjelma on alunperin luotu "Ohjelmistotuotanto 1"- kurssin loppuprojektina. Ohjelma on suunniteltu (kuvitteellisen) Village Newbies Oy:n tarjouspyynnön, vaatimusten, sekä luomamme vaatimus-, ja toiminnallisen määrittelyn pohjalta. Village Newbies Oy tarjoaa asiakkaillensa palvelua, jonka kautta he voivat vuokrata ja asettaa vuokralle mökkejä yrityksen toiminta-alueilla ympäri Suomea.
 
 ## Tavoite:
-Mökkivarausjärjestelmän tavoitteena on helpottaa toiminta-alueiden, mökkien, asiakkaiden, varausten, palveluiden, sekä laskutuksen hallintaa yrityksen sisällä sähköistämällä nämä palvelut. 
+Projektin tarkoituksena on rakentaa Village Newbies Oy:lle heidän tarpeidensa mukainen varaus- ja asiakashallintajärjestelmä. Projektin tavoitteena on mahdollistaa henkilöstön vapauttaminen asiakaspalvelutehtäviin sekä reaaliaikainen toimipaikkojen varaustilanteen seuranta ja raportointi.  
 
 ## Käytetyt teknologiat
 -  **Päätoiminnallisuus ja logiikka: *C#*** 
