@@ -1,7 +1,7 @@
 # Mökkivarausjärjestelmä 
 
 ## Tausta:
-Tämä ohjelma on alunperin luotu "Ohjelmistotuotanto 1"- kurssin loppuprojektina. Ohjelma on suunniteltu (kuvitteellisen) Village People Oy:n tarjouspyynnön, vaatimusten, sekä luomamme vaatimus-, ja toiminnallisen määrittelyn pohjalta. Village People Oy tarjoaa asiakkaillensa palvelua, jonka kautta he voivat vuokrata ja asettaa vuokralle mökkejä yrityksen toiminta-alueilla ympäri Suomea.
+Tämä ohjelma on alunperin luotu "Ohjelmistotuotanto 1"- kurssin loppuprojektina. Ohjelma on suunniteltu (kuvitteellisen) Village Newbies Oy:n tarjouspyynnön, vaatimusten, sekä luomamme vaatimus-, ja toiminnallisen määrittelyn pohjalta. Village Newbies Oy tarjoaa asiakkaillensa palvelua, jonka kautta he voivat vuokrata ja asettaa vuokralle mökkejä yrityksen toiminta-alueilla ympäri Suomea.
 
 ## Tavoite:
 Mökkivarausjärjestelmän tavoitteena on helpottaa toiminta-alueiden, mökkien, asiakkaiden, varausten, palveluiden, sekä laskutuksen hallintaa yrityksen sisällä sähköistämällä nämä palvelut. 
